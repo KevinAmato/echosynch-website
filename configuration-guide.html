@@ -1,55 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuration Guide | EcoSynch</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
-    <script>tailwind.config = { darkMode: 'class' }</script>
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Plus Jakarta Sans', 'sans-serif'] } } } }</script>
+    <style>
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(229, 231, 235, 0.5); }
+        .dark .glass-nav { background: rgba(17, 24, 39, 0.8); border-bottom: 1px solid rgba(55, 65, 81, 0.5); }
+    </style>
 </head>
-<body class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
-    
-    <main class="max-w-4xl mx-auto px-4 pt-32 pb-20">
-        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-8">Configuration Guide</h1>
-        <p class="text-lg mb-10">EcoSynch is designed to be "Zero-Configuration." However, for the bot to work effectively, your Jira and Confluence instances must be properly linked.</p>
+<body class="bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 font-sans antialiased">
+
+    <header class="fixed w-full top-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="/" class="flex items-center gap-3 group">
+                    <img src="images/logo_website.png" alt="EcoSynch Logo" class="h-8 w-8 group-hover:scale-105 transition-transform">
+                    <span class="font-heading font-bold text-xl text-gray-900 dark:text-white tracking-tight">EcoSynch</span>
+                </a>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/how-it-works.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">How It Works</a>
+                    <a href="/configuration-guide.html" class="text-sm font-medium text-blue-600 dark:text-blue-400">Docs</a>
+                    <a href="/trust-center.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Security</a>
+                    <a href="/support.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Support</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="https://marketplace.atlassian.com/apps/YOUR_APP_ID" class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+                        Get it on Marketplace
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pt-32 pb-24">
+        <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-gray-900 dark:text-white mb-8">Configuration Guide</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-12 leading-relaxed">EcoSynch is designed to be "Zero-Configuration." However, for the bot to work effectively, your Jira and Confluence instances must be properly linked. Follow these three steps.</p>
 
         <div class="space-y-12">
-            <section class="border-l-4 border-blue-600 pl-6">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Step 1: Installation</h2>
-                <ol class="list-decimal pl-5 space-y-2">
+            <div class="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+                <h2 class="text-xl font-heading font-bold text-gray-900 dark:text-white mb-4">Step 1: Installation</h2>
+                <ol class="list-decimal pl-5 space-y-2 marker:text-blue-600 marker:font-bold">
                     <li>Go to the <strong>Atlassian Marketplace</strong>.</li>
                     <li>Search for <strong>EcoSynch</strong>.</li>
                     <li>Click <strong>"Get it now"</strong> and select your site.</li>
                     <li>Wait for the "Installation Successful" notification.</li>
                 </ol>
-            </section>
+            </div>
 
-            <section class="border-l-4 border-blue-600 pl-6">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Step 2: Linking Applications</h2>
+            <div class="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+                <h2 class="text-xl font-heading font-bold text-gray-900 dark:text-white mb-4">Step 2: Linking Applications</h2>
                 <p class="mb-4">EcoSynch relies on the standard application link between Jira and Confluence.</p>
-                <ol class="list-decimal pl-5 space-y-2">
+                <ol class="list-decimal pl-5 space-y-2 marker:text-blue-600 marker:font-bold">
                     <li>Open any Jira Issue.</li>
                     <li>Look for the <strong>"Link issue"</strong> button (usually below the title).</li>
                     <li>Select <strong>"Confluence Page"</strong>.</li>
                     <li>Search for and select the relevant documentation page.</li>
                 </ol>
-                <p class="mt-4 text-sm bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded border border-yellow-200 dark:border-yellow-800">
-                    <strong>Note:</strong> You do not need to configure API keys. EcoSynch inherits permissions automatically via the Atlassian Connect framework.
-                </p>
-            </section>
+                <div class="mt-6 flex items-start gap-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                    <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <p class="text-sm text-yellow-800 dark:text-yellow-200"><strong>Note:</strong> You do not need to configure API keys. EcoSynch inherits permissions automatically via the Atlassian Connect framework.</p>
+                </div>
+            </div>
 
-            <section class="border-l-4 border-blue-600 pl-6">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Step 3: Workflow Trigger</h2>
+            <div class="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-2xl border border-gray-200 dark:border-gray-700">
+                <h2 class="text-xl font-heading font-bold text-gray-900 dark:text-white mb-4">Step 3: Workflow Trigger</h2>
                 <p class="mb-4">The bot wakes up when a ticket status changes to <strong>Done</strong>.</p>
-                <ul class="list-disc pl-5 space-y-2">
+                <ul class="list-disc pl-5 space-y-2 marker:text-blue-600">
                     <li>Ensure your Jira Board columns are mapped correctly.</li>
                     <li>Dragging a ticket to the right-most column (Done/Released) will trigger the sync.</li>
                     <li>Allow 10-30 seconds for the AI to process the text and update Confluence.</li>
                 </ul>
-            </section>
+            </div>
         </div>
     </main>
 
-    </body>
+    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <img src="images/logo_website.png" alt="EcoSynch" class="h-6 w-6 grayscale opacity-50">
+                <span class="text-sm text-gray-500">© 2025 EcoSynch. Built for Atlassian.</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="/terms.html" class="text-sm text-gray-500 hover:text-blue-600 transition-colors">Terms</a>
+                <a href="/privacy.html" class="text-sm text-gray-500 hover:text-blue-600 transition-colors">Privacy</a>
+                <a href="/support.html" class="text-sm text-gray-500 hover:text-blue-600 transition-colors">Support</a>
+            </div>
+        </div>
+    </footer>
+</body>
 </html>
