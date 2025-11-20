@@ -1,0 +1,41 @@
+<main class="max-w-4xl mx-auto px-4 pt-32 pb-20">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-8">Privacy Policy</h1>
+    <p class="mb-4"><strong>Effective Date:</strong> November 20, 2025</p>
+
+    <div class="space-y-6">
+        <section>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Data Sovereignty (GDPR)</h2>
+            <p>EcoSynch is built with European Data Sovereignty as a core requirement.</p>
+            <ul class="list-disc pl-5 mt-2 space-y-2">
+                <li><strong>Storage:</strong> All metadata is stored in AWS <code>eu-west-1</code> (Ireland).</li>
+                <li><strong>AI Processing:</strong> All text processing occurs in Google Cloud <code>europe-west1</code> (Belgium).</li>
+                <li><strong>No Transfers:</strong> Your data never leaves the European Economic Area (EEA) during processing.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Data We Process</h2>
+            <p>We only process data when explicitly triggered by a Jira event:</p>
+            <ul class="list-disc pl-5 mt-2 space-y-2">
+                <li><strong>Jira Tickets:</strong> Summary, Description, and Comments of tickets moved to "Done."</li>
+                <li><strong>Confluence Pages:</strong> The content of pages explicitly linked to those tickets.</li>
+            </ul>
+            <p class="mt-2">We do <strong>not</strong> scan your entire instance or access data unrelated to the specific ticket being processed.</p>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">AI Training</h2>
+            <p class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                <strong>Your data is NOT used to train AI models.</strong> We use the Enterprise APIs of Google Vertex AI, which contractually guarantees that inputs and outputs are not used for model training.
+            </p>
+        </section>
+        
+        <section>
+             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Subprocessors</h2>
+             <ul class="list-disc pl-5 mt-2">
+                <li><strong>Amazon Web Services (AWS):</strong> Hosting & Database (Ireland).</li>
+                <li><strong>Google Cloud Platform:</strong> AI Inference (Belgium).</li>
+             </ul>
+        </section>
+    </div>
+</main>

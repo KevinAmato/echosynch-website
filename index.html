@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSynch | Autonomous Documentation for Jira & Confluence</title>
+    <meta name="description" content="Stop documentation rot. EcoSynch is an AI Ghost Writer that automatically updates Confluence pages when Jira tickets are moved to Done.">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {}
+        }
+      }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(90deg, #0052CC, #36B37E); /* Atlassian-ish Blue to Green */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cta-button { transition: all 0.3s ease; }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 antialiased">
+<header class="fixed top-0 left-0 right-0 z-50 py-4 px-6 md:px-12 flex justify-between items-center bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+    <a href="/" class="flex-shrink-0 flex items-center space-x-3">
+        <img src="images/logo_website.png" alt="EcoSynch Logo" width="32" height="32">
+        <span class="font-bold text-xl text-gray-900 dark:text-white">EcoSynch</span>
+    </a>
+
+    <div class="hidden md:flex items-center space-x-6">
+        <a href="/how-it-works.html" class="text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">How It Works</a>
+        <a href="/trust-center.html" class="text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Trust Center</a>
+        <a href="/support.html" class="text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Support</a>
+        
+        <a href="https://marketplace.atlassian.com/apps/YOUR_APP_ID" class="block bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg cta-button">
+          Get it on Marketplace
+        </a>
+    </div>
+</header>
+
+<main>
+    <section class="py-20 md:py-32 text-center px-4">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                Stop <span class="gradient-text">Documentation Rot</span> Forever
+            </h1>
+            <p class="mt-6 text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                EcoSynch is the AI "Ghost Writer" for your engineering team. It automatically rewrites Confluence pages when Jira tickets move to Done.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="https://marketplace.atlassian.com/apps/YOUR_APP_ID" class="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg text-lg cta-button w-full sm:w-auto">
+                    Try it Free
+                </a>
+            </div>
+            <div class="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 font-semibold py-3 px-6 rounded-lg inline-block">
+                🇪🇺 EU Data Sovereign (GDPR Compliant)
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50 dark:bg-gray-900/50">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Your Docs, Always in Sync with Code</h2>
+            <div class="mt-12 grid md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 rounded-xl text-center">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 p-5 rounded-full inline-block text-blue-600 dark:text-blue-400">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">1. Link Issue</h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Simply link a Jira ticket to a Confluence page using the standard field.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 rounded-xl text-center">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 p-5 rounded-full inline-block text-blue-600 dark:text-blue-400">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">2. Move to Done</h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Complete your work. When the ticket moves to Done, EcoSynch wakes up.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 rounded-xl text-center">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 p-5 rounded-full inline-block text-blue-600 dark:text-blue-400">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">3. Magic Update</h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">EcoSynch rewrites the specific paragraph in Confluence to match the new reality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Enterprise-Grade Security</h2>
+            <div class="mt-12 grid sm:grid-cols-2 gap-8">
+                <div class="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 p-6 rounded-xl text-center">
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">🇪🇺 EU Data Sovereignty</h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">All AI processing happens in Google Cloud's Europe-West1 region. No data ever crosses the Atlantic.</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 p-6 rounded-xl text-center">
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">🔒 Zero Retention AI</h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">We use the Enterprise API. Your data is processed ephemerally and is <strong>never</strong> used to train models.</p>
+                </div>
+            </div>
+             <a href="/trust-center.html" class="mt-8 inline-block text-blue-600 dark:text-blue-400 hover:underline">
+                Visit Trust Center →
+            </a>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto py-12 px-4 text-center">
+        <p class="text-gray-500 dark:text-gray-400">© 2025 EcoSynch. Built for Atlassian.</p>
+    </div>
+</footer>
+</body>
+</html>

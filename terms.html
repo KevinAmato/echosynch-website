@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How EcoSynch Works | The RAG Pipeline</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
+    <main class="max-w-4xl mx-auto px-4 pt-32 pb-20">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-8">The "Ghost Writer" Engine</h1>
+        
+        <div class="space-y-12">
+            <section>
+                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">1. The Lazy Indexing™ System</h2>
+                <p>Most bots scrape your entire Confluence space, costing you money and security risks. EcoSynch is different.</p>
+                <p class="mt-2">We only read a page <strong>the first time</strong> you link a ticket to it. We chunk the text, vectorize it using Google Vertex AI, and store it in a secure, isolated index. If the page hasn't changed, we never re-read it.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">2. Semantic Search (RAG)</h2>
+                <p>When you complete a Jira ticket, EcoSynch reads your description and comments. It converts this into a mathematical vector.</p>
+                <p class="mt-2">It then searches your Confluence page for the <strong>exact paragraph</strong> that conflicts with the new work. It doesn't just look for keywords; it understands meaning.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">3. Surgical Rewriting</h2>
+                <p>We send the outdated paragraph and your new Jira ticket to <strong>Google Gemini 2.0 Flash</strong>.</p>
+                <p class="mt-2">The AI acts as a "Technical Editor." It rewrites <em>only</em> the outdated sentence to match the new reality, preserving your original tone and formatting. It then posts the update and leaves a comment in the page history.</p>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
