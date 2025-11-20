@@ -1,41 +1,119 @@
-<main class="max-w-4xl mx-auto px-4 pt-32 pb-20">
-    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-8">Privacy Policy</h1>
-    <p class="mb-4"><strong>Effective Date:</strong> November 20, 2025</p>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | EcoSynch</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Plus Jakarta Sans', 'sans-serif'] }
+          }
+        }
+      }
+    </script>
+    <style>
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(229, 231, 235, 0.5); }
+        .dark .glass-nav { background: rgba(17, 24, 39, 0.8); border-bottom: 1px solid rgba(55, 65, 81, 0.5); }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 font-sans antialiased">
 
-    <div class="space-y-6">
-        <section>
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Data Sovereignty (GDPR)</h2>
-            <p>EcoSynch is built with European Data Sovereignty as a core requirement.</p>
-            <ul class="list-disc pl-5 mt-2 space-y-2">
-                <li><strong>Storage:</strong> All metadata is stored in AWS <code>eu-west-1</code> (Ireland).</li>
-                <li><strong>AI Processing:</strong> All text processing occurs in Google Cloud <code>europe-west1</code> (Belgium).</li>
-                <li><strong>No Transfers:</strong> Your data never leaves the European Economic Area (EEA) during processing.</li>
-            </ul>
-        </section>
+    <header class="fixed w-full top-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="/" class="flex items-center gap-3 group">
+                    <img src="images/logo_website.png" alt="EcoSynch Logo" class="h-8 w-8 group-hover:scale-105 transition-transform">
+                    <span class="font-heading font-bold text-xl text-gray-900 dark:text-white tracking-tight">EcoSynch</span>
+                </a>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/how-it-works.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">How It Works</a>
+                    <a href="/configuration-guide.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Docs</a>
+                    <a href="/trust-center.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Security</a>
+                    <a href="/support.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Support</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="https://marketplace.atlassian.com/apps/YOUR_APP_ID" class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+                        Get it on Marketplace
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        <section>
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Data We Process</h2>
-            <p>We only process data when explicitly triggered by a Jira event:</p>
-            <ul class="list-disc pl-5 mt-2 space-y-2">
-                <li><strong>Jira Tickets:</strong> Summary, Description, and Comments of tickets moved to "Done."</li>
-                <li><strong>Confluence Pages:</strong> The content of pages explicitly linked to those tickets.</li>
-            </ul>
-            <p class="mt-2">We do <strong>not</strong> scan your entire instance or access data unrelated to the specific ticket being processed.</p>
-        </section>
+    <main class="max-w-3xl mx-auto px-4 pt-32 pb-24">
+        <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-gray-900 dark:text-white mb-4">Privacy Policy</h1>
+        <p class="text-gray-500 mb-12 border-b border-gray-200 dark:border-gray-800 pb-8">Effective Date: November 20, 2025</p>
 
-        <section>
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">AI Training</h2>
-            <p class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                <strong>Your data is NOT used to train AI models.</strong> We use the Enterprise APIs of Google Vertex AI, which contractually guarantees that inputs and outputs are not used for model training.
-            </p>
-        </section>
-        
-        <section>
-             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Subprocessors</h2>
-             <ul class="list-disc pl-5 mt-2">
-                <li><strong>Amazon Web Services (AWS):</strong> Hosting & Database (Ireland).</li>
-                <li><strong>Google Cloud Platform:</strong> AI Inference (Belgium).</li>
-             </ul>
-        </section>
-    </div>
-</main>
+        <div class="space-y-12">
+            <section>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-heading font-bold text-gray-900 dark:text-white">Data Sovereignty (GDPR)</h2>
+                </div>
+                <p class="leading-relaxed">EcoSynch is architected with strict European Data Sovereignty as a core requirement.</p>
+                <ul class="mt-4 space-y-3 list-disc pl-5 marker:text-blue-500">
+                    <li><strong>Storage:</strong> All metadata is stored in AWS <code>eu-west-1</code> (Ireland).</li>
+                    <li><strong>AI Processing:</strong> All text processing occurs in Google Cloud <code>europe-west1</code> (Belgium).</li>
+                    <li><strong>No Transfers:</strong> Your proprietary data never leaves the European Economic Area (EEA) during processing.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-heading font-bold text-gray-900 dark:text-white mb-4">Data We Process</h2>
+                <p class="leading-relaxed">We adhere to a strict "Need-to-Know" access policy. We only process data when explicitly triggered by a Jira event:</p>
+                <ul class="mt-4 space-y-3 list-disc pl-5 marker:text-blue-500">
+                    <li><strong>Jira Tickets:</strong> Summary, Description, and Comments of tickets explicitly moved to "Done."</li>
+                    <li><strong>Confluence Pages:</strong> The content of pages explicitly linked to those tickets.</li>
+                </ul>
+                <p class="mt-4 text-sm bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                    We do <strong>not</strong> scan your entire instance, read user directories, or access data unrelated to the specific ticket being processed.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-heading font-bold text-gray-900 dark:text-white mb-4">AI Training</h2>
+                <div class="p-6 bg-blue-50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-800">
+                    <p class="font-semibold text-blue-900 dark:text-blue-100">
+                        Your data is NOT used to train AI models.
+                    </p>
+                    <p class="mt-2 text-blue-800 dark:text-blue-300 text-sm">
+                        We use the Enterprise APIs of Google Vertex AI. Our agreements contractually guarantee that inputs (your documentation) and outputs are isolated and never used for model training or improvement by third parties.
+                    </p>
+                </div>
+            </section>
+            
+            <section>
+                 <h2 class="text-2xl font-heading font-bold text-gray-900 dark:text-white mb-4">Subprocessors</h2>
+                 <ul class="space-y-3 list-disc pl-5 marker:text-blue-500">
+                    <li><strong>Amazon Web Services (AWS):</strong> Hosting & Database (Ireland).</li>
+                    <li><strong>Google Cloud Platform:</strong> AI Inference (Belgium).</li>
+                 </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <img src="images/logo_website.png" alt="EcoSynch" class="h-6 w-6 grayscale opacity-50">
+                <span class="text-sm text-gray-500">© 2025 EcoSynch. Built for Atlassian.</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="/terms.html" class="text-sm text-gray-500 hover:text-blue-600 transition-colors">Terms</a>
+                <a href="/privacy.html" class="text-sm text-gray-500 hover:text-blue-600 transition-colors">Privacy</a>
+                <a href="/support.html" class="text-sm text-gray-500 hover:text-blue-600 transition-colors">Support</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
