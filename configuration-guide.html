@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration Guide | EcoSynch</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
+    
+    <main class="max-w-4xl mx-auto px-4 pt-32 pb-20">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-8">Configuration Guide</h1>
+        <p class="text-lg mb-10">EcoSynch is designed to be "Zero-Configuration." However, for the bot to work effectively, your Jira and Confluence instances must be properly linked.</p>
+
+        <div class="space-y-12">
+            <section class="border-l-4 border-blue-600 pl-6">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Step 1: Installation</h2>
+                <ol class="list-decimal pl-5 space-y-2">
+                    <li>Go to the <strong>Atlassian Marketplace</strong>.</li>
+                    <li>Search for <strong>EcoSynch</strong>.</li>
+                    <li>Click <strong>"Get it now"</strong> and select your site.</li>
+                    <li>Wait for the "Installation Successful" notification.</li>
+                </ol>
+            </section>
+
+            <section class="border-l-4 border-blue-600 pl-6">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Step 2: Linking Applications</h2>
+                <p class="mb-4">EcoSynch relies on the standard application link between Jira and Confluence.</p>
+                <ol class="list-decimal pl-5 space-y-2">
+                    <li>Open any Jira Issue.</li>
+                    <li>Look for the <strong>"Link issue"</strong> button (usually below the title).</li>
+                    <li>Select <strong>"Confluence Page"</strong>.</li>
+                    <li>Search for and select the relevant documentation page.</li>
+                </ol>
+                <p class="mt-4 text-sm bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded border border-yellow-200 dark:border-yellow-800">
+                    <strong>Note:</strong> You do not need to configure API keys. EcoSynch inherits permissions automatically via the Atlassian Connect framework.
+                </p>
+            </section>
+
+            <section class="border-l-4 border-blue-600 pl-6">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Step 3: Workflow Trigger</h2>
+                <p class="mb-4">The bot wakes up when a ticket status changes to <strong>Done</strong>.</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Ensure your Jira Board columns are mapped correctly.</li>
+                    <li>Dragging a ticket to the right-most column (Done/Released) will trigger the sync.</li>
+                    <li>Allow 10-30 seconds for the AI to process the text and update Confluence.</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    </body>
+</html>
