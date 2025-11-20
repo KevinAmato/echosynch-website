@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How EcoSynch Works | The RAG Pipeline</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
+    
+    <main class="max-w-4xl mx-auto px-4 pt-32 pb-20">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-8">The "Ghost Writer" Engine</h1>
+        
+        <div class="space-y-12">
+            <section>
+                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">1. Event-Driven Architecture</h2>
+                <p>EcoSynch sits dormant until a specific event occurs in your Jira workflow. We do not use polling (which slows down Jira) or scheduled scraping (which is outdated).</p>
+                <p class="mt-2">We utilize an <strong>Event-Driven Serverless Architecture</strong> on AWS. When a ticket is completed, a secure, encrypted signal is sent to our backend within milliseconds.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">2. The Lazy Indexing™ System</h2>
+                <p>Most bots index your entire wiki upfront. This is invasive and costly. EcoSynch is smarter.</p>
+                <p class="mt-2">We use a proprietary "Lazy Indexing" algorithm. We only read and vectorize a Confluence page <strong>the first time</strong> it is involved in a sync. If the page content hasn't changed since the last sync, we skip the heavy processing entirely, saving you money and reducing API load.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">3. Semantic Analysis (RAG)</h2>
+                <p>We don't just keyword match. We use <strong>Retrieval-Augmented Generation (RAG)</strong> to understand context.</p>
+                <p class="mt-2">If your ticket says "Fixed the login bug," and your documentation says "Users may experience login errors," simple keyword matching might miss the connection. Our Vector Database understands that these concepts are semantically opposite, identifying exactly where the update is needed.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">4. Surgical Rewriting</h2>
+                <p>We send the outdated paragraph and your new Jira ticket to <strong>Google Gemini 2.0 Flash</strong>.</p>
+                <p class="mt-2">The AI acts as a "Technical Editor." It rewrites <em>only</em> the outdated sentence to match the new reality, preserving your original tone and formatting. Finally, it leaves a changelog comment for full transparency.</p>
+            </section>
+        </div>
+    </main>
+    
+    </body>
+</html>
