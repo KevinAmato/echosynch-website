@@ -1,36 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How EcoSynch Works | The RAG Pipeline</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
-    <script>tailwind.config = { darkMode: 'class' }</script>
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <title>Terms of Service | EcoSynch</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Plus Jakarta Sans', 'sans-serif'] } } } }</script>
+    <style>
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(229, 231, 235, 0.5); }
+        .dark .glass-nav { background: rgba(17, 24, 39, 0.8); border-bottom: 1px solid rgba(55, 65, 81, 0.5); }
+    </style>
 </head>
-<body class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
-    <main class="max-w-4xl mx-auto px-4 pt-32 pb-20">
-        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-8">The "Ghost Writer" Engine</h1>
-        
-        <div class="space-y-12">
+<body class="bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 font-sans antialiased">
+
+    <header class="fixed w-full top-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="/" class="flex items-center gap-3 group">
+                    <img src="images/logo_website.png" alt="EcoSynch Logo" class="h-8 w-8 group-hover:scale-105 transition-transform">
+                    <span class="font-heading font-bold text-xl text-gray-900 dark:text-white tracking-tight">EcoSynch</span>
+                </a>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/how-it-works.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">How It Works</a>
+                    <a href="/configuration-guide.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Docs</a>
+                    <a href="/trust-center.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Security</a>
+                    <a href="/support.html" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Support</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="https://marketplace.atlassian.com/apps/YOUR_APP_ID" class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+                        Get it on Marketplace
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 pt-32 pb-24">
+        <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-gray-900 dark:text-white mb-4">Terms of Service</h1>
+        <p class="text-gray-500 mb-12 border-b border-gray-200 dark:border-gray-800 pb-8">Effective Date: November 20, 2025</p>
+
+        <div class="space-y-10">
             <section>
-                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">1. The Lazy Indexing™ System</h2>
-                <p>Most bots scrape your entire Confluence space, costing you money and security risks. EcoSynch is different.</p>
-                <p class="mt-2">We only read a page <strong>the first time</strong> you link a ticket to it. We chunk the text, vectorize it using Google Vertex AI, and store it in a secure, isolated index. If the page hasn't changed, we never re-read it.</p>
+                <h3 class="text-xl font-heading font-bold text-gray-900 dark:text-white mb-3">1. Usage & Subscription</h3>
+                <p>EcoSynch is provided via the Atlassian Marketplace. Usage is subject to the licensing terms of the Standard Atlassian Marketplace Partner Agreement. All subscription fees, trials, and billing are processed directly by Atlassian.</p>
             </section>
 
             <section>
-                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">2. Semantic Search (RAG)</h2>
-                <p>When you complete a Jira ticket, EcoSynch reads your description and comments. It converts this into a mathematical vector.</p>
-                <p class="mt-2">It then searches your Confluence page for the <strong>exact paragraph</strong> that conflicts with the new work. It doesn't just look for keywords; it understands meaning.</p>
+                <h3 class="text-xl font-heading font-bold text-gray-900 dark:text-white mb-3">2. Data Processing Authorization</h3>
+                <p>By installing EcoSynch, you grant us explicit permission to process specific Jira and Confluence data for the sole purpose of providing automated documentation updates. You acknowledge that data processing occurs in our secure infrastructure in the EU (Google Cloud Belgium / AWS Ireland).</p>
             </section>
 
             <section>
-                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">3. Surgical Rewriting</h2>
-                <p>We send the outdated paragraph and your new Jira ticket to <strong>Google Gemini 2.0 Flash</strong>.</p>
-                <p class="mt-2">The AI acts as a "Technical Editor." It rewrites <em>only</em> the outdated sentence to match the new reality, preserving your original tone and formatting. It then posts the update and leaves a comment in the page history.</p>
+                <h3 class="text-xl font-heading font-bold text-gray-900 dark:text-white mb-3">3. Limitation of Liability (AI)</h3>
+                <p>EcoSynch utilizes Artificial Intelligence (LLMs) to generate content. While we optimize heavily for factual accuracy and tone matching:</p>
+                <ul class="mt-3 list-disc pl-5 space-y-2">
+                    <li>We cannot guarantee that AI-generated text is 100% error-free.</li>
+                    <li>It is the user's responsibility to review documentation for accuracy.</li>
+                    <li>EcoSynch is not liable for incorrect documentation resulting from AI hallucinations or misinterpretation of Jira tickets.</li>
+                </ul>
+            </section>
+            
+            <section>
+                <h3 class="text-xl font-heading font-bold text-gray-900 dark:text-white mb-3">4. Termination</h3>
+                <p>You may terminate this agreement at any time by simply uninstalling the App from your Atlassian instance. Upon uninstallation, your tenant ID and associated metadata are permanently deleted from our systems within 30 days.</p>
             </section>
         </div>
     </main>
+
+    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <img src="images/logo_website.png" alt="EcoSynch" class="h-6 w-6 grayscale opacity-50">
+                <span class="text-sm text-gray-500">© 2025 EcoSynch. Built for Atlassian.</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="/terms.html" class="text-sm text-gray-500 hover:text-blue-600 transition-colors">Terms</a>
+                <a href="/privacy.html" class="text-sm text-gray-500 hover:text-blue-600 transition-colors">Privacy</a>
+                <a href="/support.html" class="text-sm text-gray-500 hover:text-blue-600 transition-colors">Support</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
