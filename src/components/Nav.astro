@@ -8,15 +8,21 @@
 // dropdowns — those are growth-marketing instincts that conflict with the
 // brand voice (Frictionless · Technical · Quiet).
 interface Props {
-  active?: 'product' | 'pricing' | 'compare' | 'docs' | null;
+  active?: 'product' | 'pricing' | 'compare' | 'trust' | null;
 }
 const { active = null } = Astro.props;
 
+// We deliberately keep /docs OUT of the primary nav until there's real
+// docs content — exposing an empty page in the top nav looks broken to
+// first-time visitors. /trust-center earns the slot instead because it's
+// the page enterprise procurement and Slack Directory reviewers actively
+// look for. Docs returns to the nav when we have ≥5 substantive topic
+// pages, not before.
 const links: { label: string; href: string; key: NonNullable<Props['active']> }[] = [
   { label: 'Product',  href: '/#product',  key: 'product' },
   { label: 'Compare',  href: '/#compare',  key: 'compare' },
   { label: 'Pricing',  href: '/#pricing',  key: 'pricing' },
-  { label: 'Docs',     href: '/docs',      key: 'docs' },
+  { label: 'Trust',    href: '/trust-center', key: 'trust' },
 ];
 
 // Slack OAuth deep-link. The bot's prod install path lives at

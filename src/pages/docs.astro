@@ -1,29 +1,253 @@
 ---
-// /docs — Documentation hub. Stub. Real docs will land after the
-// product hits public GA. Until then this page just routes people to
-// support and the dashboard.
+// /docs — Documentation hub.
+//
+// Strategy until we have real per-topic docs: present the *map* of topics
+// people would expect to find in docs, and route each to the closest
+// existing source of truth (FAQ, dashboard settings page, Trust Center,
+// or DPA). When a topic has substantive content (more than 2 paragraphs
+// of unique material), it graduates to its own /docs/<slug> page.
+//
+// The reason this isn't just "Coming soon": new visitors who deep-link to
+// /docs need to leave with an answer. Routing them to the existing answer
+// (FAQ entries, dashboard pages, Trust Center) is more useful than a
+// holding page. The cost is a tiny amount of curation work here.
+
 import Layout from '../layouts/Layout.astro';
+
+interface Topic {
+  title: string;
+  blurb: string;
+  // Each topic must have either a `link` (existing destination) or
+  // `comingSoon: true` (rare — only for topics where neither the FAQ
+  // nor a dashboard settings page covers it yet).
+  link?: { href: string; label: string };
+  comingSoon?: boolean;
+}
+
+interface Section {
+  heading: string;
+  description: string;
+  topics: Topic[];
+}
+
+const APP = 'https://app.echo-synch.com';
+
+const sections: Section[] = [
+  {
+    heading: 'Getting started',
+    description: 'Install, configure, and post your first triaged request.',
+    topics: [
+      {
+        title: 'Install Echo-Synch in your Slack workspace',
+        blurb: 'OAuth flow, scope explanation, and what happens immediately after install.',
+        link: { href: '/support#what-is-echo-synch', label: 'See Support — How it works' },
+      },
+      {
+        title: 'Pick channels to monitor',
+        blurb: 'Echo-Synch only reads channels you explicitly add. Configure them in Settings → Monitored channels.',
+        link: { href: `${APP}/settings`, label: 'Open dashboard Settings' },
+      },
+      {
+        title: 'Add your IT team',
+        blurb: 'Build the triage roster so the bot can round-robin assignments and DM the right people on SLA events.',
+        link: { href: `${APP}/team`, label: 'Open Team page' },
+      },
+    ],
+  },
+  {
+    heading: 'Triage &amp; AI',
+    description: 'How requests get categorised, prioritised, and summarised.',
+    topics: [
+      {
+        title: 'How AI triage works',
+        blurb: 'Vertex AI Gemini reads the request and returns label + priority + summary. The output is stored on the thread row.',
+        link: { href: '/support#frequently-asked-questions', label: 'See FAQ' },
+      },
+      {
+        title: 'Custom labels and taxonomy',
+        blurb: 'Constrain the AI to your own categories instead of free-form labels. Up to 10 on Pro, unlimited on Enterprise.',
+        link: { href: `${APP}/triage-reference`, label: 'Open Triage reference' },
+      },
+      {
+        title: 'Bring Your Own Model (BYOM)',
+        blurb: 'Plug in your own Google Gemini API key. Echo-Synch routes all triage AI calls through your account; we never see the raw text.',
+        link: { href: '/trust-center#bring-your-own-model-byom', label: 'See Trust Center — BYOM' },
+      },
+    ],
+  },
+  {
+    heading: 'SLAs &amp; alerts',
+    description: 'Per-priority deadlines, warning DMs, and breach broadcasts.',
+    topics: [
+      {
+        title: 'Configure SLA windows',
+        blurb: 'Set first-response and resolution windows per priority level (Low / Medium / High / Critical). Enterprise tier.',
+        link: { href: `${APP}/settings`, label: 'Open SLA settings' },
+      },
+      {
+        title: 'Warning DMs and breach alerts',
+        blurb: 'Echo-Synch DMs the assignee 30 minutes before deadline and broadcasts to admins on breach.',
+        link: { href: '/support#frequently-asked-questions', label: 'See FAQ — How SLAs work' },
+      },
+      {
+        title: 'Daily digest',
+        blurb: 'Open requests posted to a configured channel each morning. Per-workspace digest time.',
+        link: { href: `${APP}/settings`, label: 'Configure digest channel' },
+      },
+    ],
+  },
+  {
+    heading: 'Billing &amp; account',
+    description: 'Trial mechanics, plan changes, and how cancellation works.',
+    topics: [
+      {
+        title: 'Trial expiration and reminders',
+        blurb: 'Reminder DMs at days 7, 5, 3, 2, 1 before expiry. On expiry, the bot pauses until you subscribe.',
+        link: { href: '/support#frequently-asked-questions', label: 'See FAQ — What happens when my trial expires' },
+      },
+      {
+        title: 'Switch between Pro and Enterprise',
+        blurb: 'Self-serve plan changes via the LemonSqueezy customer portal. Proration handled automatically.',
+        link: { href: `${APP}/settings/billing`, label: 'Open Billing settings' },
+      },
+      {
+        title: 'Cancel a subscription',
+        blurb: 'Cancellation takes effect at the end of the current billing period; the workspace then locks until re-subscription.',
+        link: { href: '/support#frequently-asked-questions', label: 'See FAQ — How do I cancel' },
+      },
+    ],
+  },
+  {
+    heading: 'Security &amp; data',
+    description: 'What we collect, where it lives, how to delete it.',
+    topics: [
+      {
+        title: 'What data Echo-Synch sees',
+        blurb: 'Slack profile data, message content from monitored channels, AI triage decisions, SLA timer state, subscription metadata.',
+        link: { href: '/privacy#2-information-we-collect', label: 'See Privacy Policy §2' },
+      },
+      {
+        title: 'Data residency and subprocessors',
+        blurb: 'Primary infrastructure in AWS Ireland. Vertex AI Belgium for default LLM. Full subprocessor list in DPA Annex 1.',
+        link: { href: '/dpa#annex-1', label: 'See DPA — Annex 1' },
+      },
+      {
+        title: 'Uninstall and data deletion',
+        blurb: 'Uninstall triggers hard deletion of all workspace records within one hour. Reinstall within the window to recover.',
+        link: { href: '/privacy#8-data-storage-security-and-retention', label: 'See Privacy Policy §8.3' },
+      },
+    ],
+  },
+];
 ---
+
 <Layout
-  title="Docs — Echo-Synch"
-  description="How to configure Echo-Synch — channels, SLAs, custom labels, BYOM."
-  activeNav="docs"
+  title="Documentation — Echo-Synch"
+  description="How to install, configure, and operate Echo-Synch — getting started, AI triage, SLAs, billing, and security."
 >
   <header class="mk-pageheader">
     <div class="mk-container-narrow">
       <p class="mk-eyebrow">Documentation</p>
       <h1 class="mk-display">Docs</h1>
       <p class="mk-lead">
-        Configuration guides, integration references, and how-tos.
+        A map of every Echo-Synch topic, with the deepest current answer
+        for each. Real per-topic guides land here as we ship them.
       </p>
     </div>
   </header>
-  <article class="mk-prose">
-    <p>Documentation lands here when the public beta opens. In the
-    meantime — the dashboard's settings pages are self-documenting, and
-    <a href="/support">/support</a> covers the most common setup
-    questions.</p>
-    <p>Need something specific?
-    <a href="mailto:support@echo-synch.com">support@echo-synch.com</a>.</p>
-  </article>
+
+  <section class="mk-container-narrow" style="padding: 56px 24px 96px;">
+    {sections.map(section => (
+      <div class="docs-section">
+        <h2 class="docs-h2" set:html={section.heading} />
+        <p class="docs-section-desc">{section.description}</p>
+        <ul class="docs-topic-list">
+          {section.topics.map(topic => (
+            <li class="docs-topic">
+              <div class="docs-topic-body">
+                <h3 class="docs-topic-title">{topic.title}</h3>
+                <p class="docs-topic-blurb">{topic.blurb}</p>
+              </div>
+              <div class="docs-topic-action">
+                {topic.comingSoon ? (
+                  <span class="mk-pill" style="background: var(--slate-100); color: var(--fg-3); border-color: var(--border-subtle);">Coming soon</span>
+                ) : topic.link ? (
+                  <a href={topic.link.href} class="docs-topic-link">
+                    {topic.link.label}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                  </a>
+                ) : null}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+
+    <div class="docs-cta">
+      <h2 class="mk-h2" style="font-size: 22px; margin-bottom: 8px;">Don't see what you need?</h2>
+      <p style="color: var(--fg-2); font-size: 14.5px; margin: 0 0 20px;">
+        Email <a href="mailto:support@echo-synch.com">support@echo-synch.com</a> —
+        we reply within one business day. Useful answers from the inbox
+        graduate into a full doc.
+      </p>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .docs-section { margin-bottom: 56px; }
+  .docs-section:last-of-type { margin-bottom: 0; }
+
+  .docs-h2 {
+    font-size: 22px; font-weight: 700; letter-spacing: -0.015em;
+    color: var(--fg-1); margin: 0 0 6px;
+  }
+  .docs-section-desc {
+    font-size: 14.5px; color: var(--fg-3); margin: 0 0 24px;
+  }
+
+  .docs-topic-list { list-style: none; padding: 0; margin: 0; }
+  .docs-topic {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px; align-items: center;
+    padding: 18px 22px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    background: #fff;
+    margin-bottom: 10px;
+    transition: border-color 180ms, box-shadow 180ms;
+  }
+  .docs-topic:hover {
+    border-color: var(--echo-indigo-100);
+    box-shadow: var(--shadow-sm);
+  }
+  .docs-topic-title {
+    font-size: 15px; font-weight: 600; color: var(--fg-1);
+    margin: 0 0 4px;
+  }
+  .docs-topic-blurb {
+    font-size: 13.5px; color: var(--fg-2); line-height: 1.55;
+    margin: 0;
+  }
+  .docs-topic-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600;
+    color: var(--echo-indigo); white-space: nowrap;
+  }
+  .docs-topic-link:hover { color: var(--echo-indigo-700); text-decoration: none; }
+
+  .docs-cta {
+    margin-top: 64px;
+    padding: 32px;
+    background: var(--slate-50);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .docs-topic { grid-template-columns: 1fr; gap: 12px; }
+    .docs-topic-action { justify-self: start; }
+  }
+</style>
