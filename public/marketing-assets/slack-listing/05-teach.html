@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Echo-Synch — 05 Teach the AI</title>
+<link rel="stylesheet" href="./_shared.css">
+<style>
+  /* Two stacked panels in the visual column: knowledge base on top,
+   * taxonomy editor below. Together they show "you teach the AI both
+   * what to label things AND what to suggest as answers". */
+  .teach-stack { width: 720px; display: flex; flex-direction: column; gap: 18px; }
+
+  /* Knowledge base table */
+  .kb-card { padding: 0; }
+  .kb-header {
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--slate-200);
+    background: var(--slate-50);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--slate-500);
+    display: grid;
+    grid-template-columns: 1.7fr 0.9fr 0.5fr 0.6fr 0.7fr;
+    gap: 12px;
+  }
+  .kb-row {
+    padding: 16px 22px;
+    display: grid;
+    grid-template-columns: 1.7fr 0.9fr 0.5fr 0.6fr 0.7fr;
+    gap: 12px;
+    align-items: start;
+    font-size: 13px;
+  }
+  .kb-q { color: var(--slate-900); font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .kb-a { color: var(--slate-500); }
+  .kb-link {
+    margin-top: 8px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .kb-link-input {
+    background: var(--slate-100); border: 1px solid var(--slate-200);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--slate-700);
+  }
+  .kb-link-btn {
+    padding: 4px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 600;
+    background: #fff; border: 1px solid var(--slate-200); color: var(--slate-700);
+  }
+  .kb-num { font-size: 16px; font-weight: 700; color: var(--slate-900); }
+
+  /* Taxonomy editor */
+  .tax-card { padding: 18px 22px; }
+  .tax-title { font-size: 13px; font-weight: 700; color: var(--slate-900); margin: 0 0 14px; }
+
+  .tax-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto auto;
+    gap: 10px; align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid var(--slate-100);
+  }
+  .tax-row:first-of-type { border-top: 0; padding-top: 4px; }
+  .tax-row + .tax-row { border-top: 1px solid var(--slate-100); }
+  .tax-input {
+    padding: 5px 10px; border: 1px solid var(--slate-200); border-radius: 6px;
+    font-size: 12px; color: var(--slate-900); background: #fff;
+  }
+  .tax-checkbox {
+    width: 16px; height: 16px; border-radius: 4px;
+    background: var(--echo-indigo); display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 11px;
+  }
+  .tax-active-label { font-size: 12px; color: var(--slate-500); }
+  .tax-action {
+    padding: 4px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 600;
+    border: 1px solid var(--slate-200); background: #fff; color: var(--slate-700);
+  }
+  .tax-action.danger { color: var(--status-rose); border-color: #FECDD3; background: #FFF1F2; }
+
+  .tax-row-detail {
+    padding: 0 0 10px 26px;
+    font-size: 12px; color: var(--slate-500);
+    line-height: 1.5;
+  }
+  .tax-row-detail strong { color: var(--slate-700); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M21 11.5C21 16.1944 16.9706 20 12 20C10.6698 20 9.40698 19.7346 8.27117 19.2612L3 21L4.60627 16.3213C3.60195 14.9458 3 13.292 3 11.5C3 6.80558 7.02944 3 12 3C16.9706 3 21 6.80558 21 11.5Z" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M12 15.5V8.5" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M15 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="brand-name">Echo-<span>Synch</span></span>
+  </div>
+
+  <div class="frame">
+    <div class="copy">
+      <p class="eyebrow">05 · Teach the AI</p>
+      <h1 class="title">Your taxonomy.<br>Your answers.</h1>
+      <p class="body">
+        Curate the knowledge base for in-thread answers, and define
+        the labels Echo-Synch's AI uses on every new request — so the
+        bot speaks your team's vocabulary, not the model's.
+      </p>
+    </div>
+
+    <div class="visual">
+      <div class="teach-stack">
+        <!-- Knowledge base entry -->
+        <div class="card kb-card">
+          <div class="kb-header">
+            <div>Question</div>
+            <div>Tags</div>
+            <div>Used</div>
+            <div>Helpful</div>
+            <div>State</div>
+          </div>
+          <div class="kb-row">
+            <div>
+              <div class="kb-q">How to change language?</div>
+              <div class="kb-a">Check config material.</div>
+              <div class="kb-link">
+                <span class="kb-link-input">https://wiki.example.com/spaces/IT/lang-config</span>
+                <span class="kb-link-btn">Save link</span>
+              </div>
+            </div>
+            <div><span class="pill pill-slate" style="font-family: var(--font-mono);">Basic Config</span></div>
+            <div><span class="kb-num">7</span></div>
+            <div><span class="kb-num">1</span></div>
+            <div><span class="pill pill-emerald">● active</span></div>
+          </div>
+        </div>
+
+        <!-- Custom taxonomy editor -->
+        <div class="card tax-card">
+          <p class="tax-title">Your taxonomy</p>
+
+          <div class="tax-row">
+            <span class="pill pill-purple">VPN outage</span>
+            <input class="tax-input" value="VPN outage" />
+            <span class="tax-checkbox">✓</span>
+            <span class="tax-active-label">active</span>
+            <span class="tax-action">Save</span>
+            <span class="tax-action danger">Delete</span>
+          </div>
+          <div class="tax-row-detail">
+            <strong>Description:</strong> Issues with corporate VPN
+            <br><strong>Examples:</strong> "vpn drops", "where is vpn", "can't access resource"
+          </div>
+
+          <div class="tax-row">
+            <span class="pill pill-purple">Multi-lingual setting</span>
+            <input class="tax-input" value="Multi-lingual setting" />
+            <span class="tax-checkbox">✓</span>
+            <span class="tax-active-label">active</span>
+            <span class="tax-action">Save</span>
+            <span class="tax-action danger">Delete</span>
+          </div>
+          <div class="tax-row-detail">
+            <strong>Description:</strong> Allow multi-language support
+            <br><strong>Examples:</strong> "change language", "set locale", "translate UI"
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

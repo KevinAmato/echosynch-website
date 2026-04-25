@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Echo-Synch — 04 Dashboard</title>
+<link rel="stylesheet" href="./_shared.css">
+<style>
+  .dash-mock { width: 760px; }
+  .dash-layout {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    background: #fff;
+  }
+  .dash-sidebar {
+    background: #fff;
+    border-right: 1px solid var(--slate-200);
+    padding: 14px 10px;
+    height: 480px;
+  }
+  .dash-brand {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 8px 14px;
+    border-bottom: 1px solid var(--slate-200);
+    margin-bottom: 10px;
+  }
+  .dash-brand svg { width: 22px; height: 22px; }
+  .dash-brand-name { font-size: 14px; font-weight: 800; color: var(--slate-900); }
+  .dash-nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--slate-700);
+    margin-bottom: 1px;
+  }
+  .dash-nav-item.active {
+    background: var(--echo-indigo-50);
+    color: var(--echo-indigo);
+    font-weight: 600;
+  }
+
+  .dash-main { padding: 18px 22px; }
+  .dash-h1 {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--echo-indigo);
+    margin: 0 0 4px;
+  }
+  .dash-title {
+    font-size: 22px; font-weight: 800; color: var(--slate-900);
+    margin: 0 0 4px; letter-spacing: -0.02em;
+  }
+  .dash-sub {
+    font-size: 12px; color: var(--slate-500); margin: 0 0 14px;
+  }
+
+  .dash-controls {
+    display: flex; gap: 8px; align-items: center;
+    margin-bottom: 14px;
+  }
+  .dash-search {
+    flex: 1;
+    padding: 7px 12px;
+    border: 1px solid var(--slate-200); border-radius: 8px;
+    font-size: 12px; color: var(--slate-400);
+    background: #fff;
+  }
+  .dash-pill {
+    padding: 6px 12px; border-radius: 8px;
+    font-size: 12px; font-weight: 500;
+    background: #fff; border: 1px solid var(--slate-200); color: var(--slate-700);
+  }
+  .dash-refresh {
+    padding: 6px 14px; border-radius: 8px;
+    font-size: 12px; font-weight: 600;
+    background: var(--echo-indigo); color: #fff;
+  }
+
+  .dash-table {
+    width: 100%; border-collapse: collapse;
+  }
+  .dash-table th, .dash-table td {
+    padding: 9px 8px;
+    text-align: left;
+    border-bottom: 1px solid var(--slate-200);
+    font-size: 12px;
+  }
+  .dash-table th {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--slate-500); text-transform: uppercase;
+    background: var(--slate-50);
+  }
+  .dash-table td.summary {
+    font-weight: 500; color: var(--slate-900);
+    max-width: 160px; line-height: 1.3;
+  }
+  .dash-table .age {
+    color: var(--slate-500);
+    font-family: var(--font-mono); font-size: 11px;
+  }
+  .dash-link {
+    color: var(--echo-indigo); font-weight: 600; font-size: 11px;
+  }
+  .dash-link + .dash-link { margin-left: 6px; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M21 11.5C21 16.1944 16.9706 20 12 20C10.6698 20 9.40698 19.7346 8.27117 19.2612L3 21L4.60627 16.3213C3.60195 14.9458 3 13.292 3 11.5C3 6.80558 7.02944 3 12 3C16.9706 3 21 6.80558 21 11.5Z" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M12 15.5V8.5" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M15 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="brand-name">Echo-<span>Synch</span></span>
+  </div>
+
+  <div class="frame">
+    <div class="copy">
+      <p class="eyebrow">04 · Dashboard</p>
+      <h1 class="title">The full picture.</h1>
+      <p class="body">
+        Every triaged request, every SLA timer, every assignee.
+        Search, filter, sort — and one click back to the original
+        Slack thread.
+      </p>
+    </div>
+
+    <div class="visual">
+      <div class="card dash-mock">
+        <div class="window-chrome">
+          <div class="window-dots"><span></span><span></span><span></span></div>
+          <div class="window-title" style="font-family: var(--font-mono); font-size: 11px;">app.echo-synch.com/threads</div>
+        </div>
+        <div class="dash-layout">
+          <aside class="dash-sidebar">
+            <div class="dash-brand">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M21 11.5C21 16.1944 16.9706 20 12 20C10.6698 20 9.40698 19.7346 8.27117 19.2612L3 21L4.60627 16.3213C3.60195 14.9458 3 13.292 3 11.5C3 6.80558 7.02944 3 12 3C16.9706 3 21 6.80558 21 11.5Z" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 15.5V8.5" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+                <path d="M15 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span class="dash-brand-name">Echo-Synch</span>
+            </div>
+            <div class="dash-nav-item active">💬 Threads</div>
+            <div class="dash-nav-item">📊 Analytics</div>
+            <div class="dash-nav-item">📚 Knowledge base</div>
+            <div class="dash-nav-item">🏷️ Triage reference</div>
+            <div class="dash-nav-item">👥 Team</div>
+            <div class="dash-nav-item">⚙️ Settings</div>
+            <div class="dash-nav-item">💳 Billing</div>
+          </aside>
+
+          <main class="dash-main">
+            <p class="dash-h1">Queue</p>
+            <h2 class="dash-title">Threads</h2>
+            <p class="dash-sub">Every IT request ingested from your monitored Slack channels. Filter, sort, or jump to the original thread.</p>
+
+            <div class="dash-controls">
+              <input class="dash-search" value="Search summary, assignee, label…" />
+              <span class="dash-pill">All statuses ▾</span>
+              <span class="dash-pill">Columns ▾</span>
+              <span class="dash-refresh">↻ Refresh</span>
+            </div>
+
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Summary</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Assignee</th>
+                  <th>Age</th>
+                  <th>SLA</th>
+                  <th>Open</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="summary">Printer jam — 3rd floor</td>
+                  <td><span class="pill pill-rose">High</span></td>
+                  <td><span class="pill pill-purple">In progress</span></td>
+                  <td>JD</td>
+                  <td class="age">2h</td>
+                  <td><span class="pill pill-amber">⏱ 2h left</span></td>
+                  <td><span class="dash-link">App</span><span class="dash-link">Web</span></td>
+                </tr>
+                <tr>
+                  <td class="summary">Multi-lingual setting</td>
+                  <td><span class="pill pill-amber">Medium</span></td>
+                  <td><span class="pill pill-purple">In progress</span></td>
+                  <td>JD</td>
+                  <td class="age">2h</td>
+                  <td><span class="pill pill-emerald">On track</span></td>
+                  <td><span class="dash-link">App</span><span class="dash-link">Web</span></td>
+                </tr>
+                <tr>
+                  <td class="summary">VPN outage — EU office</td>
+                  <td><span class="pill pill-rose">High</span></td>
+                  <td><span class="pill pill-slate">Unlabeled</span></td>
+                  <td>—</td>
+                  <td class="age">6h</td>
+                  <td><span class="pill pill-rose">SLA missed</span></td>
+                  <td><span class="dash-link">App</span><span class="dash-link">Web</span></td>
+                </tr>
+                <tr>
+                  <td class="summary">Salesforce SSO login broken</td>
+                  <td><span class="pill pill-amber">Medium</span></td>
+                  <td><span class="pill pill-emerald">Closed</span></td>
+                  <td>SA</td>
+                  <td class="age">1d</td>
+                  <td><span class="pill pill-emerald">Met</span></td>
+                  <td><span class="dash-link">App</span><span class="dash-link">Web</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

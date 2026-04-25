@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Echo-Synch — 02 Label</title>
+<link rel="stylesheet" href="./_shared.css">
+<style>
+  .modal-mock { width: 540px; }
+  .modal-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--slate-200);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .modal-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: var(--echo-indigo-50);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .modal-title { font-size: 17px; font-weight: 700; color: var(--slate-900); }
+  .modal-close {
+    margin-left: auto; color: var(--slate-400); font-size: 18px;
+    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+    border-radius: 6px;
+  }
+  .modal-body { padding: 22px 24px; }
+  .field { margin-bottom: 18px; }
+  .field-label {
+    display: block; margin-bottom: 6px;
+    font-size: 13px; font-weight: 600; color: var(--slate-700);
+  }
+  .field-label .opt { color: var(--slate-400); font-weight: 500; }
+  .field-input, .field-select {
+    width: 100%; padding: 9px 12px;
+    border: 1px solid var(--slate-200); border-radius: 8px;
+    font-size: 14px; color: var(--slate-900);
+    background: #fff;
+    font-family: inherit;
+  }
+  .field-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+  }
+  .field-hint { font-size: 12px; color: var(--slate-500); margin-top: 6px; }
+  .field-textarea {
+    min-height: 64px;
+    resize: vertical;
+  }
+  .modal-footer {
+    padding: 14px 24px;
+    border-top: 1px solid var(--slate-200);
+    display: flex; justify-content: flex-end; gap: 10px;
+  }
+  .btn {
+    padding: 9px 16px; border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; border: 1px solid transparent;
+  }
+  .btn-secondary {
+    background: #fff; border-color: var(--slate-200); color: var(--slate-700);
+  }
+  .btn-primary { background: #1A6240; color: #fff; }
+
+  /* Floating mini-pills around the modal that show what each field becomes
+   * once labelled. Read top→bottom: status, priority, assignee, custom. */
+  .pill-pop {
+    position: absolute;
+    background: #fff; box-shadow: var(--shadow-pill);
+    padding: 6px 10px; border-radius: 9999px;
+    font-size: 12px; font-weight: 600;
+    border: 1px solid var(--slate-200);
+    color: var(--slate-700);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .pill-pop::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+  }
+  .pop-status::before   { background: var(--status-amber); }
+  .pop-priority::before { background: var(--status-rose);  }
+  .pop-assignee::before { background: var(--echo-indigo);  }
+
+  .visual { position: relative; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M21 11.5C21 16.1944 16.9706 20 12 20C10.6698 20 9.40698 19.7346 8.27117 19.2612L3 21L4.60627 16.3213C3.60195 14.9458 3 13.292 3 11.5C3 6.80558 7.02944 3 12 3C16.9706 3 21 6.80558 21 11.5Z" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M12 15.5V8.5" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M15 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="brand-name">Echo-<span>Synch</span></span>
+  </div>
+
+  <div class="frame">
+    <div class="copy">
+      <p class="eyebrow">02 · Label</p>
+      <h1 class="title">One click<br>to triage.</h1>
+      <p class="body">
+        Status, priority, assignee, custom labels — picked by AI,
+        edited by your IT team in seconds. Right-click any thread
+        to open the labeller.
+      </p>
+    </div>
+
+    <div class="visual">
+      <div class="card modal-mock">
+        <div class="modal-header">
+          <span class="modal-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+              <line x1="7" y1="7" x2="7.01" y2="7"/>
+            </svg>
+          </span>
+          <span class="modal-title">Label IT request</span>
+          <span class="modal-close">×</span>
+        </div>
+        <div class="modal-body">
+          <div class="field">
+            <label class="field-label">Status <span class="opt">(optional)</span></label>
+            <div class="field-select">In progress</div>
+          </div>
+          <div class="field">
+            <label class="field-label">Assignee <span class="opt">(optional)</span></label>
+            <div class="field-select">Joaquin Diaz</div>
+          </div>
+          <div class="field">
+            <label class="field-label">Priority <span class="opt">(optional)</span></label>
+            <div class="field-select">High</div>
+          </div>
+          <div class="field">
+            <label class="field-label">Custom label <span class="opt">(optional)</span></label>
+            <input class="field-input" value="multi-lingual" />
+            <p class="field-hint">Free-text tag (e.g. "printer", "vpn", "needs-vendor"). Leave blank for none.</p>
+          </div>
+          <div class="field" style="margin-bottom: 0;">
+            <label class="field-label">Notes <span class="opt">(optional)</span></label>
+            <textarea class="field-input field-textarea" placeholder="Write something"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <span class="btn btn-secondary">Cancel</span>
+          <span class="btn btn-primary">Save</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

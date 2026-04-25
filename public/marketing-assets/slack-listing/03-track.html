@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Echo-Synch — 03 Track in Slack</title>
+<link rel="stylesheet" href="./_shared.css">
+<style>
+  .home-mock { width: 720px; }
+  .home-tabs {
+    display: flex; gap: 0;
+    padding: 0 18px;
+    background: #1F2937; /* slack dark sidebar */
+    border-bottom: 1px solid #111827;
+  }
+  .home-tab {
+    padding: 12px 14px;
+    font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    border-bottom: 2px solid transparent;
+  }
+  .home-tab.active {
+    color: #fff;
+    border-bottom-color: #fff;
+  }
+
+  .home-body { background: #1F2937; padding: 18px; color: rgba(255,255,255,0.9); }
+
+  .home-title {
+    font-size: 16px; font-weight: 700;
+    color: #fff;
+    margin: 0 0 4px;
+  }
+  .home-meta {
+    font-size: 12px; color: rgba(255,255,255,0.55);
+    margin: 0 0 14px;
+  }
+
+  .home-actions { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .home-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 12px; font-weight: 600;
+    background: rgba(255,255,255,0.07); color: #fff;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .home-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .home-chip {
+    padding: 5px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 600;
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .home-chip.active {
+    background: #14532D; color: #BBF7D0; border-color: #166534;
+  }
+
+  .home-select {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 11px; font-weight: 600;
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.12);
+    margin-bottom: 16px;
+  }
+
+  .home-row {
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: center;
+  }
+  .home-row-dot {
+    width: 8px; height: 8px; border-radius: 50%; margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .home-row-content { font-size: 13px; }
+  .home-row-tags {
+    display: inline-flex; gap: 6px; align-items: center; margin-bottom: 2px;
+    flex-wrap: wrap;
+  }
+  .home-row-status {
+    font-size: 12px; font-weight: 700; text-transform: lowercase;
+  }
+  .home-row-priority {
+    font-size: 11px; color: #FCD34D;
+    font-weight: 600;
+  }
+  .home-row-priority.rose { color: #FCA5A5; }
+  .home-row-priority.slate { color: rgba(255,255,255,0.55); }
+  .home-row-clabel {
+    font-size: 10px; padding: 1px 6px; border-radius: 3px;
+    background: rgba(255,255,255,0.08);
+    font-family: var(--font-mono);
+    color: rgba(255,255,255,0.7);
+  }
+  .home-row-summary {
+    font-size: 13px; color: #fff; margin: 2px 0 1px;
+    font-weight: 500;
+  }
+  .home-row-meta {
+    font-size: 11px; color: rgba(255,255,255,0.5);
+  }
+  .home-row-meta .at-tag { color: #93C5FD; }
+  .home-row-age {
+    font-size: 11px; color: rgba(255,255,255,0.5);
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M21 11.5C21 16.1944 16.9706 20 12 20C10.6698 20 9.40698 19.7346 8.27117 19.2612L3 21L4.60627 16.3213C3.60195 14.9458 3 13.292 3 11.5C3 6.80558 7.02944 3 12 3C16.9706 3 21 6.80558 21 11.5Z" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M12 15.5V8.5" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M15 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="brand-name">Echo-<span>Synch</span></span>
+  </div>
+
+  <div class="frame">
+    <div class="copy">
+      <p class="eyebrow">03 · Track in Slack</p>
+      <h1 class="title">Your queue,<br>where you<br>already are.</h1>
+      <p class="body">
+        App Home shows every open IT request — filter by status or
+        assignee, jump straight to the original thread, manage your
+        triage roster without leaving Slack.
+      </p>
+    </div>
+
+    <div class="visual">
+      <div class="card home-mock" style="overflow: hidden;">
+        <div class="home-tabs">
+          <span class="home-tab active">Home</span>
+          <span class="home-tab">Messages</span>
+          <span class="home-tab">About</span>
+        </div>
+        <div class="home-body">
+          <h3 class="home-title">Echo-Synch · Echo-Synch</h3>
+          <p class="home-meta">Tier: enterprise · 26 total · Showing all (26)</p>
+
+          <div class="home-actions">
+            <span class="home-btn">🌐 Open dashboard</span>
+            <span class="home-btn">👥 Manage triage team</span>
+          </div>
+
+          <div class="home-chips">
+            <span class="home-chip active">All (26)</span>
+            <span class="home-chip">Not closed (25)</span>
+            <span class="home-chip">Unlabeled (20)</span>
+            <span class="home-chip">In progress (5)</span>
+            <span class="home-chip">Closed (1)</span>
+          </div>
+
+          <span class="home-select">Assignee: Anyone ▾</span>
+
+          <!-- Tickets -->
+          <div class="home-row">
+            <span class="home-row-dot" style="background: #F59E0B;"></span>
+            <div class="home-row-content">
+              <div class="home-row-tags">
+                <span class="home-row-status" style="color:#FCD34D;">in_progress</span>
+                <span class="home-row-priority">· medium</span>
+                <span class="home-row-clabel">multi-lingual</span>
+              </div>
+              <div class="home-row-summary">Need to change language settings</div>
+              <div class="home-row-meta">Posted by <span class="at-tag">@Maria</span> · Assignee <span class="at-tag">@Joaquin</span> · View in app · View in web</div>
+            </div>
+            <div class="home-row-age">Age: 2h</div>
+          </div>
+
+          <div class="home-row">
+            <span class="home-row-dot" style="background: #EF4444;"></span>
+            <div class="home-row-content">
+              <div class="home-row-tags">
+                <span class="home-row-status" style="color:#FCA5A5;">in_progress</span>
+                <span class="home-row-priority rose">· high</span>
+                <span class="home-row-clabel">printer</span>
+              </div>
+              <div class="home-row-summary">Printer jam on the 3rd floor</div>
+              <div class="home-row-meta">Posted by <span class="at-tag">@Kevin</span> · Assignee <span class="at-tag">@Joaquin</span> · View in app · View in web</div>
+            </div>
+            <div class="home-row-age">Age: 4h</div>
+          </div>
+
+          <div class="home-row">
+            <span class="home-row-dot" style="background: rgba(255,255,255,0.4);"></span>
+            <div class="home-row-content">
+              <div class="home-row-tags">
+                <span class="home-row-status" style="color: rgba(255,255,255,0.65);">unlabeled</span>
+                <span class="home-row-priority slate">· no priority yet</span>
+              </div>
+              <div class="home-row-summary">VPN slow in EU office</div>
+              <div class="home-row-meta">Posted by <span class="at-tag">@Sara</span> · Assignee <em>unassigned</em> · View in app · View in web</div>
+            </div>
+            <div class="home-row-age">Age: 7d</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

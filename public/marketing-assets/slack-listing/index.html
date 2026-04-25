@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Slack Listing Screenshots — Echo-Synch</title>
+<style>
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #F8FAFC;
+    color: #0F172A;
+    margin: 0; padding: 48px 24px;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.025em; margin: 0 0 8px; }
+  p { color: #334155; margin: 0 0 16px; font-size: 15px; }
+  ol { color: #334155; font-size: 15px; }
+  ol li { margin-bottom: 8px; }
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    background: #fff; padding: 2px 8px; border-radius: 4px;
+    border: 1px solid #E2E8F0;
+  }
+  .grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-top: 32px;
+  }
+  .card {
+    background: #fff; border: 1px solid #E2E8F0; border-radius: 12px;
+    padding: 20px; text-decoration: none; color: inherit;
+    transition: transform 180ms, box-shadow 180ms;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -8px rgba(15,23,42,0.1); border-color: #E0E7FF; }
+  .card-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4F46E5; }
+  .card-title { font-size: 17px; font-weight: 700; margin: 6px 0 4px; }
+  .card-desc { font-size: 13px; color: #64748B; margin: 0; }
+  .note {
+    background: #EEF2FF;
+    border: 1px solid #E0E7FF;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 32px;
+    font-size: 14px;
+    color: #3730A3;
+  }
+  .note strong { color: #1E1B4B; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Slack Directory listing screenshots</h1>
+  <p>
+    Six 1600×800 slides for Echo-Synch's Slack Directory listing carousel.
+    Each is a self-contained HTML file that renders to a pixel-perfect PNG
+    when captured at 1600×800.
+  </p>
+
+  <h2 style="font-size: 18px; margin-top: 32px;">How to capture each as a PNG</h2>
+  <ol>
+    <li>Open the slide HTML in Chrome (links below).</li>
+    <li>Open DevTools (F12) → toggle device toolbar (<code>Ctrl+Shift+M</code>).</li>
+    <li>Set custom dimensions: <code>1600 × 800</code>. Zoom should be 100%.</li>
+    <li>Hit <code>Ctrl+Shift+P</code> → type <em>"Capture screenshot"</em> → Enter. Saves a 1600×800 PNG.</li>
+    <li>Upload to Slack Directory submission. Repeat for each slide.</li>
+  </ol>
+
+  <div class="grid">
+    <a class="card" href="./01-detect.html" target="_blank">
+      <div class="card-num">01 · Detect</div>
+      <div class="card-title">It listens. Quietly.</div>
+      <div class="card-desc">Slack channel + bot reply with FAQ + label prompt.</div>
+    </a>
+    <a class="card" href="./02-label.html" target="_blank">
+      <div class="card-num">02 · Label</div>
+      <div class="card-title">One click to triage.</div>
+      <div class="card-desc">"Label IT request" modal with status, priority, assignee.</div>
+    </a>
+    <a class="card" href="./03-track.html" target="_blank">
+      <div class="card-num">03 · Track in Slack</div>
+      <div class="card-title">Your queue, where you already are.</div>
+      <div class="card-desc">App Home with filter chips and ticket list.</div>
+    </a>
+    <a class="card" href="./04-dashboard.html" target="_blank">
+      <div class="card-num">04 · Dashboard</div>
+      <div class="card-title">The full picture.</div>
+      <div class="card-desc">Web dashboard with the full threads queue.</div>
+    </a>
+    <a class="card" href="./05-teach.html" target="_blank">
+      <div class="card-num">05 · Teach the AI</div>
+      <div class="card-title">Your taxonomy. Your answers.</div>
+      <div class="card-desc">Knowledge base + custom taxonomy editor.</div>
+    </a>
+    <a class="card" href="./06-customize.html" target="_blank">
+      <div class="card-num">06 · Make it yours</div>
+      <div class="card-title">Your SLAs. Your statuses. Your AI.</div>
+      <div class="card-desc">SLA thresholds + custom statuses + custom priorities.</div>
+    </a>
+  </div>
+
+  <div class="note">
+    <strong>Tip — Slack Directory submission requirements (April 2026):</strong>
+    Up to 6 screenshots, 1600×800 px each, PNG or JPG, &lt; 8 MB per file.
+    Order matters — viewers scroll left-to-right. Slide 1 should be the
+    strongest hook. These slides are sequenced for that.
+  </div>
+</div>
+</body>
+</html>

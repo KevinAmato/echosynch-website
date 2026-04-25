@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Echo-Synch — 06 Make It Yours</title>
+<link rel="stylesheet" href="./_shared.css">
+<style>
+  /* Three stacked panels showing the three customization surfaces.
+   * Stacked vertically (rather than 2x2) because each panel has a
+   * different aspect ratio and they read better as a sequence. */
+  .cfg-stack { width: 720px; display: flex; flex-direction: column; gap: 14px; }
+  .cfg-card { padding: 16px 18px; }
+  .cfg-title {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--slate-900); margin: 0 0 4px;
+  }
+  .cfg-sub {
+    font-size: 11px; color: var(--slate-500);
+    margin: 0 0 10px;
+  }
+
+  /* SLA thresholds */
+  .sla-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+  }
+  .sla-grid > div { font-size: 11px; }
+  .sla-row-label {
+    font-weight: 600; color: var(--slate-700);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .sla-row-label::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+  }
+  .sla-row-label.crit::before { background: var(--status-rose); }
+  .sla-row-label.high::before { background: #F97316; }
+  .sla-row-label.med::before  { background: var(--status-amber); }
+  .sla-row-label.low::before  { background: var(--slate-400); }
+
+  .sla-input-wrap {
+    background: var(--slate-50); border: 1px solid var(--slate-200);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--slate-700);
+    text-align: center;
+  }
+  .sla-head {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--slate-400);
+  }
+
+  /* Status / priority rows */
+  .pp-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+    padding: 7px 0;
+    font-size: 12px;
+  }
+  .pp-row + .pp-row { border-top: 1px solid var(--slate-100); }
+
+  .pp-input {
+    padding: 4px 8px; border: 1px solid var(--slate-200); border-radius: 5px;
+    font-size: 11px; background: #fff; color: var(--slate-700);
+  }
+  .pp-color {
+    width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0;
+  }
+  .pp-meta {
+    font-size: 10px; color: var(--slate-500);
+    font-family: var(--font-mono);
+  }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M21 11.5C21 16.1944 16.9706 20 12 20C10.6698 20 9.40698 19.7346 8.27117 19.2612L3 21L4.60627 16.3213C3.60195 14.9458 3 13.292 3 11.5C3 6.80558 7.02944 3 12 3C16.9706 3 21 6.80558 21 11.5Z" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M12 15.5V8.5" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M15 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="brand-name">Echo-<span>Synch</span></span>
+  </div>
+
+  <div class="frame">
+    <div class="copy">
+      <p class="eyebrow">06 · Make it yours</p>
+      <h1 class="title">Your SLAs.<br>Your statuses.<br>Your AI.</h1>
+      <p class="body">
+        Per-priority SLA windows, custom statuses, custom priorities —
+        and on Enterprise, route AI through your own Gemini key with
+        BYOM. Every workflow rule, configurable.
+      </p>
+    </div>
+
+    <div class="visual">
+      <div class="cfg-stack">
+
+        <!-- SLA thresholds -->
+        <div class="card cfg-card">
+          <p class="cfg-title">SLA thresholds</p>
+          <p class="cfg-sub">Hours until a thread breaches each deadline.</p>
+          <div class="sla-grid">
+            <div class="sla-head">Priority</div>
+            <div class="sla-head" style="text-align: center;">First response (h)</div>
+            <div class="sla-head" style="text-align: center;">Resolution (h)</div>
+
+            <div class="sla-row-label crit">Critical</div>
+            <div class="sla-input-wrap">1</div>
+            <div class="sla-input-wrap">8</div>
+
+            <div class="sla-row-label high">High</div>
+            <div class="sla-input-wrap">2</div>
+            <div class="sla-input-wrap">24</div>
+
+            <div class="sla-row-label med">Medium</div>
+            <div class="sla-input-wrap">8</div>
+            <div class="sla-input-wrap">48</div>
+
+            <div class="sla-row-label low">Low</div>
+            <div class="sla-input-wrap">24</div>
+            <div class="sla-input-wrap">168</div>
+          </div>
+        </div>
+
+        <!-- Custom statuses -->
+        <div class="card cfg-card">
+          <p class="cfg-title">Custom statuses</p>
+          <p class="cfg-sub">Rename, recolour, or add statuses for your team's workflow. Mark a status <em>terminal</em> to stop SLA clocks.</p>
+          <div class="pp-row">
+            <span class="pill pill-slate" style="background: var(--slate-100); color: var(--slate-500);">Unlabeled</span>
+            <input class="pp-input" value="Unlabeled" style="max-width: 200px;" />
+            <span class="pp-color" style="background: var(--slate-300);"></span>
+            <span class="pp-meta">unlabeled</span>
+          </div>
+          <div class="pp-row">
+            <span class="pill pill-purple">In progress</span>
+            <input class="pp-input" value="In progress" style="max-width: 200px;" />
+            <span class="pp-color" style="background: #8B5CF6;"></span>
+            <span class="pp-meta">in_progress</span>
+          </div>
+          <div class="pp-row">
+            <span class="pill pill-emerald">Closed</span>
+            <input class="pp-input" value="Closed" style="max-width: 200px;" />
+            <span class="pp-color" style="background: var(--status-emerald);"></span>
+            <span class="pp-meta">closed · terminal</span>
+          </div>
+        </div>
+
+        <!-- Custom priorities -->
+        <div class="card cfg-card">
+          <p class="cfg-title">Custom priorities</p>
+          <p class="cfg-sub">Severity is an integer (higher = more urgent). Used for sorting and SLA mapping.</p>
+          <div class="pp-row">
+            <span class="pill pill-rose">Critical</span>
+            <input class="pp-input" value="Critical" style="max-width: 200px;" />
+            <span class="pp-color" style="background: var(--status-rose);"></span>
+            <span class="pp-meta">severity 40</span>
+          </div>
+          <div class="pp-row">
+            <span class="pill" style="background: #FFE4E6; color: #BE123C; border-color: #FECDD3;">High</span>
+            <input class="pp-input" value="High" style="max-width: 200px;" />
+            <span class="pp-color" style="background: #F43F5E;"></span>
+            <span class="pp-meta">severity 30</span>
+          </div>
+          <div class="pp-row">
+            <span class="pill pill-amber">Medium</span>
+            <input class="pp-input" value="Medium" style="max-width: 200px;" />
+            <span class="pp-color" style="background: var(--status-amber);"></span>
+            <span class="pp-meta">severity 20</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

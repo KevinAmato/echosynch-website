@@ -1,0 +1,167 @@
+/* Shared styles for the 6 Slack Directory listing screenshots.
+ *
+ * Each slide is a 1600x800 frame rendered in the browser, then captured
+ * as a PNG via Chrome's "Capture full size screenshot". To get a clean
+ * 1600x800 PNG without browser chrome:
+ *   1. Open the slide HTML in Chrome
+ *   2. F12 → Toggle device toolbar (Ctrl+Shift+M)
+ *   3. Set custom resolution to 1600 x 800
+ *   4. F12 menu → Run command (Ctrl+Shift+P) → "Capture screenshot"
+ *
+ * Tokens lifted verbatim from the Echo-Synch design system at
+ * Design/Design Guidance/colors_and_type.css. Do not introduce ad-hoc
+ * values here — if a colour or font isn't in this file, it isn't in the
+ * design system.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --echo-indigo:     #4F46E5;
+  --echo-indigo-50:  #EEF2FF;
+  --echo-indigo-100: #E0E7FF;
+  --echo-indigo-700: #3730A3;
+  --slate-50:  #F8FAFC;
+  --slate-100: #F1F5F9;
+  --slate-200: #E2E8F0;
+  --slate-300: #CBD5E1;
+  --slate-400: #94A3B8;
+  --slate-500: #64748B;
+  --slate-700: #334155;
+  --slate-900: #0F172A;
+  --status-emerald: #10B981;
+  --status-amber:   #F59E0B;
+  --status-rose:    #E11D48;
+  --shadow-card: 0 20px 60px -20px rgba(15, 23, 42, 0.18);
+  --shadow-pill: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --font-sans: 'Inter', system-ui, -apple-system, Segoe UI, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  /* The body IS the slide. 1600x800 fixed; overflow hidden so any errant
+   * mock element doesn't leak into the screenshot. */
+  width: 1600px; height: 800px;
+  background: #ffffff;
+  font-family: var(--font-sans);
+  color: var(--slate-900);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* The one allowed gradient — a soft indigo glow at the top. Same recipe
+ * as the website hero so the listing slides feel like the same brand. */
+.glow {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 0%,
+      rgba(79, 70, 229, 0.10), transparent 70%);
+  pointer-events: none;
+}
+
+/* Brand mark — top-left, subtle. Never larger than 28px tall. The
+ * listing carousel strips surrounding context so this anchors each slide
+ * to Echo-Synch as the user scrolls through. */
+.brand {
+  position: absolute; z-index: 5;
+  top: 56px; left: 80px;
+  display: flex; align-items: center; gap: 10px;
+}
+.brand svg { width: 28px; height: 28px; }
+.brand-name {
+  font-weight: 800; font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--slate-900);
+}
+.brand-name span { color: var(--echo-indigo); }
+
+/* The 2-column frame. Copy on the left (640px), visual on the right.
+ * 80px outer padding all sides, 64px gap between columns.
+ *
+ * 1600 - (80 * 2) = 1440 inner width
+ * 1440 - 64 (gap) = 1376
+ * 640 (copy) + 736 (visual) = 1376 ✓
+ */
+.frame {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 640px 1fr;
+  gap: 64px;
+  height: 100%;
+  padding: 80px;
+  align-items: center;
+}
+
+/* Copy column. Vertically centered. Eyebrow → title → body. */
+.copy { display: flex; flex-direction: column; justify-content: center; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 14px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--echo-indigo);
+  margin: 0 0 20px;
+}
+.title {
+  font-size: 64px; font-weight: 800;
+  letter-spacing: -0.025em; line-height: 1.05;
+  color: var(--slate-900);
+  margin: 0 0 24px;
+}
+.body {
+  font-size: 20px; line-height: 1.55;
+  color: var(--slate-700);
+  margin: 0; max-width: 520px;
+}
+
+/* The visual card — every slide's product mock sits inside this. */
+.visual {
+  display: flex; align-items: center; justify-content: center;
+  height: 100%;
+}
+.card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* macOS-style window dots used on Slack + dashboard mocks. The 3 dots
+ * read as "this is a window" without needing a browser address bar. */
+.window-chrome {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  background: var(--slate-50);
+  border-bottom: 1px solid var(--slate-200);
+}
+.window-dots { display: flex; gap: 6px; }
+.window-dots span {
+  width: 11px; height: 11px; border-radius: 50%;
+  display: inline-block;
+}
+.window-dots span:nth-child(1) { background: #ff5f57; }
+.window-dots span:nth-child(2) { background: #febc2e; }
+.window-dots span:nth-child(3) { background: #28c840; }
+.window-title {
+  font-size: 13px; color: var(--slate-500);
+  font-weight: 500;
+}
+
+/* Pill primitives — used on Slack message bot replies, dashboard ticket
+ * rows, and customization panels. Match the dashboard's actual styling. */
+.pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 10px; border-radius: 9999px;
+  font-size: 12px; font-weight: 600;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.pill-indigo  { background: var(--echo-indigo-50); color: var(--echo-indigo-700); border-color: var(--echo-indigo-100); }
+.pill-rose    { background: #FFF1F2;   color: var(--status-rose);    border-color: #FECDD3; }
+.pill-amber   { background: #FFFBEB;   color: #B45309;               border-color: #FDE68A; }
+.pill-emerald { background: #ECFDF5;   color: var(--status-emerald); border-color: #A7F3D0; }
+.pill-slate   { background: var(--slate-100); color: var(--slate-500); border-color: var(--slate-200); }
+.pill-purple  { background: #F5F3FF;   color: #6D28D9;               border-color: #DDD6FE; }

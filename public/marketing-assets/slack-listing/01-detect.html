@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Echo-Synch — 01 Detect</title>
+<link rel="stylesheet" href="./_shared.css">
+<style>
+  /* Slide-specific: the Slack channel mock on the right.
+   * Width 720, height auto — fits comfortably inside the 736px visual column. */
+  .slack-mock { width: 720px; }
+  .slack-channel-title {
+    font-size: 13px; font-weight: 600;
+    color: var(--slate-900);
+  }
+  .slack-channel-title::before { content: '# '; color: var(--slate-400); }
+
+  .slack-body { padding: 18px 20px; }
+  .slack-msg { display: flex; gap: 12px; padding: 8px 0; }
+  .slack-msg + .slack-msg { padding-top: 14px; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 8px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: #fff;
+  }
+  .avatar-blue   { background: #3B82F6; }
+  .avatar-indigo { background: var(--echo-indigo); }
+
+  .msg-body { flex: 1; min-width: 0; }
+  .msg-header {
+    display: flex; align-items: baseline; gap: 8px;
+    margin-bottom: 3px; font-size: 14px;
+  }
+  .msg-header strong { color: var(--slate-900); font-weight: 700; }
+  .msg-time { font-size: 12px; color: var(--slate-400); }
+  .bot-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+    background: var(--slate-100); color: var(--slate-500);
+    padding: 1px 5px; border-radius: 3px;
+  }
+  .msg-text { font-size: 15px; color: var(--slate-700); line-height: 1.5; }
+
+  /* Bot reply — a more elaborate block with FAQ suggestion + buttons */
+  .bot-reply {
+    margin-top: 6px;
+    border-left: 3px solid var(--echo-indigo);
+    padding: 8px 14px;
+    background: var(--echo-indigo-50);
+    border-radius: 0 8px 8px 0;
+  }
+  .bot-reply-header {
+    font-size: 13px; font-weight: 600;
+    color: var(--echo-indigo-700);
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .bot-reply-q {
+    font-size: 14px; font-weight: 700; color: var(--slate-900);
+    margin: 0 0 4px;
+  }
+  .bot-reply-a {
+    font-size: 13px; color: var(--slate-700);
+    margin: 0 0 10px;
+  }
+  .bot-reply-meta {
+    font-size: 12px; color: var(--slate-500);
+    margin: 0 0 10px;
+  }
+  .bot-reply-meta strong { color: var(--slate-700); font-weight: 600; }
+  .bot-reply-actions {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .bot-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 12px; border-radius: 6px;
+    font-size: 12px; font-weight: 600;
+    background: #fff; border: 1px solid var(--slate-200);
+    color: var(--slate-700);
+  }
+  .bot-btn-primary {
+    background: var(--echo-indigo); color: #fff; border-color: var(--echo-indigo);
+  }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M21 11.5C21 16.1944 16.9706 20 12 20C10.6698 20 9.40698 19.7346 8.27117 19.2612L3 21L4.60627 16.3213C3.60195 14.9458 3 13.292 3 11.5C3 6.80558 7.02944 3 12 3C16.9706 3 21 6.80558 21 11.5Z" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M12 15.5V8.5" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+      <path d="M15 14V10" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="brand-name">Echo-<span>Synch</span></span>
+  </div>
+
+  <div class="frame">
+    <div class="copy">
+      <p class="eyebrow">01 · Detect</p>
+      <h1 class="title">It listens.<br>Quietly.</h1>
+      <p class="body">
+        Every IT request lands in Slack. Echo-Synch sees it instantly,
+        suggests an answer from your knowledge base, and prompts your
+        team to triage.
+      </p>
+    </div>
+
+    <div class="visual">
+      <div class="card slack-mock">
+        <div class="window-chrome">
+          <div class="window-dots"><span></span><span></span><span></span></div>
+          <div class="window-title slack-channel-title">it-help</div>
+        </div>
+        <div class="slack-body">
+          <!-- User message -->
+          <div class="slack-msg">
+            <div class="avatar avatar-blue">M</div>
+            <div class="msg-body">
+              <div class="msg-header">
+                <strong>Maria</strong>
+                <span class="msg-time">9:42 AM</span>
+              </div>
+              <div class="msg-text">
+                Need to understand how to change the language settings on my dashboard
+                — anyone from IT around?
+              </div>
+            </div>
+          </div>
+
+          <!-- Bot reply -->
+          <div class="slack-msg">
+            <div class="avatar avatar-indigo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 11.5C21 16.1944 16.9706 20 12 20C10.6698 20 9.40698 19.7346 8.27117 19.2612L3 21L4.60627 16.3213C3.60195 14.9458 3 13.292 3 11.5C3 6.80558 7.02944 3 12 3C16.9706 3 21 6.80558 21 11.5Z"/>
+                <path d="M9 14V10"/><path d="M12 15.5V8.5"/><path d="M15 14V10"/>
+              </svg>
+            </div>
+            <div class="msg-body">
+              <div class="msg-header">
+                <strong>Echo-Synch</strong>
+                <span class="bot-tag">APP</span>
+                <span class="msg-time">just now</span>
+              </div>
+              <div class="bot-reply">
+                <div class="bot-reply-header">
+                  <span>🤖 Suggested answer from the knowledge base</span>
+                </div>
+                <p class="bot-reply-q">How to change language?</p>
+                <p class="bot-reply-a">Check the configuration material.</p>
+                <p class="bot-reply-meta">
+                  Confidence: <strong>medium (75%)</strong> · Only your IT team can rate or close.
+                </p>
+                <div class="bot-reply-actions">
+                  <span class="bot-btn">🔗 Visit link</span>
+                  <span class="bot-btn">👍 Helpful</span>
+                  <span class="bot-btn">👎 Not relevant</span>
+                  <span class="bot-btn">✅ Close as resolved</span>
+                  <span class="bot-btn bot-btn-primary">🏷️ Label this request</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
