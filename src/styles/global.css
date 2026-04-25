@@ -261,6 +261,23 @@ img { max-width: 100%; height: auto; display: block; }
   border-color: color-mix(in oklab, var(--status-rose) 25%, white);
 }
 
+/* Pre-launch "Coming soon" pill. Used next to every primary "Add to Slack"
+ * CTA while we wait for Slack Directory approval. Subtle amber so it
+ * signals "not yet" without competing visually with the CTA itself. The
+ * dot before the text is the same pulse animation as the footer's
+ * "All systems operational" — same vocabulary across the site. */
+.mk-pill-coming-soon {
+  background: color-mix(in oklab, var(--status-amber) 12%, white);
+  color: #B45309;
+  border-color: color-mix(in oklab, var(--status-amber) 30%, white);
+}
+.mk-pill-coming-soon::before {
+  content: ''; width: 6px; height: 6px;
+  background: var(--status-amber); border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite;
+}
+
 /* ============================================================
    Footer
    ============================================================ */

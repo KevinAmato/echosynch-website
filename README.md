@@ -34,7 +34,28 @@ Target: **Cloudflare Pages** (matches `api.echo-synch.com` already on Cloudflare
 4. Custom domain: `echo-synch.com` (apex) + `www.echo-synch.com` redirect
 5. The `public/_redirects` file handles the .html → clean-URL rewrites
 
-No env vars required — the site is fully static and never talks to a backend.
+### Environment variables (Cloudflare Pages → Settings → Environment variables)
+
+The site is fully static **except** for the `/api/waitlist` Pages Function
+which collects emails while we wait for Slack Directory approval. It needs:
+
+| Variable | Required | Default | What it's for |
+|---|---|---|---|
+| `RESEND_API_KEY` | yes | — | Full-access Resend API key (separate from the SMTP key) |
+| `RESEND_AUDIENCE_ID` | yes | — | UUID of a Resend audience named "echo-synch-waitlist" — create in Resend dashboard → Audiences |
+| `WAITLIST_NOTIFY_TO` | no | `support@echo-synch.com` | Where signup notifications land |
+| `WAITLIST_NOTIFY_FROM` | no | `Echo-Synch Waitlist <support@echo-synch.com>` | From address — must be on a Resend-verified domain |
+
+**One-time Resend setup:**
+1. Resend dashboard → **Audiences** → **Add audience** → name `echo-synch-waitlist`
+2. Copy the audience UUID — paste as `RESEND_AUDIENCE_ID`
+3. Resend dashboard → **API Keys** → create a "Full access" key (the SMTP-only key won't work for the audiences API) — paste as `RESEND_API_KEY`
+4. Set both in Cloudflare Pages → Production scope, then redeploy
+
+When Slack Directory approval lands, replace each `data-waitlist` button
+attribute across the site with `href="https://api.echo-synch.com/slack/install"`
+and remove the "Coming soon" pills. The Pages Function can stay — it's
+useful for any future "notify me" flows (new tier launches, etc.).
 
 ## Page map
 

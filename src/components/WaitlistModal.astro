@@ -1,0 +1,364 @@
+---
+// WaitlistModal — singleton modal triggered by every "Add to Slack" CTA on
+// the site while we wait for Slack Directory approval (~2-3 weeks).
+//
+// Trigger model: any element with `data-waitlist` opens the modal. Replaces
+// the previous direct-to-Slack-install CTAs without changing their visual
+// affordance — buttons still look the same, they just open a modal first.
+//
+// Why a singleton (one modal in Layout) rather than per-page modals: the
+// modal contains JS event handlers; duplicating them across pages would
+// require either Astro client islands or duplicate inline scripts. One
+// instance in the Layout is rendered into every page automatically.
+//
+// Lifecycle:
+//   1. User clicks any [data-waitlist] element → modal opens
+//   2. Modal shows email input + "Notify me" button
+//   3. On submit, POST /api/waitlist with { email, source }
+//      where `source` = the data-waitlist value of the triggering button
+//      (e.g. "hero", "pricing-pro") so we can later see which CTA converted
+//   4. On 200, modal switches to a success state
+//   5. On error, inline error message under the input
+//
+// Accessibility:
+//   - Focus trapped inside modal while open (Tab/Shift+Tab cycle)
+//   - Escape key closes
+//   - Click outside closes
+//   - Focus returns to the triggering element on close
+//   - aria-modal + role=dialog
+---
+
+<dialog
+  id="waitlist-modal"
+  class="waitlist-modal"
+  aria-labelledby="waitlist-title"
+  aria-describedby="waitlist-description"
+>
+  <button
+    type="button"
+    class="waitlist-close"
+    data-waitlist-close
+    aria-label="Close waitlist signup"
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+
+  <!-- Default state: form -->
+  <div class="waitlist-state" data-waitlist-state="form">
+    <div class="waitlist-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+    </div>
+    <h2 id="waitlist-title" class="waitlist-title">
+      Echo-Synch is awaiting Slack approval
+    </h2>
+    <p id="waitlist-description" class="waitlist-body">
+      Slack Directory review takes 2–3 weeks. Drop your email and we'll
+      message you the moment Echo-Synch goes live — once only, no marketing.
+    </p>
+
+    <form class="waitlist-form" id="waitlist-form" novalidate>
+      <label class="waitlist-label" for="waitlist-email">Work email</label>
+      <input
+        type="email"
+        id="waitlist-email"
+        name="email"
+        class="waitlist-input"
+        placeholder="you@company.com"
+        required
+        autocomplete="email"
+      />
+      <p class="waitlist-error" data-waitlist-error hidden></p>
+      <button type="submit" class="waitlist-submit" data-waitlist-submit>
+        <span data-waitlist-submit-text>Notify me at launch</span>
+        <span class="waitlist-spinner" data-waitlist-spinner hidden aria-hidden="true"></span>
+      </button>
+
+      <p class="waitlist-fineprint">
+        We use <a href="https://resend.com" target="_blank" rel="noopener noreferrer">Resend</a> to manage the launch list — already documented in our <a href="/dpa#annex-1">DPA</a>. We'll only email you about the launch. <a href="/privacy">Privacy policy.</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- Success state -->
+  <div class="waitlist-state" data-waitlist-state="success" hidden>
+    <div class="waitlist-icon waitlist-icon-success">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h2 class="waitlist-title">You're on the list</h2>
+    <p class="waitlist-body">
+      We'll email <strong data-waitlist-confirmed-email></strong> as soon as
+      Echo-Synch is live in the Slack Directory. Until then, no spam.
+    </p>
+    <button type="button" class="waitlist-submit" data-waitlist-close>
+      Close
+    </button>
+  </div>
+</dialog>
+
+<style>
+  .waitlist-modal {
+    /* Reset native <dialog> defaults — they vary across browsers. */
+    border: none; padding: 0; background: transparent;
+    color: inherit; max-width: none; max-height: none;
+  }
+  .waitlist-modal::backdrop {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .waitlist-modal[open] {
+    /* Center-screen positioning. <dialog>'s default centring is fine but
+     * we add explicit width and the design-system spacing here. */
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 32px);
+    max-width: 460px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 32px;
+    box-shadow: var(--shadow-xl);
+    animation: waitlist-modal-in 220ms var(--ease-out);
+  }
+  @keyframes waitlist-modal-in {
+    from { opacity: 0; transform: translate(-50%, -46%); }
+    to   { opacity: 1; transform: translate(-50%, -50%); }
+  }
+
+  .waitlist-close {
+    position: absolute; top: 14px; right: 14px;
+    width: 32px; height: 32px;
+    border: none; background: transparent;
+    color: var(--fg-3); cursor: pointer;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 160ms, color 160ms;
+  }
+  .waitlist-close:hover { background: var(--slate-100); color: var(--fg-1); }
+
+  .waitlist-icon {
+    width: 56px; height: 56px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--echo-indigo-50);
+    color: var(--echo-indigo);
+    border-radius: 14px;
+    margin-bottom: 18px;
+  }
+  .waitlist-icon-success {
+    background: color-mix(in oklab, var(--status-emerald) 12%, white);
+    color: var(--status-emerald);
+  }
+
+  .waitlist-title {
+    font-size: 22px; font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--fg-1); margin: 0 0 10px;
+    line-height: 1.2;
+  }
+  .waitlist-body {
+    font-size: 14.5px; color: var(--fg-2); line-height: 1.6;
+    margin: 0 0 20px;
+  }
+
+  .waitlist-form { display: flex; flex-direction: column; gap: 10px; }
+  .waitlist-label {
+    font-size: 12px; font-weight: 600;
+    color: var(--fg-2);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .waitlist-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-subtle);
+    border-radius: 12px;
+    font-size: 15px;
+    color: var(--fg-1);
+    font-family: inherit;
+    transition: border-color 160ms, box-shadow 160ms;
+  }
+  .waitlist-input:focus {
+    outline: none;
+    border-color: var(--echo-indigo);
+    box-shadow: 0 0 0 4px var(--echo-indigo-50);
+  }
+  .waitlist-input.is-error {
+    border-color: var(--status-rose);
+    box-shadow: 0 0 0 4px var(--status-rose-50);
+  }
+
+  .waitlist-error {
+    font-size: 13px; color: var(--status-rose);
+    margin: -2px 0 0; line-height: 1.5;
+  }
+
+  .waitlist-submit {
+    margin-top: 8px;
+    padding: 13px 18px;
+    background: var(--echo-indigo);
+    color: #fff;
+    border: none; border-radius: 12px;
+    font-size: 14.5px; font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 160ms, box-shadow 160ms;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .waitlist-submit:hover { background: var(--echo-indigo-600); box-shadow: var(--shadow-indigo); }
+  .waitlist-submit:disabled { opacity: 0.6; cursor: wait; }
+
+  .waitlist-spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: waitlist-spin 0.7s linear infinite;
+  }
+  @keyframes waitlist-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .waitlist-fineprint {
+    font-size: 12px; color: var(--fg-4); line-height: 1.55;
+    margin: 12px 0 0;
+  }
+  .waitlist-fineprint a { color: var(--fg-3); text-decoration: underline; }
+  .waitlist-fineprint a:hover { color: var(--echo-indigo); }
+</style>
+
+<script>
+  // Singleton modal controller. Bound once on DOMContentLoaded; survives
+  // page-level interactions because Astro emits static HTML and we're not
+  // doing client-side routing.
+
+  (function () {
+    const modal = document.getElementById('waitlist-modal') as HTMLDialogElement | null;
+    if (!modal) return;
+
+    const form = modal.querySelector<HTMLFormElement>('#waitlist-form');
+    const emailInput = modal.querySelector<HTMLInputElement>('#waitlist-email');
+    const errorEl = modal.querySelector<HTMLElement>('[data-waitlist-error]');
+    const submitBtn = modal.querySelector<HTMLButtonElement>('[data-waitlist-submit]');
+    const submitText = modal.querySelector<HTMLElement>('[data-waitlist-submit-text]');
+    const spinner = modal.querySelector<HTMLElement>('[data-waitlist-spinner]');
+    const formState = modal.querySelector<HTMLElement>('[data-waitlist-state="form"]');
+    const successState = modal.querySelector<HTMLElement>('[data-waitlist-state="success"]');
+    const confirmedEmail = modal.querySelector<HTMLElement>('[data-waitlist-confirmed-email]');
+
+    let lastTrigger: HTMLElement | null = null;
+
+    // ----- Open / close -----
+
+    function open(trigger: HTMLElement) {
+      lastTrigger = trigger;
+      // Reset to form state in case modal was previously closed in success state
+      if (formState) formState.hidden = false;
+      if (successState) successState.hidden = true;
+      if (errorEl) errorEl.hidden = true;
+      if (emailInput) {
+        emailInput.classList.remove('is-error');
+        emailInput.value = '';
+      }
+      modal.showModal();
+      // Defer focus so the modal's animation doesn't fight focus ring
+      requestAnimationFrame(() => emailInput?.focus());
+    }
+
+    function close() {
+      modal.close();
+      // Return focus to the element that opened the modal — required for a11y
+      lastTrigger?.focus?.();
+      lastTrigger = null;
+    }
+
+    // ----- Wire opens (every [data-waitlist] element) -----
+
+    document.querySelectorAll<HTMLElement>('[data-waitlist]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        // For <a href="#waitlist"> we don't want the page to scroll
+        e.preventDefault();
+        open(el);
+      });
+    });
+
+    // ----- Wire closes -----
+
+    modal.querySelectorAll<HTMLElement>('[data-waitlist-close]').forEach((el) => {
+      el.addEventListener('click', close);
+    });
+    // Click on the backdrop closes (native <dialog> doesn't do this by
+    // default — it forwards backdrop clicks to the dialog itself).
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) close();
+    });
+    // Escape is handled natively by <dialog>; no extra listener needed.
+
+    // ----- Submit handler -----
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!emailInput || !errorEl || !submitBtn || !submitText || !spinner) return;
+
+      const email = emailInput.value.trim();
+      if (!isValidEmail(email)) {
+        emailInput.classList.add('is-error');
+        errorEl.textContent = 'That doesn\'t look like a valid email.';
+        errorEl.hidden = false;
+        emailInput.focus();
+        return;
+      }
+
+      // Loading state
+      emailInput.classList.remove('is-error');
+      errorEl.hidden = true;
+      submitBtn.disabled = true;
+      submitText.textContent = 'Adding you to the list';
+      spinner.hidden = false;
+
+      try {
+        const source = lastTrigger?.getAttribute('data-waitlist') || 'unknown';
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email, source }),
+        });
+
+        if (!res.ok) {
+          let msg = 'Something went wrong on our end. Try again in a moment.';
+          try {
+            const data = await res.json();
+            if (data?.error === 'invalid_email') msg = 'That email looks invalid — double-check the format.';
+            else if (data?.error === 'rate_limited') msg = 'Too many attempts. Try again in a few minutes.';
+          } catch { /* keep default message */ }
+          throw new Error(msg);
+        }
+
+        // Success — flip to success state
+        if (confirmedEmail) confirmedEmail.textContent = email;
+        if (formState) formState.hidden = true;
+        if (successState) successState.hidden = false;
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : 'Something went wrong. Try again.';
+        errorEl.textContent = msg;
+        errorEl.hidden = false;
+        emailInput.classList.add('is-error');
+      } finally {
+        submitBtn.disabled = false;
+        submitText.textContent = 'Notify me at launch';
+        spinner.hidden = true;
+      }
+    });
+
+    function isValidEmail(s: string): boolean {
+      // Pragmatic validation, not RFC-perfect. Catches obvious typos
+      // (no @, no TLD); the server-side validator does the strict check.
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);
+    }
+  })();
+</script>
