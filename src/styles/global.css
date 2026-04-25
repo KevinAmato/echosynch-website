@@ -1,0 +1,433 @@
+/* Echo-Synch marketing site — global styles
+ *
+ * Strategy:
+ *   1. tokens.css carries the brand source-of-truth (colors, type scale,
+ *      shadows, motion). It's identical to the Echo-Synch design system's
+ *      colors_and_type.css — no drift allowed.
+ *   2. This file adds the marketing-site chrome (nav, footer, prose) that
+ *      isn't part of the dashboard's design system. Naming matches the
+ *      `mk-*` prefix from Design Guidance/ui_kits/marketing/shared.css so
+ *      anyone reading both files sees the lineage.
+ *   3. Animation utilities (the signature hero "movie") live at the bottom.
+ *
+ * Browser baseline: evergreen only. We use backdrop-filter, CSS Grid,
+ * clamp(), and modern color-mix() in places — Cloudflare Pages serves
+ * over HTTP/2 with Brotli, the bundle is tiny enough that we don't need
+ * old-IE fallbacks.
+ */
+
+@import "./tokens.css";
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #fff;
+  color: var(--fg-1);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+}
+a { color: var(--echo-indigo); text-decoration: none; }
+a:hover { text-decoration: underline; }
+::selection { background: var(--echo-indigo-100); color: var(--echo-indigo-700); }
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* Reduced motion: kill the looping hero "movie" so users with
+ * prefers-reduced-motion get a static composition (Sync-o omitted this
+ * guard — we don't). Each animated element lists this rule below. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   Layout primitives
+   ============================================================ */
+
+.mk-container {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+.mk-container-narrow {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* The one allowed gradient. Used behind hero / sign-in / CTA blocks only. */
+.indigo-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%,
+    rgba(79, 70, 229, 0.12), transparent 60%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   Nav
+   ============================================================ */
+
+.mk-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+  height: 64px;
+  display: flex; align-items: center;
+}
+.mk-nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%;
+}
+.mk-brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.mk-brand:hover { text-decoration: none; }
+.mk-brand img { width: 28px; height: 28px; }
+.mk-brand-name {
+  font-weight: 800; font-size: 18px;
+  color: var(--fg-1); letter-spacing: -0.02em;
+}
+.mk-brand-name span { color: var(--echo-indigo); }
+
+.mk-navlinks { display: flex; gap: 28px; align-items: center; }
+.mk-navlinks a {
+  font-size: 14px; font-weight: 500;
+  color: var(--fg-3); text-decoration: none;
+  transition: color 160ms;
+}
+.mk-navlinks a:hover, .mk-navlinks a.active {
+  color: var(--echo-indigo); text-decoration: none;
+}
+
+.mk-nav-actions { display: flex; gap: 10px; align-items: center; }
+.mk-nav-signin {
+  font-size: 14px; font-weight: 500;
+  color: var(--fg-2); text-decoration: none;
+}
+.mk-nav-signin:hover { color: var(--echo-indigo); text-decoration: none; }
+
+/* ============================================================
+   Buttons (matches dashboard's PrimaryCTA / SecondaryCTA)
+   ============================================================ */
+
+.mk-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-radius: 12px;
+  font-size: 14px; font-weight: 600;
+  text-decoration: none;
+  transition: all 180ms var(--ease-out);
+  cursor: pointer; border: 1px solid transparent;
+  white-space: nowrap;
+}
+.mk-btn:hover { text-decoration: none; }
+.mk-btn:active { transform: scale(0.98); transition-duration: 60ms; }
+
+.mk-btn-primary {
+  background: var(--echo-indigo);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.mk-btn-primary:hover {
+  background: var(--echo-indigo-600);
+  box-shadow: var(--shadow-indigo);
+  color: #fff;
+}
+
+.mk-btn-secondary {
+  background: #fff;
+  border-color: var(--border-subtle);
+  color: var(--fg-2);
+}
+.mk-btn-secondary:hover {
+  border-color: var(--border-strong);
+  background: var(--slate-50);
+  color: var(--fg-1);
+}
+
+.mk-btn-ghost {
+  background: transparent;
+  color: var(--fg-2);
+}
+.mk-btn-ghost:hover {
+  background: var(--slate-50);
+  color: var(--echo-indigo);
+}
+
+.mk-btn-lg { padding: 14px 22px; font-size: 15px; border-radius: 14px; }
+
+/* ============================================================
+   Typography utilities
+   ============================================================ */
+
+.mk-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--echo-indigo);
+  margin: 0 0 16px;
+}
+.mk-display {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 800; letter-spacing: -0.025em;
+  line-height: 1.05; color: var(--fg-1);
+  margin: 0;
+}
+.mk-h2 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700; letter-spacing: -0.02em;
+  line-height: 1.15; color: var(--fg-1);
+  margin: 0 0 16px;
+}
+.mk-lead {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.6; color: var(--fg-2);
+  margin: 0;
+}
+.mk-mono { font-family: var(--font-mono); }
+
+/* Mention pill — used inside Slack-message mockups to render @user, #channel,
+ * /slash-commands. Indigo on echo-indigo-50, mono. Borrowed from dashboard
+ * globals.css. Don't use it outside Slack-mock contexts. */
+.mention {
+  display: inline-block;
+  padding: 1px 6px; border-radius: 6px;
+  font-family: var(--font-mono); font-size: 0.85em;
+  background: var(--echo-indigo-50);
+  color: var(--echo-indigo-700);
+  border: 1px solid var(--echo-indigo-100);
+}
+
+/* ============================================================
+   Section + card patterns
+   ============================================================ */
+
+.mk-section { padding: 96px 0; }
+.mk-section-tight { padding: 64px 0; }
+.mk-section-dark {
+  background: var(--slate-900);
+  color: #fff;
+}
+.mk-section-dark .mk-display,
+.mk-section-dark .mk-h2 { color: #fff; }
+.mk-section-dark .mk-lead { color: rgba(255,255,255,0.72); }
+
+.mk-card {
+  background: #fff;
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
+}
+.mk-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.mk-card-tinted {
+  /* The "highlighted" card pattern — used for the recommended pricing tier
+   * or the "Pro tier" feature card. Don't overuse: at most one per section. */
+  background: color-mix(in oklab, var(--echo-indigo-50), white 50%);
+  border-color: var(--echo-indigo-100);
+}
+
+.mk-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 9999px;
+  font-size: 12px; font-weight: 600;
+  background: var(--echo-indigo-50);
+  color: var(--echo-indigo-700);
+  border: 1px solid var(--echo-indigo-100);
+}
+.mk-pill-status-emerald {
+  background: color-mix(in oklab, var(--status-emerald) 10%, white);
+  color: var(--status-emerald);
+  border-color: color-mix(in oklab, var(--status-emerald) 25%, white);
+}
+.mk-pill-status-rose {
+  background: var(--status-rose-50);
+  color: var(--status-rose);
+  border-color: color-mix(in oklab, var(--status-rose) 25%, white);
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.mk-footer {
+  background: #fff;
+  border-top: 1px solid var(--border-subtle);
+  padding: 64px 0 32px;
+  margin-top: 96px;
+}
+.mk-footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 48px; margin-bottom: 48px;
+}
+.mk-footer h4 {
+  font-size: 12px; font-weight: 700;
+  color: var(--fg-1); text-transform: uppercase; letter-spacing: 0.08em;
+  margin: 0 0 16px;
+}
+.mk-footer ul {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.mk-footer ul a { font-size: 14px; color: var(--fg-3); text-decoration: none; }
+.mk-footer ul a:hover { color: var(--echo-indigo); }
+.mk-footer-desc {
+  font-size: 14px; color: var(--fg-3); line-height: 1.6;
+  max-width: 280px; margin: 16px 0 0;
+}
+.mk-footer-bottom {
+  padding-top: 28px; border-top: 1px solid var(--border-subtle);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: var(--fg-4); flex-wrap: wrap; gap: 16px;
+}
+.mk-footer-status {
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.mk-footer-status::before {
+  content: ''; width: 8px; height: 8px;
+  background: var(--status-emerald); border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ============================================================
+   Long-form prose (privacy / terms / dpa / trust / support)
+   ============================================================ */
+
+.mk-pageheader {
+  padding: 96px 0 56px;
+  background: linear-gradient(180deg, var(--slate-50) 0%, #fff 100%);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.mk-prose { max-width: 760px; margin: 0 auto; padding: 56px 24px 32px; }
+.mk-prose h2 {
+  font-size: 28px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--fg-1); margin: 56px 0 16px; line-height: 1.2;
+}
+.mk-prose h2:first-child { margin-top: 0; }
+.mk-prose h3 {
+  font-size: 18px; font-weight: 600; color: var(--fg-1);
+  margin: 32px 0 10px;
+}
+.mk-prose p, .mk-prose li {
+  font-size: 16px; color: var(--fg-2); line-height: 1.7;
+}
+.mk-prose p { margin: 0 0 18px; }
+.mk-prose ul { margin: 0 0 22px; padding-left: 22px; }
+.mk-prose li { margin-bottom: 8px; }
+.mk-prose strong { color: var(--fg-1); font-weight: 600; }
+.mk-prose code {
+  font-family: var(--font-mono); font-size: 13px;
+  background: var(--slate-100); padding: 2px 6px; border-radius: 4px;
+}
+.mk-prose hr {
+  border: 0; border-top: 1px solid var(--border-subtle);
+  margin: 48px 0;
+}
+.mk-prose table {
+  width: 100%; border-collapse: collapse; margin: 24px 0;
+  font-size: 14px;
+}
+.mk-prose th, .mk-prose td {
+  text-align: left; padding: 12px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.mk-prose th {
+  background: var(--slate-50);
+  font-weight: 600; color: var(--fg-1);
+  font-size: 13px;
+}
+
+/* ============================================================
+   Hero animation — the "signature movie"
+   See HeroAnimation.astro for the choreography.
+   ============================================================ */
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes beam-flow-h {
+  /* Indigo beam flowing left → right along a horizontal track. The track
+   * itself is 1px tall slate-200; the beam is a 60px-wide gradient that
+   * rides on top with mix-blend-mode: multiply. */
+  0%   { transform: translateX(-100%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateX(calc(100% + 60px)); opacity: 0; }
+}
+
+@keyframes ping-once {
+  0%   { transform: scale(0.8); opacity: 0; }
+  10%  { transform: scale(1.05); opacity: 1; }
+  20%  { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typing-dots {
+  0%, 20% { content: '·'; }
+  40% { content: '··'; }
+  60%, 100% { content: '···'; }
+}
+
+/* ============================================================
+   FAQ accordion (used on / and /support)
+   ============================================================ */
+
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: #fff; border: 1px solid var(--border-subtle); border-radius: 12px;
+  padding: 18px 22px;
+  transition: border-color 180ms;
+}
+.faq-item[open] {
+  border-color: var(--echo-indigo-100);
+  background: color-mix(in oklab, var(--echo-indigo-50), white 70%);
+}
+.faq-item summary {
+  cursor: pointer; list-style: none;
+  font-size: 15px; font-weight: 600; color: var(--fg-1);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.faq-item summary::after {
+  content: '+'; font-size: 22px; color: var(--echo-indigo);
+  transition: transform 200ms;
+  line-height: 1;
+}
+.faq-item[open] summary::after { content: '−'; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item p { margin: 12px 0 0; font-size: 14.5px; color: var(--fg-2); line-height: 1.65; }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 760px) {
+  .mk-section { padding: 64px 0; }
+  .mk-footer { padding: 48px 0 24px; margin-top: 64px; }
+  .mk-footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .mk-navlinks { display: none; }
+  .mk-pageheader { padding: 64px 0 40px; }
+  .mk-prose { padding: 32px 24px; }
+}

@@ -1,0 +1,174 @@
+---
+// /support — Support & FAQ page.
+//
+// Adapted from Thread-Patrol's support.html. Most of the content is
+// product-specific so we rewrite, not copy. Structure (What is Echo-Synch
+// / How it works / FAQ / Troubleshooting / Contact) lifts from TP. The
+// JSON-LD FAQPage schema is regenerated for our actual Q&As — Google
+// flags drift between visible content and schema.
+
+import Layout from '../layouts/Layout.astro';
+
+const APP_URL = 'https://app.echo-synch.com';
+const INSTALL_URL = 'https://api.echo-synch.com/slack/install';
+const HEALTH_URL = 'https://api.echo-synch.com/health';
+
+// Q&As for both visible content and the FAQPage JSON-LD. Single source
+// of truth — no chance of the schema drifting from what's on screen.
+const faqs = [
+  {
+    q: 'Is Echo-Synch free?',
+    a: 'Echo-Synch is a paid product, but every install gets a 14-day Enterprise trial with no credit card required. After the trial, paid plans start at €12 per agent per month (Pro) or €22 per agent per month (Enterprise). Requestors — the people submitting IT requests — never count toward the agent seat count.',
+  },
+  {
+    q: 'How do I add Echo-Synch to a channel?',
+    a: 'Open the channel in Slack and run /invite @Echo-Synch. The bot starts watching new messages immediately. You can also add channels from the dashboard\'s Settings page after install.',
+  },
+  {
+    q: 'How do I remove Echo-Synch from a channel?',
+    a: 'Run /remove @Echo-Synch or /kick @Echo-Synch in the channel, or open the channel\'s "Integrations" tab and remove the app. The bot stops monitoring the channel; existing tickets in your dashboard are preserved.',
+  },
+  {
+    q: 'What data does Echo-Synch access or store?',
+    a: 'Only what we need to triage IT requests: messages in channels you explicitly add the bot to, the AI-generated label/priority/summary, SLA timer state, and your Slack user roster (for the team picker). Original message text is auto-scrubbed at your configured retention window (default 30 days). All data is hard-deleted within one hour of uninstall. Full details in our Privacy Policy.',
+  },
+  {
+    q: 'Why didn\'t the bot triage a specific message?',
+    a: 'Echo-Synch only triages messages posted in channels you\'ve added it to. Bot messages, edits, and direct DMs are ignored. If you expected a message to be triaged but it wasn\'t, check that the channel is in the monitored channel list on your dashboard\'s Settings page.',
+  },
+  {
+    q: 'Can I bring my own AI provider (BYOM)?',
+    a: 'Yes — Enterprise tier. Configure your own Google Gemini API key in the dashboard\'s Settings page and Echo-Synch routes all triage AI calls through your account. Your IT request data never reaches Echo-Synch\'s AI infrastructure. See the Trust Center for details.',
+  },
+  {
+    q: 'What happens when my trial expires?',
+    a: 'You receive reminder DMs at 7, 5, 3, 2, and 1 days before expiry. On the expiry day, Echo-Synch stops triaging new requests and the dashboard becomes read-locked. Your existing data is intact — re-subscribe at any time and the bot resumes immediately, no reinstall needed.',
+  },
+  {
+    q: 'How do SLAs work?',
+    a: 'Enterprise tier feature. You configure first-response and resolution windows per priority level (e.g. Critical = 1h first response, 4h resolution). When a request is labeled, Echo-Synch starts the clock. Warning DMs go to the assignee 30 minutes before a deadline; breach alerts go to all admins and triage members on the deadline itself. SLA configuration lives in the dashboard\'s Settings page.',
+  },
+  {
+    q: 'Does Echo-Synch work with Microsoft Teams?',
+    a: 'Not yet. Echo-Synch is Slack-only by design — that\'s why the integration is deep. Teams support is on the roadmap but won\'t ship before paying customer demand justifies the rebuild.',
+  },
+  {
+    q: 'How can I check if Echo-Synch is working?',
+    a: `Visit the public health endpoint: ${HEALTH_URL}. It returns a JSON status payload. If you suspect a workspace-specific issue, the dashboard\'s Settings page shows your last-sync time and any pending background jobs.`,
+  },
+  {
+    q: 'How do I cancel my subscription?',
+    a: 'Open the dashboard, go to Settings → Billing, and click "Manage billing" to reach the LemonSqueezy customer portal. From there you can cancel — your subscription remains active until the end of the current billing period, then the workspace locks. Re-subscribe any time to resume.',
+  },
+  {
+    q: 'I uninstalled by accident — can I recover my data?',
+    a: 'Reinstall within one hour and your data is preserved (the deletion job runs hourly). After one hour, deletion is permanent and cannot be reversed.',
+  },
+];
+---
+
+<Layout
+  title="Support &amp; FAQ — Echo-Synch"
+  description="How to install, configure, and troubleshoot Echo-Synch — plus how to reach a human."
+>
+  <header class="mk-pageheader">
+    <div class="mk-container-narrow">
+      <p class="mk-eyebrow">Help</p>
+      <h1 class="mk-display">Support &amp; FAQ</h1>
+      <p class="mk-lead">
+        Common questions, troubleshooting steps, and how to reach a human
+        when those don't help.
+      </p>
+    </div>
+  </header>
+
+  <article class="mk-prose">
+    <h2>What is Echo-Synch?</h2>
+    <p>
+      Echo-Synch is a Slack-native IT request triage bot. It watches the
+      channels you tell it to (e.g. <code>#it-help</code>), auto-categorises
+      every request using AI, tracks SLA windows per priority level, and
+      keeps the queue visible via a web dashboard and a daily channel digest.
+    </p>
+    <p>
+      It's built for IT teams whose workflow already lives in Slack — the
+      people who don't want to context-switch into a separate ticketing
+      system but still need accountability and SLA tracking for the work
+      that arrives.
+    </p>
+
+    <h2>How it works</h2>
+    <ol>
+      <li><strong>Install.</strong> Click <a href={INSTALL_URL}>Add to Slack</a>. The bot joins as an app and you complete a one-screen consent step.</li>
+      <li><strong>Pick channels.</strong> Open the dashboard at <a href={APP_URL}>app.echo-synch.com</a>, go to Settings, and add the IT-help channels you want monitored.</li>
+      <li><strong>Add your IT team.</strong> Add triage members on the Team page so the bot can round-robin assignments and DM the right people on SLA events.</li>
+      <li><strong>That's it.</strong> The next IT request that lands in a watched channel gets triaged automatically — labelled, prioritised, summarised, and added to the dashboard queue with a running SLA clock.</li>
+    </ol>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq-list">
+      {faqs.map((item) => (
+        <details class="faq-item">
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <h2>Troubleshooting</h2>
+
+    <h3>Bot not responding to messages</h3>
+    <ol>
+      <li><strong>Check the channel is monitored.</strong> Dashboard → Settings → Monitored channels. The channel must be in the list AND active.</li>
+      <li><strong>Check the bot is in the channel.</strong> Type <code>/invite @Echo-Synch</code> in the channel.</li>
+      <li><strong>Check workspace approval.</strong> Some Slack workspaces require admin approval for third-party apps. If your install is pending, ask a workspace admin to approve.</li>
+      <li><strong>Check trial / subscription state.</strong> If the trial expired or the subscription cancelled, the bot stops responding. Re-subscribe from the dashboard's Billing settings.</li>
+      <li><strong>Check the health endpoint.</strong> <a href={HEALTH_URL}>{HEALTH_URL}</a> should return <code>{`{"ok":true}`}</code>.</li>
+    </ol>
+
+    <h3>I don't see a request I posted in the dashboard</h3>
+    <ol>
+      <li>Confirm the channel is monitored (see above).</li>
+      <li>Wait 60 seconds. AI triage runs asynchronously and can take up to a minute on first response.</li>
+      <li>Refresh the dashboard. Threads tab → "All" filter to make sure you're not filtering it out.</li>
+      <li>If still missing, contact support with your Slack workspace ID (the one starting with <code>T</code>).</li>
+    </ol>
+
+    <h2>Contact</h2>
+    <p>
+      Email <a href="mailto:support@echo-synch.com">support@echo-synch.com</a>.
+      We aim to reply within one business day (Italy time).
+    </p>
+    <p>
+      When reporting a bug, please include:
+    </p>
+    <ul>
+      <li>Your Slack workspace ID (the one starting with <code>T</code> — find it in your Slack URL or via <a href={`${APP_URL}/settings`}>dashboard settings</a>).</li>
+      <li>The approximate time the issue occurred (ideally with a UTC timestamp).</li>
+      <li>What you expected to happen vs. what actually happened.</li>
+    </ul>
+    <p>
+      For privacy / GDPR / CCPA requests:
+      <a href="mailto:privacy@echo-synch.com">privacy@echo-synch.com</a>.
+      For security disclosures:
+      <a href="mailto:security@echo-synch.com">security@echo-synch.com</a>.
+    </p>
+  </article>
+
+  <!-- Schema.org FAQPage. Mirrors the visible content above. Google's
+       structured-data validator flags drift between visible content and
+       JSON-LD; using the same `faqs` array as the source above guarantees
+       they stay in sync. -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.a,
+      },
+    })),
+  })} />
+</Layout>

@@ -1,0 +1,277 @@
+---
+// /terms — Terms of Service
+//
+// Adapted from Thread-Patrol's terms.html. The 14-section structure is
+// preserved verbatim because it's the standard SaaS Terms shape; sections
+// 1, 3, and 7 are rewritten for Echo-Synch's product (IT triage, not
+// thread-suggesting) and payment model (LemonSqueezy, not Slack App
+// Directory). Sections 2, 4-6, 8-14 are name-swap-only.
+//
+// Governing law: Italy (Rome). TP's source said Spain/Valencia in copy
+// but Rome in the address — we go with the address-truth, which also
+// matches the actual operator residence.
+
+import Layout from '../layouts/Layout.astro';
+
+const lastUpdated = '25 April 2026';
+---
+
+<Layout
+  title="Terms of Service — Echo-Synch"
+  description="The rules of using Echo-Synch — what you can do with it, what we promise, and what we don't."
+>
+  <header class="mk-pageheader">
+    <div class="mk-container-narrow">
+      <p class="mk-eyebrow">Legal</p>
+      <h1 class="mk-display">Terms of Service</h1>
+      <p class="mk-lead">
+        The rules of using Echo-Synch — what you can do, what we promise,
+        and what we don't.
+      </p>
+      <div style="margin-top: 28px; font-size: 13px; color: var(--fg-3);">
+        Effective date: <code style="background:#fff;padding:2px 8px;border-radius:4px;border:1px solid var(--border-subtle);">{lastUpdated}</code>
+      </div>
+    </div>
+  </header>
+
+  <article class="mk-prose">
+    <p>
+      Welcome to Echo-Synch. These Terms of Service ("Terms") govern your
+      access to and use of the Echo-Synch Slack bot, the companion web
+      dashboard at <code>app.echo-synch.com</code>, and any related
+      services (collectively, the "Service"). By installing or using the
+      Service, you agree to these Terms and our
+      <a href="/privacy">Privacy Policy</a>. If you don't agree, uninstall
+      the Service — every workspace record is hard-deleted within one hour
+      of uninstall.
+    </p>
+    <p>
+      If you are accepting these Terms on behalf of an organisation, you
+      represent that you have authority to bind that organisation to these
+      Terms.
+    </p>
+
+    <h2>1. Description of service</h2>
+    <p>
+      Echo-Synch is a Slack-native IT request triage system. Its primary
+      functions are:
+    </p>
+    <ul>
+      <li>Auto-categorising and prioritising IT requests posted in monitored Slack channels using AI (Google Vertex AI Gemini by default; your own Gemini key under Enterprise BYOM).</li>
+      <li>Tracking SLA windows per priority level, sending warning DMs before deadlines and breach alerts after.</li>
+      <li>Assigning requests to triage team members and exposing the queue via a web dashboard.</li>
+      <li>Posting daily digests of open requests to a configured channel.</li>
+    </ul>
+    <p>
+      Echo-Synch reads message content only from channels you explicitly
+      add it to. It does not delete, edit, or move user messages — its
+      writes are limited to bot-authored replies, ephemeral messages, and
+      Slack reactions on the threads it tracks.
+    </p>
+
+    <h2>2. Slack account and workspace</h2>
+    <p>
+      To use Echo-Synch you must have a valid Slack account and be
+      authorised to install third-party apps in the workspace where you
+      install us. You are responsible for all activity under your Slack
+      account, and you must comply with the
+      <a href="https://slack.com/terms-of-service" target="_blank" rel="noopener">Slack Terms of Service</a>
+      at all times.
+    </p>
+
+    <h2>3. Pricing and subscription terms</h2>
+    <ul>
+      <li>
+        <strong>Free trial.</strong> Every new install includes a 14-day
+        Enterprise trial. No credit card required. Reminder DMs land at
+        days 7, 5, 3, 2, and 1 before expiry, plus on the day of expiry.
+      </li>
+      <li>
+        <strong>Subscription required.</strong> After the trial, continued
+        use requires an active subscription on the Pro or Enterprise tier.
+        If you do not subscribe, the bot stops processing new requests and
+        the dashboard becomes read-locked. Your data is preserved and you
+        can re-subscribe at any time to resume.
+      </li>
+      <li>
+        <strong>Billing via LemonSqueezy.</strong> All subscriptions,
+        billing, and payment processing are handled by LemonSqueezy
+        (Lemon Squeezy LLC), our merchant of record. Card details are held
+        by LemonSqueezy; we receive only subscription metadata.
+      </li>
+      <li>
+        <strong>Service interruption.</strong> Failed payment or expired
+        cards put the subscription into a "past due" state. After
+        LemonSqueezy's grace period, the subscription is cancelled and
+        the workspace is locked.
+      </li>
+      <li>
+        <strong>Refunds.</strong> Subscription fees are non-refundable
+        except where required by applicable consumer-protection law or
+        explicitly stated in writing.
+      </li>
+      <li>
+        <strong>Automatic renewal.</strong> Subscriptions renew at the end
+        of each billing period (monthly or yearly) until cancelled. Cancel
+        any time from the dashboard's billing settings page or directly
+        via the LemonSqueezy customer portal.
+      </li>
+    </ul>
+    <p style="border-left: 3px solid var(--echo-indigo); padding: 8px 16px; background: var(--echo-indigo-50); border-radius: 4px; font-size: 14.5px;">
+      <strong>Service communications.</strong> By installing the Service
+      you consent to receive service-related electronic communications at
+      the email address recorded during Slack OAuth. These include account
+      setup, billing notifications, security alerts, and breaking-change
+      notices. You may not opt out of these essential communications while
+      maintaining an active subscription, but you may cancel your
+      subscription at any time.
+    </p>
+
+    <h2>4. User responsibilities and acceptable use</h2>
+    <p>You agree to:</p>
+    <ul>
+      <li>Comply with all applicable laws and regulations.</li>
+      <li>Comply with the Slack Terms of Service.</li>
+      <li>Be responsible for the content of messages in monitored channels.</li>
+    </ul>
+    <p>You agree NOT to:</p>
+    <ul>
+      <li>Misuse the Service to harass, defame, or violate the rights of others.</li>
+      <li>Reverse-engineer, decompile, or attempt to extract source code from the Service.</li>
+      <li>Attempt to circumvent rate limits, billing controls, or access restrictions.</li>
+      <li>Use the Service for any unlawful purpose.</li>
+    </ul>
+
+    <h2>5. Intellectual property rights</h2>
+    <p>
+      <strong>Our Service.</strong> Echo-Synch and its operator retain all
+      intellectual property rights in the Service, including the bot
+      software, the dashboard, the documentation, and the brand name and
+      marks. You receive no IP rights other than the limited licence to
+      use the Service in accordance with these Terms.
+    </p>
+    <p>
+      <strong>Your data.</strong> You and your organisation retain
+      ownership of all Slack message content, IT request data, and any
+      configuration you provide. We process this data on your behalf as
+      described in the <a href="/privacy">Privacy Policy</a> and the
+      <a href="/dpa">Data Processing Addendum</a>.
+    </p>
+
+    <h2>6. Privacy</h2>
+    <p>
+      Our collection, use, and disclosure of personal information is
+      described in our <a href="/privacy">Privacy Policy</a>, which is
+      incorporated into these Terms by reference. EU/UK customers
+      automatically benefit from our
+      <a href="/dpa">Data Processing Addendum</a> (Article 28 GDPR).
+      California residents have rights described under "California Privacy
+      Rights" in the Privacy Policy.
+    </p>
+
+    <h2>7. Third-party services</h2>
+    <p>The Service relies on the following third-party providers:</p>
+    <ul>
+      <li><strong>Slack</strong> — the core platform. Their availability and policies are outside our control.</li>
+      <li><strong>Google Cloud Platform / Vertex AI / Gemini</strong> — default AI provider for triage.</li>
+      <li><strong>Bring Your Own Model (Enterprise BYOM)</strong> — your own Google Gemini API key, when configured.</li>
+      <li><strong>Amazon Web Services</strong> — hosting and infrastructure.</li>
+      <li><strong>LemonSqueezy</strong> — merchant of record for billing.</li>
+      <li><strong>Cloudflare</strong> — DNS, CDN, and email routing.</li>
+      <li><strong>Resend</strong> — transactional email.</li>
+      <li><strong>Sentry</strong> — error monitoring.</li>
+    </ul>
+    <p>
+      We are not responsible for the practices of these third-party
+      services. Their respective Terms of Service and Privacy Policies
+      govern your use of them where applicable.
+    </p>
+
+    <h2>8. Service availability and modifications</h2>
+    <p>
+      The Service is provided <strong>"as is"</strong> and
+      <strong>"as available"</strong>. We do not warrant uninterrupted or
+      error-free operation. We may modify, suspend, or discontinue any
+      part of the Service at any time, with or without notice. Where a
+      change materially reduces the Service for paid customers we will
+      provide reasonable notice via email.
+    </p>
+
+    <h2>9. Limitation of liability</h2>
+    <p>
+      TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL
+      ECHO-SYNCH, ITS AFFILIATES, OFFICERS, EMPLOYEES, AGENTS, SUPPLIERS,
+      OR LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
+      CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUES,
+      DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM
+      (A) YOUR ACCESS TO OR USE OF OR INABILITY TO ACCESS OR USE THE
+      SERVICE; (B) ANY THIRD-PARTY CONDUCT OR CONTENT ON THE SERVICE;
+      (C) ANY UNAUTHORISED ACCESS, USE, OR ALTERATION OF YOUR
+      TRANSMISSIONS OR CONTENT.
+    </p>
+    <p>
+      OUR TOTAL LIABILITY TO YOU FOR ALL CLAIMS ARISING FROM OR RELATED TO
+      THE SERVICE IS LIMITED TO THE AMOUNT YOU PAID US FOR THE SERVICE IN
+      THE TWELVE MONTHS PRECEDING THE EVENT GIVING RISE TO THE CLAIM, OR
+      €100, WHICHEVER IS GREATER.
+    </p>
+
+    <h2>10. Indemnification</h2>
+    <p>
+      You agree to defend, indemnify, and hold harmless Echo-Synch and its
+      operator from and against any claims, liabilities, damages, losses,
+      and expenses (including reasonable legal fees) arising out of or in
+      any way connected with your access to or use of the Service, your
+      violation of these Terms, or your violation of any third-party right.
+    </p>
+
+    <h2>11. Termination</h2>
+    <p>
+      <strong>By you.</strong> You may stop using the Service and uninstall
+      the bot at any time. Uninstall triggers data deletion within one
+      hour. Cancellation of a paid subscription is effective at the end of
+      the current billing period.
+    </p>
+    <p>
+      <strong>By us.</strong> We may suspend or terminate your access to
+      the Service at our sole discretion, with or without notice, for
+      material breach of these Terms or where required by law. Where we
+      terminate without breach by you, we will refund any prepaid fees on
+      a pro-rata basis.
+    </p>
+    <p>
+      <strong>Effect of termination.</strong> Sections 5, 6, 9, 10, 12,
+      and 14 survive termination.
+    </p>
+
+    <h2>12. Governing law and dispute resolution</h2>
+    <p>
+      These Terms are governed by and construed in accordance with the
+      laws of the Italian Republic, without regard to conflict-of-law
+      principles. Any dispute arising out of or relating to these Terms or
+      the Service that cannot be resolved through good-faith negotiation
+      will be submitted to the exclusive jurisdiction of the courts of
+      Rome, Italy.
+    </p>
+    <p>
+      For consumers resident in the EU/EEA, this clause does not deprive
+      you of the protection afforded by the mandatory provisions of the
+      law of your country of residence.
+    </p>
+
+    <h2>13. Changes to these terms</h2>
+    <p>
+      We may update these Terms from time to time. The "Effective date" at
+      the top of this page reflects the most recent revision. For material
+      changes we will notify the installer via email. Continued use of the
+      Service after the effective date constitutes acceptance of the
+      updated Terms.
+    </p>
+
+    <h2>14. Contact</h2>
+    <p>
+      For legal questions: <a href="mailto:legal@echo-synch.com">legal@echo-synch.com</a>.<br />
+      For general support: <a href="mailto:support@echo-synch.com">support@echo-synch.com</a>.
+    </p>
+  </article>
+</Layout>

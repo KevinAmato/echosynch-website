@@ -1,0 +1,16 @@
+{
+  "name": "echo-synch-pages",
+  "version": "1.0.0",
+  "description": "Marketing site for Echo-Synch — Slack-native IT triage",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
+    "astro": "^6.1.9"
+  }
+}

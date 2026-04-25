@@ -1,0 +1,317 @@
+---
+// /privacy — Privacy Policy
+//
+// Adapted from Thread-Patrol's privacy.html with three categories of edits:
+//
+//   1. Brand swap — ThreadPatrol → Echo-Synch, support@thread-patrol.com →
+//      support@echo-synch.com, etc.
+//   2. Product-specific copy rewrite — TP's "channel organisation /
+//      thread-suggestion" framing replaced by Echo-Synch's IT-request
+//      triage / SLA / labeling framing.
+//   3. Subprocessor + data-schema rewrite — TP's RECENT_CONTEXT_LIST etc.
+//      replaced by our actual schema (workspaces, threads, sla_events,
+//      workspace_users, subscriptions). Stripe replaced by LemonSqueezy.
+//      Resend, Sentry, and Cloudflare added as new subprocessors.
+//
+// Voice + structure are deliberately retained verbatim from TP because the
+// boilerplate is GDPR / CCPA / EU-US DPF standard and any rewrite would be
+// pure prose churn. Where TP had source inconsistencies (eu-west-1 vs
+// Frankfurt; Spain vs Rome) we pick the truthful version (eu-west-1 / Italy)
+// and roll forward.
+
+import Layout from '../layouts/Layout.astro';
+
+const lastUpdated = '25 April 2026';
+---
+
+<Layout
+  title="Privacy Policy — Echo-Synch"
+  description="How Echo-Synch collects, uses, stores, and deletes data from your Slack workspace. GDPR + CCPA compliant."
+>
+  <header class="mk-pageheader">
+    <div class="mk-container-narrow">
+      <p class="mk-eyebrow">Legal</p>
+      <h1 class="mk-display">Privacy Policy</h1>
+      <p class="mk-lead">
+        How Echo-Synch handles data from your Slack workspace —
+        plain-language summary above, full text below.
+      </p>
+      <div style="margin-top: 28px; font-size: 13px; color: var(--fg-3);">
+        Effective date: <code style="background:#fff;padding:2px 8px;border-radius:4px;border:1px solid var(--border-subtle);">{lastUpdated}</code>
+      </div>
+    </div>
+  </header>
+
+  <article class="mk-prose">
+    <h2>The short version</h2>
+    <p>
+      <strong>What we collect:</strong> Slack team and user IDs, message
+      content from the channels you tell the bot to watch, the email of
+      the installer (so we can email you about your subscription), and
+      payment metadata via LemonSqueezy.
+    </p>
+    <p>
+      <strong>What we do with it:</strong> auto-triage IT requests
+      (categorise, prioritise, summarise), track SLAs, render a dashboard,
+      and DM assignees on deadlines. That's it. We don't train AI models
+      on your data. We don't sell it.
+    </p>
+    <p>
+      <strong>Where it lives:</strong> AWS Ireland (eu-west-1). The default
+      AI provider is Google Vertex AI (Belgium region). Enterprise
+      customers can BYOM (bring their own Gemini API key) and route
+      processing through their own GCP project instead.
+    </p>
+    <p>
+      <strong>How long:</strong> as long as you stay installed. Uninstall
+      and we hard-delete every workspace record within one hour.
+    </p>
+    <p style="border-left: 3px solid var(--echo-indigo); padding: 8px 16px; background: var(--echo-indigo-50); border-radius: 4px;">
+      <strong>Age restriction.</strong> Echo-Synch is not intended for
+      users under the age of 16. We do not knowingly collect personal
+      information from children under 16. If you believe a child has
+      provided us with personal information, contact
+      <a href="mailto:privacy@echo-synch.com">privacy@echo-synch.com</a>
+      and we'll delete it.
+    </p>
+
+    <hr />
+
+    <h2>1. Introduction</h2>
+    <p>
+      Welcome to Echo-Synch. This Privacy Policy explains how we collect,
+      use, share, and protect information in relation to our Slack bot
+      and the companion web dashboard at <code>app.echo-synch.com</code>
+      (collectively, the "Service"). Echo-Synch is operated from Rome,
+      Italy.
+    </p>
+    <p>
+      Echo-Synch helps IT teams triage requests that arrive in Slack
+      channels — auto-categorising, prioritising, and tracking SLAs on
+      every request. By installing or using Echo-Synch, you agree to the
+      collection, use, disclosure, and procedures this Privacy Policy
+      describes, as well as our <a href="/terms">Terms of Service</a> and
+      <a href="/dpa">Data Processing Addendum</a>.
+    </p>
+
+    <h2>2. Information we collect</h2>
+
+    <h3>2.1 Information you provide directly through Slack installation (OAuth)</h3>
+    <ul>
+      <li><strong>Workspace information:</strong> Slack Team ID (e.g. <code>T12345ABC</code>) and, where applicable, Enterprise Grid ID.</li>
+      <li><strong>Bot authentication:</strong> a Bot User OAuth Access Token, the Bot User ID, and the Bot ID.</li>
+      <li><strong>Installing user information:</strong> the Slack User ID of the individual who performed the installation.</li>
+      <li><strong>Installing user email:</strong> obtained via the <code>users:read.email</code> scope, used for billing notifications and essential service emails.</li>
+    </ul>
+    <p>
+      <strong>Why we collect this.</strong> The OAuth scopes are essential
+      for Echo-Synch to be installed, to authenticate with the Slack API,
+      to read messages in monitored channels, to post triage labels and
+      SLA alerts, and to DM assignees when deadlines approach. The full
+      scope list is published in the
+      <a href="https://api.echo-synch.com/slack/install">install URL</a>;
+      every scope has a justification documented at the call site in our
+      bot codebase.
+    </p>
+
+    <h3>2.2 Information collected automatically during service operation</h3>
+    <ul>
+      <li>
+        <strong>Triaged threads.</strong> When an IT request arrives in a
+        monitored channel, Echo-Synch stores the thread's Slack channel
+        ID, message timestamp, poster Slack user ID, and the AI-generated
+        summary, category, and priority. We also store the original
+        message text so the dashboard can show it back to you. Original
+        message text is auto-scrubbed after each workspace's configured
+        retention window (default 30 days; configurable per workspace).
+      </li>
+      <li>
+        <strong>SLA events.</strong> When a thread's SLA deadline elapses,
+        we record an event row with the thread ID, event type
+        (<code>first_response_missed</code> or
+        <code>resolution_missed</code>), and timestamp.
+      </li>
+      <li>
+        <strong>Workspace users cache.</strong> We cache the Slack user
+        roster of your workspace (Slack User ID, display name, real name,
+        email if your Slack workspace exposes it via
+        <code>users:read.email</code>, and timezone) so the dashboard's
+        team picker can render without a Slack API round-trip on every
+        page load.
+      </li>
+      <li>
+        <strong>Subscription metadata.</strong> If you subscribe, we store
+        your LemonSqueezy subscription ID, plan (Pro / Enterprise), seat
+        count, period start/end, and the customer-portal URL LemonSqueezy
+        issues us. Card details are held by LemonSqueezy and never reach
+        our servers.
+      </li>
+      <li>
+        <strong>Operational metadata.</strong> Slack channel IDs, message
+        timestamps, label assignments, assignee IDs, and audit logs. Used
+        to render the dashboard and chase SLAs.
+      </li>
+      <li>
+        <strong>System logs.</strong> Application logs (CloudWatch + Sentry
+        error events) auto-expire after 30 days.
+      </li>
+    </ul>
+    <p>
+      <strong>AI processing.</strong> Message content from triaged threads
+      is sent to your configured AI provider — Google Vertex AI Gemini
+      (Belgium region) by default, or your own model if your workspace has
+      configured Bring Your Own Model (Enterprise BYOM). The AI returns a
+      structured triage decision (label + priority + summary) which we
+      store on the thread row. <strong>Your data is never used to train
+      AI models.</strong> All workspace records are deleted within one
+      hour of uninstall.
+    </p>
+
+    <h2>3. Information you provide voluntarily</h2>
+    <p>
+      If you contact <a href="mailto:support@echo-synch.com">support@echo-synch.com</a>,
+      submit a feedback form on this site, or reach out via any other
+      voluntary channel, we collect the information you provide (name,
+      email, message body). We use it solely to respond to you and improve
+      the Service. Legal basis: your consent.
+    </p>
+
+    <h2>4. How we use your information</h2>
+    <ul>
+      <li>
+        <strong>Provide and operate the Service:</strong> install/uninstall
+        the bot, run AI triage, track SLAs, render the dashboard, send
+        SLA-warning DMs and breach alerts.
+      </li>
+      <li>
+        <strong>Improve and maintain the Service:</strong> aggregated
+        usage metrics, error logs, performance traces. We never analyse a
+        specific workspace's content to inform product decisions.
+      </li>
+      <li>
+        <strong>Communicate with you:</strong> essential service emails
+        (billing, security, breaking changes). We do not send marketing
+        emails without explicit opt-in.
+      </li>
+      <li>
+        <strong>Comply with legal obligations:</strong> retain records to
+        the extent required by tax, billing, or applicable law.
+      </li>
+    </ul>
+
+    <h2>5. Legal basis for processing (EEA / UK)</h2>
+    <table>
+      <thead>
+        <tr><th>Data category</th><th>Legal basis</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OAuth installation information</td><td>Contractual necessity (Art. 6(1)(b) GDPR)</td></tr>
+        <tr><td>Installing user email</td><td>Contractual necessity — account administration &amp; billing</td></tr>
+        <tr><td>Triaged threads + SLA events + operational metadata</td><td>Legitimate interest (Art. 6(1)(f) GDPR) — providing the triage Service to your team</td></tr>
+        <tr><td>Subscription metadata</td><td>Contractual necessity + legal obligation (tax records)</td></tr>
+        <tr><td>Voluntarily-provided feedback</td><td>Consent (Art. 6(1)(a) GDPR)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>6. Data sharing and third-party services</h2>
+    <p><strong>We do not sell your personal information.</strong> We share data only with the subprocessors below, each of which is contractually bound to process data only on our instructions.</p>
+    <ul>
+      <li><strong>Slack:</strong> we operate as a Slack app and necessarily exchange data with Slack.</li>
+      <li><strong>Amazon Web Services (Ireland):</strong> hosts our Lambda functions, Aurora Postgres database, SQS queues, and KMS-encrypted secrets.</li>
+      <li><strong>Google Cloud / Vertex AI (Belgium):</strong> default AI provider for triage and summaries.</li>
+      <li><strong>Bring Your Own Model (Enterprise):</strong> when configured, message content is sent to your own Google Gemini API key — not ours.</li>
+      <li><strong>LemonSqueezy:</strong> merchant of record for subscriptions. Stores card details and invoices; we receive only subscription metadata via webhook.</li>
+      <li><strong>Cloudflare:</strong> DNS, CDN, and email routing for <code>echo-synch.com</code>.</li>
+      <li><strong>Resend:</strong> transactional email provider for service notifications.</li>
+      <li><strong>Sentry:</strong> error monitoring. We deliberately disable PII attachment; events contain stack traces and tagged metadata only.</li>
+      <li><strong>Legal disclosures:</strong> if required by law, court order, or to protect rights and safety.</li>
+    </ul>
+    <p>The complete subprocessor list with locations is published on our <a href="/trust-center">Trust Center</a> and in <a href="/dpa">Annex 1 of the DPA</a>.</p>
+
+    <h2>7. International data transfers</h2>
+    <p>
+      Echo-Synch is operated from Italy (EU). Primary infrastructure runs
+      in AWS <code>eu-west-1</code> (Dublin, Ireland) and Google Vertex
+      AI's Belgium region. For subprocessors located outside the EEA
+      (LemonSqueezy and Sentry, both US-based), transfers are governed by
+      the EU Standard Contractual Clauses; both providers self-certify
+      under the EU–US Data Privacy Framework. BYOM transfers happen
+      between you and your chosen AI provider; Echo-Synch is not in the
+      data path.
+    </p>
+
+    <h2>8. Data storage, security, and retention</h2>
+
+    <h3>8.1 Storage and location</h3>
+    <p>All data is stored in AWS <code>eu-west-1</code> (Dublin, Ireland). Slack bot tokens are encrypted with AWS KMS before being written to the database; secrets (API keys, signing secrets) are stored in AWS SSM Parameter Store with at-rest encryption.</p>
+
+    <h3>8.2 Security</h3>
+    <p>TLS 1.2+ in transit (1.3 preferred). AES-256 encryption at rest. Least-privilege IAM. MFA for all internal access. Multi-tenant data is workspace-scoped on every query — tenant data never crosses rows.</p>
+
+    <h3>8.3 Retention</h3>
+    <ul>
+      <li><strong>OAuth installation information:</strong> retained while installed. Deleted within 1 hour of uninstall.</li>
+      <li><strong>Installing user email:</strong> same — deleted on uninstall, except where retention is required for billing, legal, or dispute resolution.</li>
+      <li><strong>Original IT request text:</strong> auto-scrubbed after each workspace's configured retention window (default 30 days; admin-configurable). Triage metadata (label, priority, summary) is retained.</li>
+      <li><strong>Triaged threads + SLA events + operational metadata:</strong> retained while installed. Deleted on uninstall.</li>
+      <li><strong>Subscription metadata:</strong> retained for the duration of the subscription plus the period required by tax law (typically 7 years for invoice records).</li>
+      <li><strong>System logs:</strong> auto-deleted after 30 days.</li>
+    </ul>
+
+    <h2>9. Your rights and choices</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li><strong>Access</strong> the personal data we hold about you.</li>
+      <li><strong>Rectify</strong> inaccurate data.</li>
+      <li><strong>Erase</strong> your data — uninstalling the bot triggers full erasure within 1 hour.</li>
+      <li><strong>Restrict</strong> processing in certain circumstances.</li>
+    </ul>
+    <p>To exercise any of these, email <a href="mailto:privacy@echo-synch.com">privacy@echo-synch.com</a>. We respond within 30 days.</p>
+
+    <h3>9.1 For EEA / UK residents (GDPR)</h3>
+    <p>You additionally have the right to:</p>
+    <ul>
+      <li><strong>Data portability</strong> — receive your data in a machine-readable format.</li>
+      <li><strong>Object</strong> to processing based on legitimate interest.</li>
+      <li><strong>Lodge a complaint</strong> with your local Data Protection Authority. In Italy that's the <a href="https://www.garanteprivacy.it/" target="_blank" rel="noopener">Garante per la protezione dei dati personali</a>.</li>
+    </ul>
+
+    <h2>10. Your California privacy rights (CCPA)</h2>
+    <p>If you are a California resident, the California Consumer Privacy Act (CCPA) grants you specific rights:</p>
+    <ul>
+      <li><strong>Right to know:</strong> the categories of personal information we collect and the purposes.</li>
+      <li><strong>Right to delete:</strong> request deletion of personal information we hold about you.</li>
+      <li><strong>Right to opt out of sale:</strong> we do not sell personal information, and have not sold any in the preceding 12 months.</li>
+      <li><strong>Right to non-discrimination:</strong> exercising these rights doesn't change the price or quality of the Service.</li>
+    </ul>
+
+    <h3>10.1 Categories of personal information collected (past 12 months)</h3>
+    <table>
+      <thead>
+        <tr><th>Category</th><th>Examples</th><th>Collected</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Identifiers</td><td>Slack User ID, Slack Team ID, installer email</td><td>Yes</td></tr>
+        <tr><td>Internet/network activity</td><td>Message timestamps, channel IDs, label assignments</td><td>Yes</td></tr>
+        <tr><td>Professional information</td><td>Slack workspace name, IT-team roster</td><td>Yes</td></tr>
+        <tr><td>Commercial information</td><td>Subscription tier, seat count, payment history (via LemonSqueezy)</td><td>Yes</td></tr>
+      </tbody>
+    </table>
+
+    <h2>11. Cookies and similar technologies</h2>
+    <p>Echo-Synch's marketing site (<code>echo-synch.com</code>) uses no tracking cookies and runs no third-party analytics. The dashboard at <code>app.echo-synch.com</code> uses a single first-party session cookie (<code>echo_synch_session</code>) for authentication; it is HTTP-only, Secure, SameSite=Lax, and expires after 7 days. The Slack platform separately uses cookies as part of its OAuth flow — review Slack's <a href="https://slack.com/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> for details.</p>
+
+    <h2>12. Changes to this Privacy Policy</h2>
+    <p>We may update this Policy as the Service evolves. The "Effective date" at the top of the page reflects the most recent revision. For material changes, we'll notify the installer via email at the address recorded during OAuth.</p>
+
+    <h2>13. Contact</h2>
+    <p>Questions about privacy, data subject requests under GDPR or CCPA, or general inquiries:</p>
+    <ul>
+      <li>Email: <a href="mailto:privacy@echo-synch.com">privacy@echo-synch.com</a></li>
+      <li>General support: <a href="mailto:support@echo-synch.com">support@echo-synch.com</a></li>
+    </ul>
+
+    <h2>14. Data controller</h2>
+    <p>Echo-Synch (sole proprietor, registered in Rome, Italy) is the data controller for the personal information described above. For DPA-related matters, see our <a href="/dpa">Data Processing Addendum</a>.</p>
+  </article>
+</Layout>

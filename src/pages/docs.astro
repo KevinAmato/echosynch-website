@@ -1,0 +1,29 @@
+---
+// /docs — Documentation hub. Stub. Real docs will land after the
+// product hits public GA. Until then this page just routes people to
+// support and the dashboard.
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Docs — Echo-Synch"
+  description="How to configure Echo-Synch — channels, SLAs, custom labels, BYOM."
+  activeNav="docs"
+>
+  <header class="mk-pageheader">
+    <div class="mk-container-narrow">
+      <p class="mk-eyebrow">Documentation</p>
+      <h1 class="mk-display">Docs</h1>
+      <p class="mk-lead">
+        Configuration guides, integration references, and how-tos.
+      </p>
+    </div>
+  </header>
+  <article class="mk-prose">
+    <p>Documentation lands here when the public beta opens. In the
+    meantime — the dashboard's settings pages are self-documenting, and
+    <a href="/support">/support</a> covers the most common setup
+    questions.</p>
+    <p>Need something specific?
+    <a href="mailto:support@echo-synch.com">support@echo-synch.com</a>.</p>
+  </article>
+</Layout>

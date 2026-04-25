@@ -1,0 +1,157 @@
+---
+// /trust-center — Security & subprocessor transparency.
+//
+// Adapted from Thread-Patrol's trust-center.html. This is the page Slack
+// Directory reviewers and enterprise procurement check first; we lift TP's
+// 4-card structure (Infrastructure, Compliance, Subprocessors, BYOM) and
+// replace TP-specific copy with Echo-Synch-accurate facts.
+//
+// Notable swaps:
+//   - SSL Labs link target: api.thread-patrol.com → api.echo-synch.com
+//   - Subprocessor table: Stripe → LemonSqueezy + add Resend, Sentry, Cloudflare
+//   - Retention copy: TP's "50 messages, 90-day TTL" → our actual model
+//     (per-workspace retention_days for original text; metadata while installed)
+
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Trust Center — Echo-Synch"
+  description="Security, subprocessors, encryption, data residency, and how Echo-Synch handles enterprise data."
+>
+  <header class="mk-pageheader">
+    <div class="mk-container-narrow">
+      <p class="mk-eyebrow">Security &amp; trust</p>
+      <h1 class="mk-display">Trust Center</h1>
+      <p class="mk-lead">
+        We treat your IT request data with the same discipline we expect
+        of an SLA queue. Transparency is our default setting.
+      </p>
+    </div>
+  </header>
+
+  <article class="mk-prose">
+    <h2>Infrastructure &amp; architecture</h2>
+
+    <h3>Minimal-footprint processing</h3>
+    <p>
+      Echo-Synch reads message content only from channels you explicitly
+      add the bot to. Original IT request text is auto-scrubbed at each
+      workspace's configured retention window (default 30 days). Triage
+      metadata — labels, priorities, AI summaries, SLA timer events — is
+      retained while the workspace is installed and hard-deleted within
+      one hour of uninstall.
+    </p>
+
+    <h3>Encryption</h3>
+    <p>
+      All data is encrypted in transit via TLS 1.2+ (1.3 preferred) and at
+      rest using AES-256. Slack bot tokens are encrypted with AWS KMS
+      before being written to the database. Application secrets live in
+      AWS SSM Parameter Store with at-rest encryption.
+    </p>
+
+    <h3>Cloud security</h3>
+    <p>
+      Hosted on AWS in <code>eu-west-1</code> (Dublin, Ireland) using
+      serverless architecture (Lambda + Aurora Serverless v2 + SQS) for
+      strict isolation between requests. All processing and storage
+      happens in the EU.
+    </p>
+
+    <h3>Least privilege</h3>
+    <p>
+      We request the minimum Slack OAuth scopes needed to operate. Each
+      scope has a justification documented at its call site in our codebase
+      (see <a href="/privacy">privacy</a> for the list and rationale).
+      Workspace admins can audit and revoke access at any time via Slack
+      app management.
+    </p>
+
+    <h2>Compliance</h2>
+    <ul>
+      <li><strong>GDPR.</strong> Compliant by default for EU customers. Standard Contractual Clauses available via the <a href="/dpa">DPA</a>.</li>
+      <li><strong>CCPA.</strong> California residents have access, deletion, and non-discrimination rights — see <a href="/privacy#10-your-california-privacy-rights-ccpa">privacy</a>.</li>
+      <li><strong>EU–US Data Privacy Framework.</strong> All US-based subprocessors (LemonSqueezy, Resend, Sentry) self-certify under the EU–US DPF.</li>
+      <li>
+        <strong>SSL Labs.</strong> A+ rating for our API host.
+        <a href="https://www.ssllabs.com/ssltest/analyze.html?d=api.echo-synch.com" target="_blank" rel="noopener">View live test →</a>
+      </li>
+      <li><strong>Data Processing Addendum.</strong> Auto-applies to every paid plan. <a href="/dpa">Read the DPA →</a></li>
+    </ul>
+
+    <h2>Sub-processors</h2>
+    <p>
+      Echo-Synch uses the third-party processors below, each contractually
+      bound to process your data only on our instructions. The complete
+      list with locations and purposes is in
+      <a href="/dpa#annex-1">Annex 1 of the DPA</a>.
+    </p>
+    <table>
+      <thead>
+        <tr><th>Sub-processor</th><th>Purpose</th><th>Location</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Amazon Web Services (AWS)</td><td>Hosting &amp; infrastructure</td><td>Ireland (eu-west-1)</td></tr>
+        <tr><td>Google (Vertex AI / Gemini)</td><td>Default AI provider</td><td>Belgium (EU)</td></tr>
+        <tr><td>Google Gemini under BYOM</td><td>Enterprise BYOM — runs in the Customer's own GCP project</td><td>Customer-selected region</td></tr>
+        <tr><td>LemonSqueezy</td><td>Payment processing &amp; merchant of record</td><td>USA (DPF-certified)</td></tr>
+        <tr><td>Cloudflare</td><td>DNS, CDN, email routing</td><td>Global edge / EU primary</td></tr>
+        <tr><td>Resend</td><td>Transactional email</td><td>USA (DPF-certified)</td></tr>
+        <tr><td>Sentry</td><td>Error monitoring (PII attachment disabled)</td><td>USA (DPF-certified)</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size: 13.5px; color: var(--fg-3);">
+      We will provide reasonable prior notice (via this page and email to
+      the installer) of any addition or replacement of sub-processors.
+    </p>
+
+    <h2>Bring Your Own Model (BYOM)</h2>
+
+    <h3>Complete data isolation</h3>
+    <p>
+      With BYOM, message content is sent directly to your own Google Cloud
+      project — never to Echo-Synch's. Your AI credentials, your
+      infrastructure, your control. Echo-Synch is not in the AI data path.
+    </p>
+
+    <h3>Data sovereignty</h3>
+    <p>
+      BYOM lets you control exactly where AI processing happens. Choose
+      any GCP region your organisation has approved — your IT request
+      content never leaves the regulatory boundary you define.
+    </p>
+
+    <h3>No model training</h3>
+    <p>
+      Whether you use our default Vertex AI provider or BYOM, your data is
+      never used to train AI models. Processing is ephemeral and
+      stateless. Vertex AI's default API contract explicitly excludes
+      training use of customer prompts.
+    </p>
+
+    <h2>Operational practices</h2>
+    <ul>
+      <li><strong>Tenant isolation.</strong> Every database query is workspace-scoped. Data from different customer workspaces is logically separated and never mixed.</li>
+      <li><strong>Webhook security.</strong> Inbound webhooks (LemonSqueezy, Slack) are verified via HMAC-SHA256 with constant-time comparison.</li>
+      <li><strong>Backups.</strong> Aurora Postgres automated daily snapshots, 7-day retention. Restore procedure tested at least annually.</li>
+      <li><strong>Monitoring.</strong> Application errors flow to Sentry; platform metrics to CloudWatch (30-day retention). On-call alerts for queue depth, error rates, and Aurora capacity.</li>
+      <li><strong>Vulnerability management.</strong> Dependencies tracked via lockfile; security advisories monitored; critical patches applied within one week of disclosure.</li>
+    </ul>
+
+    <h2>Data residency</h2>
+    <p>
+      Primary infrastructure runs in AWS Ireland (<code>eu-west-1</code>),
+      Vertex AI runs in Google Cloud Belgium. Backups and snapshots remain
+      in Ireland. US-based subprocessors (LemonSqueezy, Resend, Sentry)
+      operate under the EU–US Data Privacy Framework with Standard
+      Contractual Clauses incorporated.
+    </p>
+
+    <h2>Questions about security?</h2>
+    <p>
+      Enterprise security questionnaires answered within 5 business days.
+      Email <a href="mailto:security@echo-synch.com">security@echo-synch.com</a>.
+    </p>
+  </article>
+</Layout>

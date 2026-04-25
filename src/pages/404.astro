@@ -1,0 +1,23 @@
+---
+// 404 — fallback for missing pages. Quiet, on-brand, useful (links back
+// to the high-traffic destinations rather than dead-ending the visitor).
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Page not found — Echo-Synch" description="The page you're looking for doesn't exist.">
+  <section class="hero" style="padding: 160px 0 96px; text-align: center; position: relative;">
+    <div class="indigo-glow"></div>
+    <div class="mk-container-narrow">
+      <p class="mk-eyebrow">404</p>
+      <h1 class="mk-display">This page took an unscheduled break.</h1>
+      <p class="mk-lead" style="margin: 24px auto 32px; max-width: 540px;">
+        The link is broken or the page was renamed. Here are some places
+        that definitely still work:
+      </p>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="/" class="mk-btn mk-btn-primary">Back to home</a>
+        <a href="/support" class="mk-btn mk-btn-secondary">Support &amp; FAQ</a>
+        <a href="https://app.echo-synch.com" class="mk-btn mk-btn-ghost">Sign in to dashboard</a>
+      </div>
+    </div>
+  </section>
+</Layout>

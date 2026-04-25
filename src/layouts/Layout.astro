@@ -1,0 +1,115 @@
+---
+// Site-wide layout. Wraps every page in:
+//   - <head> with consistent meta + OG tags
+//   - The sticky nav
+//   - <main> for page content (passed via <slot />)
+//   - The footer
+//
+// Per-page overrides:
+//   - title           → <title> + OG title
+//   - description     → meta description + OG description
+//   - canonical       → optional canonical URL (defaults to the current path)
+//   - ogImage         → optional OG image URL (defaults to /og-image.png)
+//   - activeNav       → which nav item to highlight
+//   - bodyClass       → optional extra class on <body> for page-specific bg
+//
+// Why a single layout: Slack Directory review confirms that privacy/terms/
+// support/etc. are reachable from the landing page footer. If those pages
+// use a different chrome (or have NO chrome), reviewers ding the listing.
+// One layout = one footer = one promise to reviewers.
+
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  activeNav?: 'product' | 'pricing' | 'compare' | 'docs' | null;
+  bodyClass?: string;
+}
+
+const {
+  title = 'Echo-Synch — Slack-native IT triage',
+  description = 'Turn noisy Slack channels into tracked, accountable IT work — without the process tax. AI summaries, SLA tracking, assignee management.',
+  canonical,
+  ogImage = '/og-image.png',
+  activeNav = null,
+  bodyClass = '',
+} = Astro.props;
+
+const SITE = 'https://echo-synch.com';
+const url = canonical ?? new URL(Astro.url.pathname, SITE).toString();
+const fullOgImage = ogImage.startsWith('http') ? ogImage : SITE + ogImage;
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={url} />
+
+  <!-- Favicons. The PNG works as a 16/32/64; modern browsers pick the right
+       size. We don't ship a 16x16 ICO because it's lossy at our logo size. -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <!-- Fonts. Inter for UI, JetBrains Mono for code/eyebrows/Slack mocks.
+       Preconnect saves ~100ms on first paint. font-display: swap so users
+       don't see invisible text during font load. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={url} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={fullOgImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={fullOgImage} />
+
+  <!-- Schema.org SoftwareApplication. Slack Directory + Google look at this
+       to render a richer search result with rating, price, etc. -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Echo-Synch',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web, Slack',
+    offers: {
+      '@type': 'Offer',
+      price: '12',
+      priceCurrency: 'EUR',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: '12',
+        priceCurrency: 'EUR',
+        unitText: 'agent / month',
+      },
+    },
+    description,
+    url: SITE,
+  })} />
+</head>
+<body class={bodyClass}>
+  <Nav active={activeNav} />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>

@@ -1,0 +1,427 @@
+---
+// HeroAnimation — the "signature movie" of Echo-Synch working.
+//
+// Story (~10s loop):
+//   Step 1 (1.0s): @maria posts a printer issue in #it-help
+//   Step 2 (2.6s): Echo-Synch bot acknowledges, "thinking" dots pulse
+//   Step 3 (3.6s): Triage label snaps on (Hardware · High · 4h SLA)
+//   Step 4 (4.2s): Indigo beam fires from Slack → Dashboard
+//   Step 5 (5.0s): Dashboard ticket card materialises
+//   Step 6 (6.4s): Assignee avatar drops in (round-robin)
+//   Step 7 (7.5s): SLA timer pulses
+//   Reset  (10s): all states cleared, loop
+//
+// Implementation: vanilla setTimeout choreography — same approach as
+// Sync-o's hero (public/index.html lines 2607-2722). No animation library
+// pulled in. The whole behaviour fits in ~50 lines of script at the
+// bottom of this file. A `prefers-reduced-motion` guard short-circuits
+// the timeline and renders a final state instead.
+//
+// Why JS over pure-CSS keyframes: the timeline has 7 steps that gate on
+// each other. Encoding 7 keyframe rules with carefully-aligned percentage
+// ranges is fragile; one tweak at step 3 cascades to steps 4/5/6/7. JS
+// classnames are cheaper to read and modify.
+//
+// The DOM is a faithful reproduction of the dashboard's "Threads" table
+// + a Slack message bubble in the Echo-Synch design system. Real product
+// screenshots would be heavier (PNG) and harder to keep in sync with the
+// dashboard as it evolves. Building the mock in HTML keeps the brand
+// visually coherent for free.
+---
+
+<div class="hero-anim" id="hero-anim" aria-hidden="true">
+  <!-- Slack channel panel (left) -->
+  <div class="ha-panel ha-slack">
+    <div class="ha-panel-chrome">
+      <div class="ha-window-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="ha-panel-title">
+        <span class="ha-channel-hash">#</span>it-help
+      </div>
+    </div>
+    <div class="ha-panel-body">
+      <!-- Step 1: User message -->
+      <div class="ha-msg" data-anim="msg">
+        <div class="ha-avatar ha-avatar-blue">M</div>
+        <div class="ha-msg-body">
+          <div class="ha-msg-header">
+            <strong>Maria</strong>
+            <span class="ha-msg-time">9:42 AM</span>
+          </div>
+          <div class="ha-msg-text">
+            My printer keeps jamming again 😩 third time today.
+            Anyone from IT around?
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Bot acknowledgement with typing → label -->
+      <div class="ha-msg ha-msg-bot" data-anim="bot">
+        <div class="ha-avatar ha-avatar-indigo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 11.5C21 16.1944 16.9706 20 12 20C10.6698 20 9.40698 19.7346 8.27117 19.2612L3 21L4.60627 16.3213C3.60195 14.9458 3 13.292 3 11.5C3 6.80558 7.02944 3 12 3C16.9706 3 21 6.80558 21 11.5Z"/>
+            <path d="M9 14V10"/><path d="M12 15.5V8.5"/><path d="M15 14V10"/>
+          </svg>
+        </div>
+        <div class="ha-msg-body">
+          <div class="ha-msg-header">
+            <strong>Echo-Synch</strong>
+            <span class="ha-bot-tag">APP</span>
+            <span class="ha-msg-time">just now</span>
+          </div>
+          <div class="ha-msg-thinking" data-anim="thinking">
+            Triaging<span class="ha-dots"></span>
+          </div>
+          <div class="ha-msg-tagged" data-anim="tagged">
+            Logged as
+            <span class="ha-pill ha-pill-indigo">🔧 Hardware</span>
+            <span class="ha-pill ha-pill-rose">🔥 High</span>
+            <span class="ha-pill ha-pill-amber">⏱ 4h SLA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connector + travelling indigo beam -->
+  <div class="ha-connector" data-anim="connector">
+    <div class="ha-beam" data-anim="beam"></div>
+    <div class="ha-arrow">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Dashboard panel (right) -->
+  <div class="ha-panel ha-dash">
+    <div class="ha-panel-chrome">
+      <div class="ha-window-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="ha-panel-title">
+        <span class="ha-mono">app.echo-synch.com</span>
+        <span class="ha-panel-tab">/threads</span>
+      </div>
+    </div>
+    <div class="ha-panel-body ha-dash-body">
+      <div class="ha-dash-title">Open requests <span class="ha-dash-count">12</span></div>
+
+      <!-- Existing tickets, static -->
+      <div class="ha-ticket ha-ticket-static">
+        <span class="ha-ticket-title">Login broken — Salesforce SSO</span>
+        <span class="ha-ticket-meta">
+          <span class="ha-pill ha-pill-amber">Medium</span>
+          <span class="ha-pill ha-pill-emerald">Assigned</span>
+        </span>
+      </div>
+      <div class="ha-ticket ha-ticket-static">
+        <span class="ha-ticket-title">VPN slow on 5th floor</span>
+        <span class="ha-ticket-meta">
+          <span class="ha-pill ha-pill-slate">Low</span>
+          <span class="ha-pill ha-pill-emerald">Assigned</span>
+        </span>
+      </div>
+
+      <!-- Step 5/6: New ticket lights up + assignee avatar -->
+      <div class="ha-ticket ha-ticket-new" data-anim="ticket">
+        <span class="ha-ticket-title">Printer jam — 3rd floor</span>
+        <span class="ha-ticket-meta">
+          <span class="ha-pill ha-pill-rose">High</span>
+          <span class="ha-pill ha-pill-amber" data-anim="sla">⏱ 4h</span>
+          <span class="ha-ticket-avatar" data-anim="avatar">JD</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* The whole composition. Constrained to a max-width so on huge monitors
+   * it doesn't sprawl, but allowed to flex below 760px (mobile collapses
+   * to single column — the beam disappears, kept the demo readable). */
+  .hero-anim {
+    --panel-bg: #ffffff;
+    --panel-border: var(--border-subtle);
+    --panel-shadow: var(--shadow-lg);
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 0;
+    align-items: center;
+    max-width: 1040px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .ha-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    box-shadow: var(--panel-shadow);
+    overflow: hidden;
+    min-height: 280px;
+    display: flex; flex-direction: column;
+  }
+  .ha-panel-chrome {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px;
+    background: var(--slate-50);
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .ha-window-dots { display: flex; gap: 6px; }
+  .ha-window-dots span {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--slate-200);
+  }
+  .ha-window-dots span:nth-child(1) { background: #ff5f57; }
+  .ha-window-dots span:nth-child(2) { background: #febc2e; }
+  .ha-window-dots span:nth-child(3) { background: #28c840; }
+  .ha-panel-title {
+    font-size: 12px; color: var(--fg-3);
+    font-weight: 500;
+  }
+  .ha-channel-hash { color: var(--fg-4); margin-right: 1px; }
+  .ha-panel-tab {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--echo-indigo); margin-left: 4px;
+  }
+  .ha-mono { font-family: var(--font-mono); }
+
+  .ha-panel-body { padding: 16px; flex: 1; }
+
+  /* Slack message bubbles */
+  .ha-msg {
+    display: flex; gap: 10px;
+    padding: 10px 0;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 360ms var(--ease-out), transform 360ms var(--ease-out);
+  }
+  .ha-msg.visible { opacity: 1; transform: translateY(0); }
+  .ha-avatar {
+    width: 32px; height: 32px; border-radius: 8px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    color: #fff;
+  }
+  .ha-avatar-blue { background: #3B82F6; }
+  .ha-avatar-indigo { background: var(--echo-indigo); }
+  .ha-msg-body { flex: 1; min-width: 0; }
+  .ha-msg-header {
+    display: flex; align-items: baseline; gap: 8px;
+    margin-bottom: 2px; font-size: 13px;
+  }
+  .ha-msg-header strong { color: var(--fg-1); font-weight: 700; }
+  .ha-bot-tag {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.04em;
+    background: var(--slate-100); color: var(--fg-3);
+    padding: 1px 4px; border-radius: 3px;
+  }
+  .ha-msg-time { font-size: 11px; color: var(--fg-4); }
+  .ha-msg-text {
+    font-size: 13.5px; color: var(--fg-2); line-height: 1.5;
+  }
+
+  .ha-msg-thinking {
+    font-size: 13px; color: var(--fg-3); font-style: italic;
+    opacity: 0; transition: opacity 200ms;
+  }
+  .ha-msg-thinking.visible { opacity: 1; }
+  .ha-msg-thinking.hide { opacity: 0; }
+  .ha-dots::after {
+    display: inline-block;
+    content: '···';
+    margin-left: 2px;
+    animation: typing-dots 0.8s steps(3, end) infinite;
+  }
+  .ha-msg-tagged {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    font-size: 13px; color: var(--fg-2);
+    opacity: 0; transform: translateY(4px);
+    transition: opacity 280ms var(--ease-out), transform 280ms var(--ease-out);
+  }
+  .ha-msg-tagged.visible { opacity: 1; transform: translateY(0); }
+
+  /* Pills (in both Slack mock + Dashboard mock) */
+  .ha-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 9999px;
+    font-size: 11px; font-weight: 600;
+    line-height: 1.4;
+    border: 1px solid transparent;
+  }
+  .ha-pill-indigo {
+    background: var(--echo-indigo-50); color: var(--echo-indigo-700);
+    border-color: var(--echo-indigo-100);
+  }
+  .ha-pill-rose {
+    background: var(--status-rose-50); color: var(--status-rose);
+    border-color: color-mix(in oklab, var(--status-rose) 25%, white);
+  }
+  .ha-pill-amber {
+    background: color-mix(in oklab, var(--status-amber) 12%, white);
+    color: #B45309;
+    border-color: color-mix(in oklab, var(--status-amber) 30%, white);
+  }
+  .ha-pill-emerald {
+    background: color-mix(in oklab, var(--status-emerald) 10%, white);
+    color: var(--status-emerald);
+    border-color: color-mix(in oklab, var(--status-emerald) 25%, white);
+  }
+  .ha-pill-slate {
+    background: var(--slate-100); color: var(--fg-3);
+    border-color: var(--border-subtle);
+  }
+
+  /* Connector + beam */
+  .ha-connector {
+    position: relative;
+    height: 2px;
+    background: var(--border-subtle);
+    align-self: center;
+    overflow: hidden;
+    border-radius: 1px;
+  }
+  .ha-beam {
+    position: absolute;
+    top: 0; left: 0;
+    width: 60px; height: 100%;
+    background: linear-gradient(90deg,
+      transparent,
+      var(--echo-indigo) 40%,
+      var(--echo-indigo) 60%,
+      transparent);
+    box-shadow: 0 0 12px var(--echo-indigo);
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  .ha-beam.firing {
+    animation: beam-flow-h 1.4s var(--ease-out) forwards;
+  }
+  .ha-arrow {
+    position: absolute;
+    right: -10px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--fg-4);
+    background: #fff;
+    padding: 2px;
+    transition: color 200ms;
+  }
+  .ha-connector.active .ha-arrow { color: var(--echo-indigo); }
+
+  /* Dashboard panel */
+  .ha-dash-body { padding: 18px; }
+  .ha-dash-title {
+    font-size: 12px; font-weight: 700;
+    color: var(--fg-1); text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .ha-dash-count {
+    background: var(--echo-indigo-50); color: var(--echo-indigo-700);
+    padding: 1px 7px; border-radius: 9999px;
+    font-size: 10px; letter-spacing: 0;
+  }
+  .ha-ticket {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 14px; margin-bottom: 8px;
+    border: 1px solid var(--border-subtle); border-radius: 10px;
+    background: #fff;
+    transition: transform 240ms var(--ease-out), box-shadow 240ms var(--ease-out), border-color 240ms;
+  }
+  .ha-ticket-static { opacity: 0.85; }
+  .ha-ticket-title {
+    font-size: 13px; font-weight: 500; color: var(--fg-1);
+  }
+  .ha-ticket-meta { display: flex; align-items: center; gap: 6px; }
+  .ha-ticket-new {
+    opacity: 0; transform: translateY(6px);
+    border-color: var(--echo-indigo-100);
+    background: color-mix(in oklab, var(--echo-indigo-50), white 50%);
+  }
+  .ha-ticket-new.visible {
+    opacity: 1; transform: translateY(0);
+    box-shadow: var(--shadow-indigo);
+  }
+  .ha-ticket-avatar {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg, #4F46E5, #6366F1);
+    color: #fff; font-size: 10px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+    opacity: 0; transform: scale(0.5);
+    transition: opacity 200ms var(--ease-out), transform 280ms cubic-bezier(.34,1.56,.64,1);
+  }
+  .ha-ticket-avatar.visible { opacity: 1; transform: scale(1); }
+
+  [data-anim="sla"].pulsing {
+    animation: pulse 1.6s ease-in-out 2;
+  }
+
+  /* Mobile: stack vertically, hide the connector beam (would be vertical
+   * which messes with the metaphor — easier to omit). */
+  @media (max-width: 760px) {
+    .hero-anim {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .ha-connector { display: none; }
+  }
+</style>
+
+<script>
+  // Choreography. Each step adds a class that triggers its own CSS
+  // transition. Loop period: 10s. Reset clears all classes and re-runs.
+  //
+  // We do NOT use requestAnimationFrame — the steps are coarse (>200ms
+  // each) and setTimeout is plenty accurate. RAF would just be churn.
+  const STEPS = [
+    { at: 800,  fn: () => sel('[data-anim="msg"]')?.classList.add('visible') },
+    { at: 2000, fn: () => sel('[data-anim="bot"]')?.classList.add('visible') },
+    { at: 2200, fn: () => sel('[data-anim="thinking"]')?.classList.add('visible') },
+    { at: 3400, fn: () => {
+        sel('[data-anim="thinking"]')?.classList.add('hide');
+        sel('[data-anim="tagged"]')?.classList.add('visible');
+      }
+    },
+    { at: 4000, fn: () => {
+        sel('.ha-connector')?.classList.add('active');
+        sel('[data-anim="beam"]')?.classList.add('firing');
+      }
+    },
+    { at: 4800, fn: () => sel('[data-anim="ticket"]')?.classList.add('visible') },
+    { at: 6200, fn: () => sel('[data-anim="avatar"]')?.classList.add('visible') },
+    { at: 7400, fn: () => sel('[data-anim="sla"]')?.classList.add('pulsing') },
+    { at: 10000, fn: reset },
+  ];
+
+  function sel(s: string): HTMLElement | null {
+    return document.querySelector(s);
+  }
+
+  function reset() {
+    document.querySelectorAll('[data-anim]').forEach(el => {
+      el.classList.remove('visible', 'firing', 'pulsing', 'active', 'hide');
+    });
+    document.querySelector('.ha-connector')?.classList.remove('active');
+    play();
+  }
+
+  let timers: number[] = [];
+  function play() {
+    timers.forEach(t => clearTimeout(t));
+    timers = STEPS.map(s => window.setTimeout(s.fn, s.at));
+  }
+
+  // prefers-reduced-motion: skip the loop, render the final state directly.
+  // Visitors who opt out of motion still see the value prop in a single
+  // composition, just without the choreography.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    document.querySelectorAll('[data-anim="msg"], [data-anim="bot"], [data-anim="tagged"], [data-anim="ticket"], [data-anim="avatar"]')
+      .forEach(el => el.classList.add('visible'));
+    document.querySelector('[data-anim="thinking"]')?.classList.add('hide');
+  } else {
+    play();
+  }
+</script>

@@ -1,0 +1,48 @@
+---
+// Sticky top nav. Single source of truth — every page imports Layout.astro
+// which includes this. The `active` prop highlights the current section so
+// the nav reflects "where am I" without per-page boilerplate.
+//
+// IMPORTANT: keep the link list short (4 items max). Adding /docs or /blog
+// later is fine; resist adding "Resources", "Use cases", "Solutions" type
+// dropdowns — those are growth-marketing instincts that conflict with the
+// brand voice (Frictionless · Technical · Quiet).
+interface Props {
+  active?: 'product' | 'pricing' | 'compare' | 'docs' | null;
+}
+const { active = null } = Astro.props;
+
+const links: { label: string; href: string; key: NonNullable<Props['active']> }[] = [
+  { label: 'Product',  href: '/#product',  key: 'product' },
+  { label: 'Compare',  href: '/#compare',  key: 'compare' },
+  { label: 'Pricing',  href: '/#pricing',  key: 'pricing' },
+  { label: 'Docs',     href: '/docs',      key: 'docs' },
+];
+
+// Slack OAuth deep-link. The bot's prod install path lives at
+// api.echo-synch.com/slack/install — this is what every "Add to Slack" CTA
+// across the site points at.
+const INSTALL_URL = 'https://api.echo-synch.com/slack/install';
+---
+
+<header class="mk-nav">
+  <div class="mk-nav-inner mk-container">
+    <a href="/" class="mk-brand" aria-label="Echo-Synch home">
+      <img src="/echo-synch.svg" alt="" width="28" height="28" />
+      <span class="mk-brand-name">Echo-<span>Synch</span></span>
+    </a>
+
+    <nav class="mk-navlinks" aria-label="Primary">
+      {links.map(l => (
+        <a href={l.href} class={active === l.key ? 'active' : ''}>{l.label}</a>
+      ))}
+    </nav>
+
+    <div class="mk-nav-actions">
+      <a href="https://app.echo-synch.com" class="mk-nav-signin">Sign in</a>
+      <a href={INSTALL_URL} class="mk-btn mk-btn-primary">
+        Add to Slack
+      </a>
+    </div>
+  </div>
+</header>
