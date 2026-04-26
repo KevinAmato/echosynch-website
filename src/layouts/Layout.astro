@@ -116,30 +116,29 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : SITE + ogImage;
     image: SITE + '/og-image.png',
     description,
     url: SITE,
+    // Price-per-tier as flat Offers. We previously nested a
+    // UnitPriceSpecification inside each Offer to express "per agent
+    // per month" semantics, but Google's Rich Results validator
+    // rejected the doubled price/priceCurrency (one at Offer level,
+    // one inside priceSpecification) as "Invalid object type for
+    // field priceSpecification". Their spec wants a single source of
+    // truth; redundancy fails validation. We keep only the flat
+    // shape, which Google's own SoftwareApplication example uses.
+    // The "per agent / month" qualifier is communicated to search
+    // engines via the priceCurrency + the free-text in the offer's
+    // surrounding page content (the pricing-card body).
     offers: [
       {
         '@type': 'Offer',
         name: 'Pro',
         price: '12',
         priceCurrency: 'EUR',
-        priceSpecification: {
-          '@type': 'UnitPriceSpecification',
-          price: '12',
-          priceCurrency: 'EUR',
-          unitText: 'agent / month',
-        },
       },
       {
         '@type': 'Offer',
         name: 'Enterprise',
         price: '22',
         priceCurrency: 'EUR',
-        priceSpecification: {
-          '@type': 'UnitPriceSpecification',
-          price: '22',
-          priceCurrency: 'EUR',
-          unitText: 'agent / month',
-        },
       },
     ],
     publisher: {
@@ -155,7 +154,14 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : SITE + ogImage;
 
   <!-- Organization-level entity. Separate from the SoftwareApplication
        above because Google treats them as different knowledge-graph
-       nodes — a publisher can have multiple products. -->
+       nodes — a publisher can have multiple products.
+
+       We deliberately omit `address` entirely rather than declare a
+       partial PostalAddress with only country + locality. Google's
+       Rich Results validator flags missing postalCode + streetAddress
+       as "optional but recommended"; declaring a partial address gets
+       a yellow warning AND no schema benefit. Cleaner to skip the
+       field until we publish a real registered office address. -->
   <script type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -168,11 +174,6 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : SITE + ogImage;
       email: 'support@echo-synch.com',
       contactType: 'customer support',
       availableLanguage: 'English',
-    },
-    address: {
-      '@type': 'PostalAddress',
-      addressCountry: 'IT',
-      addressLocality: 'Rome',
     },
   })} />
 </head>
