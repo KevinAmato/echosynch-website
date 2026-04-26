@@ -33,8 +33,10 @@ interface Props {
 }
 
 const {
-  title = 'Echo-Synch — Slack-native IT triage',
-  description = 'Turn noisy Slack channels into tracked, accountable IT work — without the process tax. AI summaries, SLA tracking, assignee management.',
+  title = 'Echo-Synch — Slack-native IT triage with AI labels & SLAs',
+  // Description capped at ~160 chars (Google's display limit). Anything
+  // longer gets truncated with an ellipsis in SERP, hurting CTR.
+  description = 'Slack-native IT triage. AI labels every request, SLA timers chase deadlines, full web dashboard. €12/agent/month — cancel anytime.',
   canonical,
   ogImage = '/og-image.png',
   activeNav = null,
@@ -57,6 +59,15 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : SITE + ogImage;
   <meta name="description" content={description} />
   <link rel="canonical" href={url} />
 
+  <!-- Robots: explicitly allow indexing on the public site. Even though
+       this is the default, declaring it shuts down any third-party tool
+       that warns about "missing robots directive". -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+  <!-- Theme color: tints mobile-browser chrome (Chrome address bar on
+       Android, Safari status bar on iOS) with our brand indigo. -->
+  <meta name="theme-color" content="#4F46E5" />
+
   <!-- Favicons. The PNG works as a 16/32/64; modern browsers pick the right
        size. We don't ship a 16x16 ICO because it's lossy at our logo size. -->
   <link rel="icon" type="image/png" href="/favicon.png" />
@@ -72,38 +83,97 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : SITE + ogImage;
     rel="stylesheet"
   />
 
-  <!-- Open Graph / Twitter -->
+  <!-- Open Graph / Twitter. og:site_name lets Facebook/LinkedIn render
+       a brand name above the link card. og:locale is explicit (default
+       en_US is correct but Facebook docs recommend declaring it). -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content={url} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={fullOgImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Echo-Synch — Slack-native IT triage" />
+  <meta property="og:site_name" content="Echo-Synch" />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={fullOgImage} />
+  <meta name="twitter:image:alt" content="Echo-Synch — Slack-native IT triage" />
 
-  <!-- Schema.org SoftwareApplication. Slack Directory + Google look at this
-       to render a richer search result with rating, price, etc. -->
+  <!-- Schema.org SoftwareApplication. Slack Directory + Google look at
+       this to render a richer search result with price + brand. We
+       declare both Pro and Enterprise tiers as separate Offers so a
+       price-range chip can show "€12-€22 / agent / month" in SERPs. -->
   <script type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Echo-Synch',
     applicationCategory: 'BusinessApplication',
+    applicationSubCategory: 'IT Service Management',
     operatingSystem: 'Web, Slack',
-    offers: {
-      '@type': 'Offer',
-      price: '12',
-      priceCurrency: 'EUR',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: '12',
-        priceCurrency: 'EUR',
-        unitText: 'agent / month',
-      },
-    },
+    image: SITE + '/og-image.png',
     description,
     url: SITE,
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Pro',
+        price: '12',
+        priceCurrency: 'EUR',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '12',
+          priceCurrency: 'EUR',
+          unitText: 'agent / month',
+        },
+      },
+      {
+        '@type': 'Offer',
+        name: 'Enterprise',
+        price: '22',
+        priceCurrency: 'EUR',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '22',
+          priceCurrency: 'EUR',
+          unitText: 'agent / month',
+        },
+      },
+    ],
+    publisher: {
+      '@type': 'Organization',
+      name: 'Echo-Synch',
+      url: SITE,
+      logo: SITE + '/echo-synch.svg',
+      sameAs: [
+        'https://thread-patrol.com',
+      ],
+    },
+  })} />
+
+  <!-- Organization-level entity. Separate from the SoftwareApplication
+       above because Google treats them as different knowledge-graph
+       nodes — a publisher can have multiple products. -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Echo-Synch',
+    url: SITE,
+    logo: SITE + '/echo-synch.svg',
+    email: 'support@echo-synch.com',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'support@echo-synch.com',
+      contactType: 'customer support',
+      availableLanguage: 'English',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'IT',
+      addressLocality: 'Rome',
+    },
   })} />
 </head>
 <body class={bodyClass}>
