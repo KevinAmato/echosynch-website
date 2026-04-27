@@ -1,4 +1,72 @@
+# Echo-Synch robots.txt
+#
+# Search engines (Google, Bing, DuckDuckGo, etc.): full crawl + index access.
+# AI scrapers and content-training bots: blocked.
+#
+# We use the traditional `User-agent: <name>` + `Disallow: /` style instead
+# of Cloudflare's newer `Content-Signal:` extension because Lighthouse and
+# most third-party SEO validators don't yet recognise Content-Signal as a
+# valid directive — they flag it as "Unknown directive" and downgrade the
+# SEO audit score, even though the directive is semantically valid.
+#
+# This list mirrors what Cloudflare's AI Audit feature auto-injected, but
+# uses the Disallow form that every robots.txt validator understands.
+
+# --- Allow general search crawlers ---
 User-agent: *
 Allow: /
 
+# --- Block known AI training / scraping bots ---
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: OAI-SearchBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+# --- Sitemap ---
 Sitemap: https://echo-synch.com/sitemap-index.xml
