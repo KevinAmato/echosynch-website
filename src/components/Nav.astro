@@ -25,20 +25,17 @@ const links: { label: string; href: string; key: NonNullable<Props['active']> }[
   { label: 'Trust',    href: '/trust-center', key: 'trust' },
 ];
 
-// While we wait for Slack Directory approval (~2-3 weeks), every
-// "Add to Slack" CTA opens the WaitlistModal instead of going straight
-// to the install URL — public installs would 404 anyway until Slack
-// approves. Once approved, replace the data-waitlist attribute with
-// href="https://api.echo-synch.com/slack/install" across the site.
+// "Add to Slack" CTA goes straight to the bot's OAuth install URL.
+// Pre-Marketplace-approval, direct-link installs still work — Slack
+// shows a "this app is in development" banner on the consent screen
+// but the OAuth flow completes normally. Once approved, the same URL
+// continues to work (Slack just adds the green "verified" checkmark
+// to the consent screen).
 //
-// We deliberately keep the buttons as <a> with href="#waitlist" rather
-// than <button> so:
-//   1. They're keyboard-accessible without extra ARIA
-//   2. Right-click → copy link still does something coherent (the URL
-//      exists with a hash even if there's no /waitlist route — it just
-//      stays at the current page)
-//   3. The modal's JS hook (data-waitlist) handles the click and prevents
-//      default navigation
+// History: this CTA used to open a WaitlistModal that collected an
+// email and POST'd to a Resend audience. Removed in April 2026 once
+// the bot was production-ready and we wanted to start collecting
+// install-data signal that Slack reviews need (5 active workspaces).
 ---
 
 <header class="mk-nav">
@@ -57,9 +54,8 @@ const links: { label: string; href: string; key: NonNullable<Props['active']> }[
     <div class="mk-nav-actions">
       <a href="https://app.echo-synch.com" class="mk-nav-signin">Sign in</a>
       <a
-        href="#waitlist"
+        href="https://api.echo-synch.com/slack/install"
         class="mk-btn mk-btn-primary"
-        data-waitlist="nav"
       >
         Add to Slack
       </a>

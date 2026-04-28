@@ -20,7 +20,6 @@
 
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import WaitlistModal from '../components/WaitlistModal.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -183,10 +182,5 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : SITE + ogImage;
     <slot />
   </main>
   <Footer />
-
-  {/* Singleton waitlist modal — triggered by every [data-waitlist] CTA on
-      every page. Shipped here because adding it per-page would duplicate
-      the script + its event handlers. */}
-  <WaitlistModal />
 </body>
 </html>

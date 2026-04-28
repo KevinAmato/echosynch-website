@@ -12,7 +12,7 @@
 //   6. Pricing       — 2 tiers (Pro / Enterprise) with monthly/yearly
 //                      toggle. Trial is a banner, not a fake tier.
 //   7. FAQ           — 6 questions max, accordion
-//   8. CTA strip     — final waitlist signup + indigo glow
+//   8. CTA strip     — final "Add to Slack" CTA on indigo glow
 //
 // What we deliberately don't do: testimonials (no real ones yet, fake
 // ones are obvious), case studies (same), videos auto-playing (slow),
@@ -22,13 +22,17 @@
 import Layout from '../layouts/Layout.astro';
 import HeroAnimation from '../components/HeroAnimation.astro';
 
-// Pre-launch state: every CTA opens the WaitlistModal via
-// data-waitlist="<source>". Each surface gets a unique source tag so
-// the notification email can show which CTA the visitor clicked.
+// Every "Add to Slack" / "Start free trial" CTA points directly at
+// the bot's OAuth install URL. Pre-Marketplace-approval, direct-link
+// installs still work — Slack just adds an "in development" banner to
+// the consent screen. The Marketplace listing only affects
+// discoverability inside Slack's App Directory.
 //
-// When Slack Directory approves Echo-Synch, replace data-waitlist
-// attributes with href="https://api.echo-synch.com/slack/install" and
-// drop the "Coming soon" pill blocks.
+// History: previously every CTA opened a WaitlistModal that POST'd
+// emails to a Resend audience. Removed April 2026 once the bot was
+// production-ready and we wanted real install signal (Slack reviews
+// require ≥5 active workspaces, and a waitlist gate was preventing
+// us from earning that signal organically).
 
 const SITE = 'https://echo-synch.com';
 ---
@@ -57,11 +61,10 @@ const SITE = 'https://echo-synch.com';
 
         <div class="hero-ctas">
           <a
-            href="#waitlist"
+            href="https://api.echo-synch.com/slack/install"
             class="mk-btn mk-btn-primary mk-btn-lg"
-            data-waitlist="hero"
           >
-            Reserve early access
+            Add to Slack
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
           <a href="#how-it-works" class="mk-btn mk-btn-secondary mk-btn-lg">
@@ -396,10 +399,9 @@ const SITE = 'https://echo-synch.com';
             <li>Up to 10 custom labels</li>
           </ul>
           <a
-            href="#waitlist"
+            href="https://api.echo-synch.com/slack/install"
             class="mk-btn mk-btn-secondary"
-            data-waitlist="pricing-pro"
-          >Reserve early access</a>
+          >Start free trial</a>
         </article>
 
         <article class="mk-card mk-card-tinted pricing-card pricing-card-featured">
@@ -428,10 +430,9 @@ const SITE = 'https://echo-synch.com';
             <li>Priority support</li>
           </ul>
           <a
-            href="#waitlist"
+            href="https://api.echo-synch.com/slack/install"
             class="mk-btn mk-btn-primary"
-            data-waitlist="pricing-enterprise"
-          >Reserve early access</a>
+          >Start free trial</a>
         </article>
       </div>
 
@@ -500,11 +501,10 @@ const SITE = 'https://echo-synch.com';
         live on Slack Directory. One email, no marketing.
       </p>
       <a
-        href="#waitlist"
+        href="https://api.echo-synch.com/slack/install"
         class="mk-btn mk-btn-primary mk-btn-lg"
-        data-waitlist="cta-strip"
       >
-        Reserve early access
+        Add to Slack
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
     </div>
