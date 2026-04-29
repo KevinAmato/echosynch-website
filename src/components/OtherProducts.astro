@@ -1,0 +1,144 @@
+---
+// Cross-sell card showing the other two products. Pass `current` to filter.
+// UTM params on each link so analytics can attribute traffic back to the
+// referring site + placement.
+interface Props {
+  current: 'threadpatrol' | 'echosynch' | 'sync-o';
+  placement?: string;
+}
+const { current, placement = 'site_footer' } = Astro.props;
+
+const products = [
+  {
+    id: 'threadpatrol',
+    name: 'ThreadPatrol',
+    tagline: 'AI Slack bot that keeps channels tidy by auto-threading scattered messages.',
+    platform: 'Slack',
+    href: 'https://thread-patrol.com',
+    icon: '/logos/threadpatrol.png',
+  },
+  {
+    id: 'echosynch',
+    name: 'Echo-Synch',
+    tagline: 'Turn Slack messages into tracked IT requests with AI triage and SLAs.',
+    platform: 'Slack',
+    href: 'https://echo-synch.com',
+    icon: '/logos/echosynch.png',
+  },
+  {
+    id: 'sync-o',
+    name: 'Sync-o',
+    tagline: 'AI auto-generates Confluence docs the moment your Jira ticket closes.',
+    platform: 'Jira + Confluence',
+    href: 'https://sync-o.io',
+    icon: '/logos/sync-o.png',
+  },
+];
+
+const others = products.filter(p => p.id !== current);
+---
+
+<section class="other-products" aria-label="More tools from the same maker">
+  <div class="op-container">
+    <p class="op-eyebrow">You might also like</p>
+    <h2 class="op-title">More tools from the same maker</h2>
+    <div class="op-grid">
+      {others.map(p => (
+        <a
+          href={`${p.href}?utm_source=echosynch&utm_medium=crosssell&utm_campaign=family&utm_content=${placement}`}
+          target="_blank"
+          rel="noopener"
+          class="op-card"
+          data-umami-event="crosssell_click"
+          data-umami-event-target={p.id}
+        >
+          <div class="op-card-head">
+            <img src={p.icon} alt="" width="40" height="40" loading="lazy" />
+            <div>
+              <div class="op-card-name">{p.name}</div>
+              <div class="op-card-platform">{p.platform}</div>
+            </div>
+          </div>
+          <p class="op-card-tagline">{p.tagline}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .other-products {
+    padding: 2.5rem 0 2rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.15);
+  }
+  .op-container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .op-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+    margin: 0 0 0.5rem;
+  }
+  .op-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.5rem;
+  }
+  .op-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .op-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .op-card {
+    display: block;
+    padding: 1.25rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+    background: #ffffff;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+  .op-card:hover {
+    border-color: #4F46E5;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.12);
+    transform: translateY(-1px);
+  }
+  .op-card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .op-card-head img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  .op-card-name {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 1rem;
+  }
+  .op-card-platform {
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+  .op-card-tagline {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0;
+  }
+</style>
