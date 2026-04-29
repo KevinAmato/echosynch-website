@@ -1,0 +1,50 @@
+name: Deploy to Cloudflare Pages
+
+# Cloudflare's native git integration on this repo has been unreliable
+# (commits land but no deploy fires). Mirroring the sync-o-pages and
+# threadpatrol-website pattern: build on every push to main, then push
+# the dist/ folder to Cloudflare Pages via wrangler.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Manual re-run from the Actions tab
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Astro
+        run: pnpm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # NOTE: project-name must exactly match the slug shown in the
+          # Cloudflare dashboard URL: dash.cloudflare.com/<account>/pages/view/<PROJECT_NAME>
+          # If this fails with "Project not found [code: 8000007]", check the
+          # dashboard and update this value. Common candidates:
+          #   echosynch-website  ← repo name (most likely)
+          #   echosynch
+          #   echo-synch
+          command: pages deploy dist --project-name=echosynch-website --branch=main
