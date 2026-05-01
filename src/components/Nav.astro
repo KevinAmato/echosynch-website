@@ -8,7 +8,7 @@
 // dropdowns — those are growth-marketing instincts that conflict with the
 // brand voice (Frictionless · Technical · Quiet).
 interface Props {
-  active?: 'product' | 'pricing' | 'compare' | 'trust' | null;
+  active?: 'product' | 'pricing' | 'compare' | 'trust' | 'blog' | null;
 }
 const { active = null } = Astro.props;
 
@@ -19,9 +19,10 @@ const { active = null } = Astro.props;
 // look for. Docs returns to the nav when we have ≥5 substantive topic
 // pages, not before.
 const links: { label: string; href: string; key: NonNullable<Props['active']> }[] = [
-  { label: 'Product',  href: '/#product',  key: 'product' },
-  { label: 'Compare',  href: '/#compare',  key: 'compare' },
-  { label: 'Pricing',  href: '/#pricing',  key: 'pricing' },
+  { label: 'Product',  href: '/#product',     key: 'product' },
+  { label: 'Compare',  href: '/#compare',     key: 'compare' },
+  { label: 'Pricing',  href: '/#pricing',     key: 'pricing' },
+  { label: 'Blog',     href: '/blog',         key: 'blog' },
   { label: 'Trust',    href: '/trust-center', key: 'trust' },
 ];
 

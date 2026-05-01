@@ -1,0 +1,403 @@
+---
+// BlogPost — per-post layout. Wraps the existing site Layout so the
+// blog inherits Nav + Footer + cross-sell card without duplicating
+// chrome. Adds article-specific JSON-LD (BlogPosting + BreadcrumbList),
+// a hero header with category/date/reading-time, and an "Add to Slack"
+// CTA at the bottom.
+//
+// Content body is rendered as raw <slot /> — Astro's content
+// collection passes the compiled markdown HTML through. Body styling
+// lives at the bottom of this file under <style is:global> scoped to
+// .post-body so we don't pollute global typography.
+
+import type { CollectionEntry } from 'astro:content';
+import Layout from './Layout.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, category, tags, image, author } = post.data;
+const slug = post.id;
+
+const SITE = 'https://echo-synch.com';
+const canonicalUrl = `${SITE}/blog/${slug}`;
+const absoluteImage = image.startsWith('http') ? image : `${SITE}${image}`;
+
+// Reading-time estimate at 220 wpm (industry standard for technical
+// content). Renders the body to plain text by stripping HTML tags from
+// the raw markdown body — close enough; if it's off by a minute on
+// long posts it's not a meaningful UX problem.
+const wordCount = (post.body ?? '')
+  .replace(/```[\s\S]*?```/g, '')   // strip code blocks (don't count toward reading time the same)
+  .replace(/[#>*_`]/g, '')
+  .split(/\s+/)
+  .filter(Boolean).length;
+const readingMinutes = Math.max(2, Math.round(wordCount / 220));
+
+const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+
+// Category labels (mirror src/pages/blog.astro). Keeping this map
+// here avoids a separate import; the blog index has its own copy.
+const CATEGORY_LABELS: Record<string, string> = {
+  'ai-triage': 'AI Triage',
+  'sla': 'SLA',
+  'automation': 'Automation',
+  'metrics': 'Metrics',
+  'comparison': 'Comparison',
+  'integrations': 'Integrations',
+  'best-practices': 'Best Practices',
+  'guides': 'Guides',
+};
+
+// Page metadata fed to Layout. The OG image override lets a per-post
+// image (when set in front-matter) take precedence over the default.
+const pageTitle = `${title} | Echo-Synch Blog`;
+---
+
+<Layout
+  title={pageTitle}
+  description={description}
+  canonical={canonicalUrl}
+  ogImage={absoluteImage}
+  activeNav={null}
+  bodyClass="blog-post-body"
+>
+
+  <!-- BlogPosting JSON-LD. In addition to the SoftwareApplication schema
+       declared in Layout.astro — Google treats them as separate entities
+       (article vs publisher vs product). Inline in body is fine; Google's
+       parser doesn't require structured data to live inside <head>. -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    image: { '@type': 'ImageObject', url: absoluteImage, width: 1200, height: 630 },
+    url: canonicalUrl,
+    datePublished: new Date(pubDate).toISOString(),
+    ...(updatedDate ? { dateModified: new Date(updatedDate).toISOString() } : {}),
+    author: {
+      '@type': 'Organization',
+      name: author,
+      url: SITE,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Echo-Synch',
+      url: SITE,
+      logo: { '@type': 'ImageObject', url: `${SITE}/echo-synch.svg` },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+    keywords: tags.join(', '),
+    articleSection: CATEGORY_LABELS[category] ?? category,
+  })} />
+
+  <article class="post">
+    <!-- Header -->
+    <header class="post-header">
+      <nav aria-label="Breadcrumb" class="breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
+        <a href="/blog">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">{CATEGORY_LABELS[category] ?? category}</span>
+      </nav>
+
+      <div class="post-meta-top">
+        <span class="post-category">{CATEGORY_LABELS[category] ?? category}</span>
+        <span class="post-meta-sep">·</span>
+        <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+        <span class="post-meta-sep">·</span>
+        <span class="post-reading-time">{readingMinutes} min read</span>
+      </div>
+
+      <h1 class="post-title">{title}</h1>
+      <p class="post-description">{description}</p>
+
+      {tags.length > 0 && (
+        <div class="post-tags" aria-label="Tags">
+          {tags.map(tag => <span class="post-tag">#{tag}</span>)}
+        </div>
+      )}
+    </header>
+
+    <!-- Body -->
+    <div class="post-body">
+      <slot />
+    </div>
+
+    <!-- CTA -->
+    <aside class="post-cta">
+      <h2>Triage IT requests in Slack — without the helpdesk overhead</h2>
+      <p>
+        Echo-Synch labels every IT request, suggests priorities, tracks SLAs,
+        and answers FAQs from a knowledge base that grows from your resolved
+        tickets. 14-day Enterprise trial. No credit card.
+      </p>
+      <a href="https://api.echo-synch.com/slack/install" class="post-cta-btn">
+        Add to Slack
+      </a>
+    </aside>
+
+    <!-- Back-to-blog link -->
+    <p class="post-back">
+      <a href="/blog">← Back to all posts</a>
+    </p>
+  </article>
+
+</Layout>
+
+<style is:global>
+  /* Scoped to .blog-post-body via the body class set on Layout — keeps
+     these rules from leaking onto the homepage. */
+  body.blog-post-body main {
+    background: #f8fafc;
+  }
+
+  .post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+
+  .breadcrumb {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .breadcrumb a {
+    color: #4F46E5;
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .post-header {
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+
+  .post-meta-top {
+    font-size: 13px;
+    color: #64748b;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .post-category {
+    background: #eef2ff;
+    color: #4F46E5;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .post-meta-sep {
+    color: #cbd5e1;
+  }
+
+  .post-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 38px;
+    line-height: 1.15;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+  }
+  @media (max-width: 640px) {
+    .post-title { font-size: 28px; }
+  }
+
+  .post-description {
+    font-size: 18px;
+    line-height: 1.55;
+    color: #475569;
+    margin: 0 0 20px;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .post-tag {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  /* Body typography. Emulates a typography plugin without pulling
+     Tailwind's prose plugin in. Specific to .post-body so global
+     elements aren't affected. */
+  .post-body {
+    color: #1e293b;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .post-body > * + * {
+    margin-top: 1.2em;
+  }
+  .post-body h2 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 26px;
+    line-height: 1.25;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 2.4em;
+    margin-bottom: 0.6em;
+    letter-spacing: -0.01em;
+  }
+  .post-body h3 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #0f172a;
+    margin-top: 1.8em;
+    margin-bottom: 0.4em;
+  }
+  .post-body p {
+    margin: 0;
+  }
+  .post-body a {
+    color: #4F46E5;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .post-body a:hover {
+    text-decoration-thickness: 2px;
+  }
+  .post-body ul,
+  .post-body ol {
+    padding-left: 1.5em;
+  }
+  .post-body li + li {
+    margin-top: 6px;
+  }
+  .post-body blockquote {
+    border-left: 3px solid #4F46E5;
+    padding-left: 16px;
+    margin: 1.6em 0;
+    color: #475569;
+    font-style: italic;
+  }
+  .post-body code {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.92em;
+    background: #f1f5f9;
+    color: #4F46E5;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .post-body pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 18px 22px;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 1.6em 0;
+  }
+  .post-body pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+  }
+  .post-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.6em 0;
+    font-size: 15px;
+  }
+  .post-body th,
+  .post-body td {
+    border: 1px solid #e2e8f0;
+    padding: 10px 12px;
+    text-align: left;
+  }
+  .post-body th {
+    background: #f8fafc;
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .post-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.6em 0;
+  }
+  .post-body hr {
+    border: 0;
+    border-top: 1px solid #e2e8f0;
+    margin: 2.4em 0;
+  }
+
+  .post-cta {
+    margin-top: 56px;
+    padding: 32px;
+    background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+    border-radius: 16px;
+    color: white;
+    text-align: center;
+  }
+  .post-cta h2 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: white;
+  }
+  .post-cta p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .post-cta-btn {
+    display: inline-block;
+    background: white;
+    color: #4F46E5;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .post-cta-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  .post-back {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 14px;
+  }
+  .post-back a {
+    color: #64748b;
+    text-decoration: none;
+  }
+  .post-back a:hover {
+    color: #4F46E5;
+  }
+</style>

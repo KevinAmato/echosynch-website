@@ -1,0 +1,24 @@
+---
+// Per-post route. Astro pre-renders one HTML file per blog entry at
+// build time using getStaticPaths — no runtime cost on Cloudflare
+// Pages. The collection's `id` is the markdown filename without
+// extension, which we re-use as the slug.
+
+import { getCollection, render } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogPost post={post}>
+  <Content />
+</BlogPost>

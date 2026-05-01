@@ -1,0 +1,17 @@
+[
+  { "keyword": "slack helpdesk best practices",                                "slug": "slack-helpdesk-best-practices",                 "category": "best-practices", "used": false },
+  { "keyword": "how to triage IT requests in slack",                           "slug": "how-to-triage-it-requests-in-slack",            "category": "guides",         "used": false },
+  { "keyword": "round robin assignment for IT teams",                          "slug": "round-robin-assignment-it-teams",               "category": "automation",     "used": false },
+  { "keyword": "SLA tracking slack IT support",                                "slug": "sla-tracking-slack-it-support",                 "category": "sla",            "used": false },
+  { "keyword": "business hours SLA across timezones",                          "slug": "business-hours-sla-timezones",                  "category": "sla",            "used": false },
+  { "keyword": "internal helpdesk metrics that actually matter",               "slug": "internal-helpdesk-metrics",                     "category": "metrics",        "used": false },
+  { "keyword": "csat surveys for internal IT teams",                           "slug": "csat-internal-it-teams",                        "category": "metrics",        "used": false },
+  { "keyword": "slack vs zendesk for internal IT",                             "slug": "slack-vs-zendesk-internal-it",                  "category": "comparison",     "used": false },
+  { "keyword": "alternatives to halp slack ticketing",                         "slug": "halp-alternatives",                             "category": "comparison",     "used": false },
+  { "keyword": "knowledge base auto-suggest from resolved tickets",            "slug": "kb-auto-suggest-resolved-tickets",              "category": "ai-triage",      "used": false },
+  { "keyword": "AI labeling for IT support tickets",                           "slug": "ai-labeling-it-support",                        "category": "ai-triage",      "used": false },
+  { "keyword": "slack channel structure for IT teams",                         "slug": "slack-channel-structure-it",                    "category": "best-practices", "used": false },
+  { "keyword": "duplicate IT request detection",                               "slug": "duplicate-it-request-detection",                "category": "ai-triage",      "used": false },
+  { "keyword": "MTTR for slack-based IT teams",                                "slug": "mttr-slack-it-teams",                           "category": "metrics",        "used": false },
+  { "keyword": "creating jira tickets from slack threads",                     "slug": "creating-jira-tickets-from-slack",              "category": "integrations",   "used": false }
+]
