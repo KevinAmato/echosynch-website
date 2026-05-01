@@ -18,7 +18,7 @@ on:
 
 # Auto-merge mode (option B from product spec): the workflow commits
 # directly to main and deploys to Cloudflare Pages without opening a
-# PR. The blocking quality gates inside scripts/generate-post.js are
+# PR. The blocking quality gates inside scripts/generate-post.cjs are
 # the only safety net — if a draft fails, the script regenerates up
 # to 2 more times before failing.
 #
@@ -73,14 +73,14 @@ jobs:
             echo "::group::Post $i of $COUNT"
             if [[ "$COUNT" == "1" && -n "$KEYWORD_INPUT" ]]; then
               # Single-post mode with explicit keyword override
-              if node scripts/generate-post.js "$KEYWORD_INPUT"; then
+              if node scripts/generate-post.cjs "$KEYWORD_INPUT"; then
                 SUCCESS=$((SUCCESS + 1))
               else
                 FAIL=$((FAIL + 1))
               fi
             else
               # Queue-driven (cron path or seed mode)
-              if node scripts/generate-post.js; then
+              if node scripts/generate-post.cjs; then
                 SUCCESS=$((SUCCESS + 1))
               else
                 FAIL=$((FAIL + 1))

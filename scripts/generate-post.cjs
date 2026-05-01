@@ -3,10 +3,15 @@
  * Echo-Synch Blog Post Generator
  * --------------------------------
  * Usage:
- *   node scripts/generate-post.js                  # picks next keyword from queue
- *   node scripts/generate-post.js "custom keyword" # generate for a specific keyword
+ *   node scripts/generate-post.cjs                  # picks next keyword from queue
+ *   node scripts/generate-post.cjs "custom keyword" # generate for a specific keyword
  *
  * Requires: ANTHROPIC_API_KEY env var
+ *
+ * NB: file extension is .cjs (CommonJS), not .js. Echo-Synch's
+ * package.json declares `"type": "module"` so bare `.js` files are
+ * loaded as ES modules and `require()` blows up. Sync-o uses the
+ * same .cjs convention for the same reason.
  *
  * Auto-merge mode (option B from product spec): once the script
  * succeeds the workflow commits directly to main and runs wrangler
