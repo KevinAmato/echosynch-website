@@ -44,7 +44,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
+        # No `cache: 'npm'` — requires a package-lock.json the repo
+        # doesn't ship. Cold install is ~15s; not worth committing a
+        # lockfile just for the cache speedup at this dependency size.
 
       - name: Install dependencies
         run: npm ci || npm install
