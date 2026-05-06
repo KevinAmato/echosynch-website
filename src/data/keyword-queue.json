@@ -38,7 +38,8 @@
     "keyword": "internal helpdesk metrics that actually matter",
     "slug": "internal-helpdesk-metrics",
     "category": "metrics",
-    "used": false
+    "used": true,
+    "usedDate": "2026-05-06"
   },
   {
     "keyword": "csat surveys for internal IT teams",
