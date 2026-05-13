@@ -45,7 +45,8 @@
     "keyword": "csat surveys for internal IT teams",
     "slug": "csat-internal-it-teams",
     "category": "metrics",
-    "used": false
+    "used": true,
+    "usedDate": "2026-05-13"
   },
   {
     "keyword": "slack vs zendesk for internal IT",
