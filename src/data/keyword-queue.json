@@ -52,7 +52,8 @@
     "keyword": "slack vs zendesk for internal IT",
     "slug": "slack-vs-zendesk-internal-it",
     "category": "comparison",
-    "used": false
+    "used": true,
+    "usedDate": "2026-05-20"
   },
   {
     "keyword": "alternatives to halp slack ticketing",
