@@ -59,7 +59,8 @@
     "keyword": "alternatives to halp slack ticketing",
     "slug": "halp-alternatives",
     "category": "comparison",
-    "used": false
+    "used": true,
+    "usedDate": "2026-05-27"
   },
   {
     "keyword": "knowledge base auto-suggest from resolved tickets",
