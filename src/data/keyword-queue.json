@@ -66,7 +66,8 @@
     "keyword": "knowledge base auto-suggest from resolved tickets",
     "slug": "kb-auto-suggest-resolved-tickets",
     "category": "ai-triage",
-    "used": false
+    "used": true,
+    "usedDate": "2026-06-03"
   },
   {
     "keyword": "AI labeling for IT support tickets",
