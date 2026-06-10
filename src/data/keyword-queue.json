@@ -73,7 +73,8 @@
     "keyword": "AI labeling for IT support tickets",
     "slug": "ai-labeling-it-support",
     "category": "ai-triage",
-    "used": false
+    "used": true,
+    "usedDate": "2026-06-10"
   },
   {
     "keyword": "slack channel structure for IT teams",
