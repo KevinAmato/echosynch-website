@@ -80,7 +80,8 @@
     "keyword": "slack channel structure for IT teams",
     "slug": "slack-channel-structure-it",
     "category": "best-practices",
-    "used": false
+    "used": true,
+    "usedDate": "2026-06-17"
   },
   {
     "keyword": "duplicate IT request detection",
