@@ -87,7 +87,8 @@
     "keyword": "duplicate IT request detection",
     "slug": "duplicate-it-request-detection",
     "category": "ai-triage",
-    "used": false
+    "used": true,
+    "usedDate": "2026-06-24"
   },
   {
     "keyword": "MTTR for slack-based IT teams",
