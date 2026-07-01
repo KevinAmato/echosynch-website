@@ -94,7 +94,8 @@
     "keyword": "MTTR for slack-based IT teams",
     "slug": "mttr-slack-it-teams",
     "category": "metrics",
-    "used": false
+    "used": true,
+    "usedDate": "2026-07-01"
   },
   {
     "keyword": "creating jira tickets from slack threads",
