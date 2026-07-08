@@ -101,6 +101,7 @@
     "keyword": "creating jira tickets from slack threads",
     "slug": "creating-jira-tickets-from-slack",
     "category": "integrations",
-    "used": false
+    "used": true,
+    "usedDate": "2026-07-08"
   }
 ]
