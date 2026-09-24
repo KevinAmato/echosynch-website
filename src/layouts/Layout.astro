@@ -21,6 +21,7 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import OtherProducts from '../components/OtherProducts.astro';
+import WaitlistModal from '../components/WaitlistModal.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -36,7 +37,7 @@ const {
   title = 'Echo-Synch — Slack-native IT triage with AI labels & SLAs',
   // Description capped at ~160 chars (Google's display limit). Anything
   // longer gets truncated with an ellipsis in SERP, hurting CTR.
-  description = 'Slack-native IT triage. AI labels every request, SLA timers chase deadlines, full web dashboard. €12/agent/month — cancel anytime.',
+  description = 'Slack-native IT triage: every request tracked and resolved in Slack. AI labels and SLA timers on Enterprise. From €15/agent/month.',
   canonical,
   ogImage = '/og-image.png',
   activeNav = null,
@@ -108,7 +109,7 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : SITE + ogImage;
   <!-- Schema.org SoftwareApplication. Slack Directory + Google look at
        this to render a richer search result with price + brand. We
        declare both Pro and Enterprise tiers as separate Offers so a
-       price-range chip can show "€12-€22 / agent / month" in SERPs. -->
+       price-range chip can show "€15-€35 / agent / month" in SERPs. -->
   <script type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -134,13 +135,13 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : SITE + ogImage;
       {
         '@type': 'Offer',
         name: 'Pro',
-        price: '12',
+        price: '15',
         priceCurrency: 'EUR',
       },
       {
         '@type': 'Offer',
         name: 'Enterprise',
-        price: '22',
+        price: '35',
         priceCurrency: 'EUR',
       },
     ],
@@ -187,5 +188,6 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : SITE + ogImage;
   </main>
   <OtherProducts current="echosynch" placement="site_footer" />
   <Footer />
+  <WaitlistModal />
 </body>
 </html>

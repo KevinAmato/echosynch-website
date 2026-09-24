@@ -1,0 +1,216 @@
+---
+// Singleton "Get notified" modal. Rendered once by Layout.astro; opened by
+// any element with `data-waitlist="<source-tag>"`. POSTs the email to
+// /api/waitlist, which writes to DynamoDB and emails philip@thread-patrol.com.
+---
+
+<dialog id="waitlist-modal" class="waitlist-modal" aria-labelledby="waitlist-title">
+  <button type="button" class="waitlist-close" data-waitlist-close aria-label="Close">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+
+  <div class="waitlist-state" data-waitlist-state="form">
+    <div class="waitlist-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+    </div>
+    <h2 id="waitlist-title" class="waitlist-title">Echo-Synch is coming soon</h2>
+    <p class="waitlist-body">
+      We're finishing the last mile before opening installs. Drop your
+      email and we'll ping you the moment Echo-Synch goes live — once
+      only, no marketing.
+    </p>
+
+    <form class="waitlist-form" id="waitlist-form" novalidate>
+      <label class="waitlist-label" for="waitlist-email">Work email</label>
+      <input
+        type="email"
+        id="waitlist-email"
+        name="email"
+        class="waitlist-input"
+        placeholder="you@company.com"
+        required
+        autocomplete="email"
+      />
+      <p class="waitlist-error" data-waitlist-error hidden></p>
+      <button type="submit" class="waitlist-submit" data-waitlist-submit>
+        <span data-waitlist-submit-text>Notify me at launch</span>
+      </button>
+      <p class="waitlist-fineprint">
+        We'll only email you about the launch. <a href="/privacy">Privacy policy.</a>
+      </p>
+    </form>
+  </div>
+
+  <div class="waitlist-state" data-waitlist-state="success" hidden>
+    <div class="waitlist-icon waitlist-icon-success">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h2 class="waitlist-title">You're on the list</h2>
+    <p class="waitlist-body">
+      We'll email <strong data-waitlist-confirmed-email></strong> the moment
+      Echo-Synch is live. Until then, no spam.
+    </p>
+    <button type="button" class="waitlist-submit" data-waitlist-close>Close</button>
+  </div>
+</dialog>
+
+<style>
+  .waitlist-modal { border: none; padding: 0; background: transparent; color: inherit; max-width: none; max-height: none; }
+  .waitlist-modal::backdrop { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .waitlist-modal[open] {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 32px); max-width: 460px;
+    background: #fff; border-radius: 18px; padding: 32px;
+    box-shadow: var(--shadow-lg, 0 20px 40px rgba(15,23,42,0.15));
+    animation: waitlist-in 220ms ease-out;
+  }
+  @keyframes waitlist-in {
+    from { opacity: 0; transform: translate(-50%, -46%); }
+    to   { opacity: 1; transform: translate(-50%, -50%); }
+  }
+  .waitlist-close {
+    position: absolute; top: 14px; right: 14px;
+    width: 32px; height: 32px;
+    border: none; background: transparent;
+    color: var(--fg-3); cursor: pointer;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .waitlist-close:hover { background: var(--slate-100); color: var(--fg-1); }
+  .waitlist-icon {
+    width: 56px; height: 56px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--echo-indigo-50);
+    color: var(--echo-indigo);
+    border-radius: 14px;
+    margin-bottom: 18px;
+  }
+  .waitlist-icon-success {
+    background: color-mix(in oklab, var(--status-emerald, #10b981) 12%, white);
+    color: var(--status-emerald, #10b981);
+  }
+  .waitlist-title { font-size: 22px; font-weight: 700; color: var(--fg-1); margin: 0 0 10px; letter-spacing: -0.01em; }
+  .waitlist-body { font-size: 14.5px; color: var(--fg-2); line-height: 1.55; margin: 0 0 20px; }
+  .waitlist-form { display: flex; flex-direction: column; }
+  .waitlist-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fg-3); margin-bottom: 6px; }
+  .waitlist-input {
+    width: 100%; padding: 10px 12px; font-size: 15px;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: 10px; background: #fff; color: var(--fg-1);
+    font-family: inherit;
+  }
+  .waitlist-input:focus { outline: none; border-color: var(--echo-indigo); box-shadow: 0 0 0 3px var(--echo-indigo-50); }
+  .waitlist-error { color: var(--status-rose, #e11d48); font-size: 13px; margin: 8px 0 0; }
+  .waitlist-submit {
+    margin-top: 16px; padding: 12px 18px;
+    background: var(--echo-indigo); color: #fff;
+    font-weight: 600; font-size: 15px;
+    border: none; border-radius: 10px; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: inherit;
+  }
+  .waitlist-submit:hover { background: var(--echo-indigo-600, var(--echo-indigo)); }
+  .waitlist-submit[disabled] { opacity: 0.7; cursor: wait; }
+  .waitlist-fineprint { font-size: 12px; color: var(--fg-4, var(--fg-3)); margin: 14px 0 0; line-height: 1.5; }
+  .waitlist-fineprint a { color: var(--echo-indigo); text-decoration: none; }
+  .waitlist-fineprint a:hover { text-decoration: underline; }
+</style>
+
+<script>
+  const dialog = document.getElementById('waitlist-modal') as HTMLDialogElement | null;
+  if (dialog) {
+    let lastTrigger: HTMLElement | null = null;
+    let currentSource = 'unknown';
+
+    const form  = dialog.querySelector<HTMLFormElement>('#waitlist-form');
+    const input = dialog.querySelector<HTMLInputElement>('#waitlist-email');
+    const errEl = dialog.querySelector<HTMLElement>('[data-waitlist-error]');
+    const submitBtn = dialog.querySelector<HTMLButtonElement>('[data-waitlist-submit]');
+    const submitTxt = dialog.querySelector<HTMLElement>('[data-waitlist-submit-text]');
+    const formState    = dialog.querySelector<HTMLElement>('[data-waitlist-state="form"]');
+    const successState = dialog.querySelector<HTMLElement>('[data-waitlist-state="success"]');
+    const confirmedEmail = dialog.querySelector<HTMLElement>('[data-waitlist-confirmed-email]');
+
+    function open(trigger: HTMLElement, source: string) {
+      lastTrigger = trigger;
+      currentSource = source;
+      resetToForm();
+      dialog!.showModal();
+      requestAnimationFrame(() => input?.focus());
+    }
+    function close() {
+      dialog!.close();
+      lastTrigger?.focus();
+    }
+    function resetToForm() {
+      if (formState) formState.hidden = false;
+      if (successState) successState.hidden = true;
+      if (errEl) { errEl.hidden = true; errEl.textContent = ''; }
+      if (input) input.value = '';
+      if (submitBtn) submitBtn.disabled = false;
+      if (submitTxt) submitTxt.textContent = 'Notify me at launch';
+    }
+    function showError(msg: string) {
+      if (!errEl) return;
+      errEl.textContent = msg;
+      errEl.hidden = false;
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-waitlist]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        open(el, el.dataset.waitlist || 'unknown');
+      });
+    });
+    dialog.querySelectorAll<HTMLElement>('[data-waitlist-close]').forEach(el => {
+      el.addEventListener('click', () => close());
+    });
+    // Click outside content closes.
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) close();
+    });
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = (input?.value ?? '').trim();
+      if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        showError('Please enter a valid email address.');
+        return;
+      }
+      if (submitBtn) submitBtn.disabled = true;
+      if (submitTxt) submitTxt.textContent = 'Submitting…';
+      if (errEl) errEl.hidden = true;
+
+      try {
+        const r = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: currentSource }),
+        });
+        if (!r.ok) {
+          const data = await r.json().catch(() => ({} as any));
+          showError(data?.error === 'invalid_email'
+            ? 'That email address looks off — check it and retry.'
+            : "Something went wrong. Please try again in a moment.");
+          if (submitBtn) submitBtn.disabled = false;
+          if (submitTxt) submitTxt.textContent = 'Notify me at launch';
+          return;
+        }
+        if (confirmedEmail) confirmedEmail.textContent = email;
+        if (formState) formState.hidden = true;
+        if (successState) successState.hidden = false;
+      } catch {
+        showError('Network error. Please try again in a moment.');
+        if (submitBtn) submitBtn.disabled = false;
+        if (submitTxt) submitTxt.textContent = 'Notify me at launch';
+      }
+    });
+  }
+</script>

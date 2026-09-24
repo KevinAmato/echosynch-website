@@ -26,17 +26,14 @@ const links: { label: string; href: string; key: NonNullable<Props['active']> }[
   { label: 'Trust',    href: '/trust-center', key: 'trust' },
 ];
 
-// "Add to Slack" CTA goes straight to the bot's OAuth install URL.
-// Pre-Marketplace-approval, direct-link installs still work — Slack
-// shows a "this app is in development" banner on the consent screen
-// but the OAuth flow completes normally. Once approved, the same URL
-// continues to work (Slack just adds the green "verified" checkmark
-// to the consent screen).
+// "Get notified" CTA opens the WaitlistModal (data-waitlist). Installs
+// are paused until alpha testers are lined up, because a live install
+// needs the (currently deleted) Aurora database. To reopen installs,
+// point every [data-waitlist] CTA back at
+// https://api.echo-synch.com/slack/install.
 //
-// History: this CTA used to open a WaitlistModal that collected an
-// email and POST'd to a Resend audience. Removed in April 2026 once
-// the bot was production-ready and we wanted to start collecting
-// install-data signal that Slack reviews need (5 active workspaces).
+// History: April 2026 waitlist (Resend) → removed for direct installs
+// → July 2026 waitlist again (DynamoDB + email via /api/waitlist).
 ---
 
 <header class="mk-nav">
@@ -55,10 +52,11 @@ const links: { label: string; href: string; key: NonNullable<Props['active']> }[
     <div class="mk-nav-actions">
       <a href="https://app.echo-synch.com" class="mk-nav-signin">Sign in</a>
       <a
-        href="https://api.echo-synch.com/slack/install"
+        href="#waitlist"
+        data-waitlist="nav"
         class="mk-btn mk-btn-primary"
       >
-        Add to Slack
+        Get notified
       </a>
     </div>
   </div>

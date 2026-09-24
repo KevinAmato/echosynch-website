@@ -60,12 +60,12 @@ const sections: Section[] = [
     topics: [
       {
         title: 'How AI triage works',
-        blurb: 'Vertex AI Gemini reads the request and returns label + priority + summary. The output is stored on the thread row.',
+        blurb: 'Vertex AI Gemini reads the request and returns label + priority + summary. The output is stored on the thread row. Enterprise tier; on Pro your team labels with one click.',
         link: { href: '/support#frequently-asked-questions', label: 'See FAQ' },
       },
       {
         title: 'Custom labels and taxonomy',
-        blurb: 'Constrain the AI to your own categories instead of free-form labels. Up to 10 on Pro, unlimited on Enterprise.',
+        blurb: 'Constrain the AI to your own categories instead of free-form labels. Enterprise tier.',
         link: { href: `${APP}/triage-reference`, label: 'Open Triage reference' },
       },
       {
@@ -86,7 +86,7 @@ const sections: Section[] = [
       },
       {
         title: 'Warning DMs and breach alerts',
-        blurb: 'Echo-Synch DMs the assignee 30 minutes before deadline and broadcasts to admins on breach.',
+        blurb: 'Echo-Synch DMs the assignee 30 minutes before deadline and broadcasts to admins on breach. Enterprise tier.',
         link: { href: '/support#frequently-asked-questions', label: 'See FAQ — How SLAs work' },
       },
       {
@@ -106,9 +106,14 @@ const sections: Section[] = [
         link: { href: '/support#frequently-asked-questions', label: 'See FAQ — What happens when my trial expires' },
       },
       {
+        title: 'How seats are counted',
+        blurb: 'You pay per agent: the installer, admins and the people on your Triage team. Requesters are free. Edit the team in Slack and your subscription adjusts automatically.',
+        link: { href: `${APP}/billing`, label: 'Open Billing' },
+      },
+      {
         title: 'Switch between Pro and Enterprise',
-        blurb: 'Self-serve plan changes via the LemonSqueezy customer portal. Proration handled automatically.',
-        link: { href: `${APP}/settings/billing`, label: 'Open Billing settings' },
+        blurb: 'Self-serve from the Billing page. Your plan changes in place and your seats carry over. Upgrades are prorated right away; downgrades apply at renewal.',
+        link: { href: `${APP}/billing`, label: 'Open Billing' },
       },
       {
         title: 'Cancel a subscription',
