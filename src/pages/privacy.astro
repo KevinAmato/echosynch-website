@@ -21,7 +21,7 @@
 
 import Layout from '../layouts/Layout.astro';
 
-const lastUpdated = '25 April 2026';
+const lastUpdated = '24 September 2026';
 ---
 
 <Layout
@@ -58,7 +58,7 @@ const lastUpdated = '25 April 2026';
     </p>
     <p>
       <strong>Where it lives:</strong> AWS Ireland (eu-west-1). The default
-      AI provider is Google Vertex AI (Belgium region). Enterprise
+      AI provider is Google Vertex AI (EU multi-region). Enterprise
       customers can BYOM (bring their own Gemini API key) and route
       processing through their own GCP project instead.
     </p>
@@ -159,7 +159,7 @@ const lastUpdated = '25 April 2026';
     <p>
       <strong>AI processing.</strong> Message content from triaged threads
       is sent to your configured AI provider — Google Vertex AI Gemini
-      (Belgium region) by default, or your own model if your workspace has
+      (EU multi-region) by default, or your own model if your workspace has
       configured Bring Your Own Model (Enterprise BYOM). The AI returns a
       structured triage decision (label + priority + summary) which we
       store on the thread row. <strong>Your data is never used to train
@@ -218,7 +218,7 @@ const lastUpdated = '25 April 2026';
     <ul>
       <li><strong>Slack:</strong> we operate as a Slack app and necessarily exchange data with Slack.</li>
       <li><strong>Amazon Web Services (Ireland):</strong> hosts our Lambda functions, Aurora Postgres database, SQS queues, and KMS-encrypted secrets.</li>
-      <li><strong>Google Cloud / Vertex AI (Belgium):</strong> default AI provider for triage and summaries.</li>
+      <li><strong>Google Cloud / Vertex AI (EU multi-region):</strong> default AI provider for triage and summaries.</li>
       <li><strong>Bring Your Own Model (Enterprise):</strong> when configured, message content is sent to your own Google Gemini API key — not ours.</li>
       <li><strong>LemonSqueezy:</strong> merchant of record for subscriptions. Stores card details and invoices; we receive only subscription metadata via webhook.</li>
       <li><strong>Cloudflare:</strong> DNS, CDN, and email routing for <code>echo-synch.com</code>.</li>
@@ -232,7 +232,7 @@ const lastUpdated = '25 April 2026';
     <p>
       Echo-Synch is operated from Italy (EU). Primary infrastructure runs
       in AWS <code>eu-west-1</code> (Dublin, Ireland) and Google Vertex
-      AI's Belgium region. For subprocessors located outside the EEA
+      AI's EU multi-region. For subprocessors located outside the EEA
       (LemonSqueezy and Sentry, both US-based), transfers are governed by
       the EU Standard Contractual Clauses; both providers self-certify
       under the EU–US Data Privacy Framework. BYOM transfers happen
