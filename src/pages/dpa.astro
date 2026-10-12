@@ -143,7 +143,7 @@ const lastUpdated = '24 September 2026';
       <tbody>
         <tr><td>Amazon Web Services (AWS)</td><td>Cloud infrastructure: Lambda, Aurora Postgres, SQS, KMS, Secrets Manager, EventBridge</td><td>Ireland (eu-west-1)</td></tr>
         <tr><td>Google (Vertex AI / Gemini)</td><td>Default AI provider for triage and summaries</td><td>EU (Vertex AI EU multi-region)</td></tr>
-        <tr><td>Google (Vertex AI / Gemini) under BYOM</td><td>AI provider when Enterprise customer configures Bring Your Own Model — runs in the Customer's own GCP project</td><td>Customer-selected region</td></tr>
+        <tr><td>Customer-chosen AI provider under BYOM</td><td>AI provider when Enterprise customer configures Bring Your Own Model (Google Gemini, OpenAI, Anthropic or Azure OpenAI) — runs under the Customer's own account and contract</td><td>Customer-selected region</td></tr>
         <tr><td>LemonSqueezy (Lemon Squeezy LLC)</td><td>Merchant of record — payments, invoicing, subscription management</td><td>USA (DPF-certified)</td></tr>
         <tr><td>Cloudflare</td><td>DNS, CDN, and email routing for echo-synch.com</td><td>Global edge; primary EU data centres</td></tr>
         <tr><td>Resend</td><td>Transactional email (e.g. billing notifications, security alerts)</td><td>USA (DPF-certified)</td></tr>
@@ -152,8 +152,8 @@ const lastUpdated = '24 September 2026';
     </table>
     <p style="font-size: 13.5px; color: var(--fg-3);">
       <strong>Note.</strong> When an Enterprise customer configures Bring
-      Your Own Model with their own Google Gemini API key, message content
-      is processed via the Customer's own GCP project and is not routed
+      Your Own Model with their own API key (Google Gemini, OpenAI, Anthropic or Azure OpenAI), message content
+      is processed via the Customer's own AI provider account and is not routed
       through Echo-Synch's default Vertex AI infrastructure.
     </p>
 

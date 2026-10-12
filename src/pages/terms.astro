@@ -57,7 +57,7 @@ const lastUpdated = '25 April 2026';
       functions are:
     </p>
     <ul>
-      <li>Auto-categorising and prioritising IT requests posted in monitored Slack channels using AI (Google Vertex AI Gemini by default; your own Gemini key under Enterprise BYOM).</li>
+      <li>Auto-categorising and prioritising IT requests posted in monitored Slack channels using AI (Google Vertex AI Gemini by default; your own AI provider key under Enterprise BYOM).</li>
       <li>Tracking SLA windows per priority level, sending warning DMs before deadlines and breach alerts after.</li>
       <li>Assigning requests to triage team members and exposing the queue via a web dashboard.</li>
       <li>Posting daily digests of open requests to a configured channel.</li>
@@ -174,7 +174,7 @@ const lastUpdated = '25 April 2026';
     <ul>
       <li><strong>Slack</strong> — the core platform. Their availability and policies are outside our control.</li>
       <li><strong>Google Cloud Platform / Vertex AI / Gemini</strong> — default AI provider for triage.</li>
-      <li><strong>Bring Your Own Model (Enterprise BYOM)</strong> — your own Google Gemini API key, when configured.</li>
+      <li><strong>Bring Your Own Model (Enterprise BYOM)</strong> — your own API key for Google Gemini, OpenAI, Anthropic or Azure OpenAI, when configured.</li>
       <li><strong>Amazon Web Services</strong> — hosting and infrastructure.</li>
       <li><strong>LemonSqueezy</strong> — merchant of record for billing.</li>
       <li><strong>Cloudflare</strong> — DNS, CDN, and email routing.</li>

@@ -201,7 +201,7 @@ Quiet** — never hype-y, no exclamation marks, no emoji in chrome.
 - **Eyebrow:** `06 · Make it yours`
 - **Title:** "Your SLAs. Your statuses. Your AI." (3 lines)
 - **Body:** "Per-priority SLA windows, custom statuses, custom
-  priorities — and on Enterprise, route AI through your own Gemini key
+  priorities — and on Enterprise, route AI through your own AI provider key
   with BYOM. Every workflow rule, configurable."
 - **Visual:** Three stacked customization cards (gap 14 px).
   - **Card 1 — SLA thresholds:** title "SLA thresholds", sub "Hours

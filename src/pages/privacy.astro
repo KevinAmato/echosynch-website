@@ -59,8 +59,8 @@ const lastUpdated = '24 September 2026';
     <p>
       <strong>Where it lives:</strong> AWS Ireland (eu-west-1). The default
       AI provider is Google Vertex AI (EU multi-region). Enterprise
-      customers can BYOM (bring their own Gemini API key) and route
-      processing through their own GCP project instead.
+      customers can BYOM (bring their own API key for Google Gemini, OpenAI, Anthropic or Azure OpenAI)
+      and route processing through their own AI provider account instead.
     </p>
     <p>
       <strong>How long:</strong> as long as you stay installed. Uninstall
@@ -219,7 +219,7 @@ const lastUpdated = '24 September 2026';
       <li><strong>Slack:</strong> we operate as a Slack app and necessarily exchange data with Slack.</li>
       <li><strong>Amazon Web Services (Ireland):</strong> hosts our Lambda functions, Aurora Postgres database, SQS queues, and KMS-encrypted secrets.</li>
       <li><strong>Google Cloud / Vertex AI (EU multi-region):</strong> default AI provider for triage and summaries.</li>
-      <li><strong>Bring Your Own Model (Enterprise):</strong> when configured, message content is sent to your own Google Gemini API key — not ours.</li>
+      <li><strong>Bring Your Own Model (Enterprise):</strong> when configured, message content is sent to the AI provider you configured (Google Gemini, OpenAI, Anthropic or Azure OpenAI) using your own API key — not ours.</li>
       <li><strong>LemonSqueezy:</strong> merchant of record for subscriptions. Stores card details and invoices; we receive only subscription metadata via webhook.</li>
       <li><strong>Cloudflare:</strong> DNS, CDN, and email routing for <code>echo-synch.com</code>.</li>
       <li><strong>Resend:</strong> transactional email provider for service notifications.</li>

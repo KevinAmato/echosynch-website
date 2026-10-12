@@ -94,7 +94,7 @@ import Layout from '../layouts/Layout.astro';
       <tbody>
         <tr><td>Amazon Web Services (AWS)</td><td>Hosting &amp; infrastructure</td><td>Ireland (eu-west-1)</td></tr>
         <tr><td>Google (Vertex AI / Gemini)</td><td>Default AI provider</td><td>EU (Vertex AI EU multi-region)</td></tr>
-        <tr><td>Google Gemini under BYOM</td><td>Enterprise BYOM — runs in the Customer's own GCP project</td><td>Customer-selected region</td></tr>
+        <tr><td>Customer-chosen AI provider under BYOM</td><td>Enterprise BYOM (Google Gemini, OpenAI, Anthropic or Azure OpenAI) — runs under the Customer's own account</td><td>Customer-selected region</td></tr>
         <tr><td>LemonSqueezy</td><td>Payment processing &amp; merchant of record</td><td>USA (DPF-certified)</td></tr>
         <tr><td>Cloudflare</td><td>DNS, CDN, email routing</td><td>Global edge / EU primary</td></tr>
         <tr><td>Resend</td><td>Transactional email</td><td>USA (DPF-certified)</td></tr>
@@ -110,15 +110,15 @@ import Layout from '../layouts/Layout.astro';
 
     <h3>Complete data isolation</h3>
     <p>
-      With BYOM, message content is sent directly to your own Google Cloud
-      project — never to Echo-Synch's. Your AI credentials, your
+      With BYOM, message content is sent directly to your own AI provider
+      account (Google Gemini, OpenAI, Anthropic or Azure OpenAI) — never to Echo-Synch's. Your AI credentials, your
       infrastructure, your control. Echo-Synch is not in the AI data path.
     </p>
 
     <h3>Data sovereignty</h3>
     <p>
       BYOM lets you control exactly where AI processing happens. Choose
-      any GCP region your organisation has approved — your IT request
+      the provider and region your organisation has approved — your IT request
       content never leaves the regulatory boundary you define.
     </p>
 
