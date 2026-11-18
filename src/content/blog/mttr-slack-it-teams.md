@@ -4,7 +4,7 @@ description: "Learn how to accurately measure and reduce MTTR for Slack-based IT
 pubDate: 2026-07-01
 category: metrics
 tags: [mttr, slack-helpdesk, it-metrics, sla-tracking]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "Internal Helpdesk Metrics That Actually Matter"
   - "SLA Tracking in Slack IT Support That Actually Works"
@@ -92,7 +92,7 @@ The math is simple: if your target MTTR for P2 is 2 hours and your average routi
 
 Auto-assignment changes this. [Round Robin Assignment for IT Teams: A Practical Guide](/blog/round-robin-assignment-it-teams) lays out the mechanics, but the core principle is that any moment a ticket spends in an "unowned" state is dead time that eats into your resolution window. The fix is making assignment automatic and immediate, then letting agents re-route if the ticket is genuinely outside their scope.
 
-Echo-Synch fires assignment events at intake rather than waiting for a human to claim the ticket, which typically cuts routing lag from the 20-30 minute range to under 90 seconds for teams that were previously relying on manual queue scanning.
+ThreadPatrol Triage fires assignment events at intake rather than waiting for a human to claim the ticket, which typically cuts routing lag from the 20-30 minute range to under 90 seconds for teams that were previously relying on manual queue scanning.
 
 ## Connecting MTTR to the Metrics People Actually Get Reviewed On
 

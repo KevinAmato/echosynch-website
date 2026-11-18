@@ -4,7 +4,7 @@ description: "Practical Slack helpdesk best practices for IT managers running hi
 pubDate: 2026-05-01
 category: best-practices
 tags: [slack-helpdesk, it-triage, sla-tracking, helpdesk-ops]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "How to Set Up an IT Help Channel in Slack"
   - "Slack SLA Tracking for IT Teams"
@@ -41,7 +41,7 @@ We've seen teams skip forms entirely because "our users won't fill them out." Th
 
 The single most common structural failure we observe in mature helpdesk channels is broken threading. A technician replies in-channel instead of in the thread. Now the conversation is split. Now searching for the resolution six weeks later is a guessing game.
 
-Enforce threading with a channel description and a pinned post, but also architect your workflow to make threading the path of least resistance. When Echo-Synch picks up a new ticket, it posts its Label prompt in the request's thread, and all subsequent bot activity (status updates, assignments, SLA warnings) happens in that thread. The original message becomes the ticket record.
+Enforce threading with a channel description and a pinned post, but also architect your workflow to make threading the path of least resistance. When ThreadPatrol Triage picks up a new ticket, it posts its Label prompt in the request's thread, and all subsequent bot activity (status updates, assignments, SLA warnings) happens in that thread. The original message becomes the ticket record.
 
 One practical rule: if a reply would make sense to someone who hasn't read the thread, it belongs in the thread, not in-channel. That includes status updates. Especially status updates.
 
@@ -67,7 +67,7 @@ Set your SLA clock to start when the form is submitted, not when a human notices
 
 The fix is default assignment logic. Route by category at intake: access requests go to the IAM-responsible tech, hardware goes to your onsite or depot contact, security incidents go directly to a named lead (not a group). If you have a team of one, this still applies: all tickets assigned to you surfaces immediately in your view rather than pooling in a shared channel where attention gets split.
 
-In Slack, you can implement basic round-robin or category-based routing using Workflow Builder's "Assign to a team member" step, combined with a lookup variable. It's limited but functional for teams under 10. Above that, you need something that can hold state across tickets. Echo-Synch handles this with routing rules you define once: category + priority + time-of-day maps to an assignee or on-call rotation.
+In Slack, you can implement basic round-robin or category-based routing using Workflow Builder's "Assign to a team member" step, combined with a lookup variable. It's limited but functional for teams under 10. Above that, you need something that can hold state across tickets. ThreadPatrol Triage handles this with routing rules you define once: category + priority + time-of-day maps to an assignee or on-call rotation.
 
 The failure mode here is the "senior tech gravitational pull" problem. Left unstructured, all ambiguous or difficult tickets drift toward the most senior person on the team because others are unsure how to triage them. That person becomes a bottleneck. You lose them for a day, the queue doubles. Enforce category-based routing strictly for 60 days and this resolves itself.
 

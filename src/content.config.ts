@@ -2,7 +2,7 @@
 // scripts/generate-post.js front-matter output and the [slug].astro
 // route's expected fields.
 //
-// Categories tuned to Echo-Synch's IT-helpdesk audience (vs
+// Categories tuned to ThreadPatrol Triage's IT-helpdesk audience (vs
 // Thread-Patrol's Slack-admin categories). Adding a new category
 // requires editing this file AND adding a chip to src/pages/blog.astro.
 //
@@ -32,7 +32,7 @@ const blog = defineCollection({
     ]),
     tags: z.array(z.string()).default([]),
     image: z.string().default('/og-image.png'),
-    author: z.string().default('Echo-Synch Team'),
+    author: z.string().default('ThreadPatrol Triage Team'),
     avoids_overlap_with: z.array(z.string()).optional(),
   }),
 });

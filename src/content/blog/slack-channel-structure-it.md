@@ -4,7 +4,7 @@ description: "A practical Slack channel structure for IT teams: how to design, n
 pubDate: 2026-06-17
 category: best-practices
 tags: [slack, channel-structure, it-helpdesk, ticket-routing]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "Slack Helpdesk Best Practices That Actually Scale"
   - "How to Triage IT Requests in Slack (That Stick)"
@@ -90,7 +90,7 @@ If your team spans multiple timezones, the channel structure needs to account fo
 
 `#it-escalations` has one job: surface tickets that have breached SLA or been explicitly escalated by a T1 analyst. It is not a place for "FYI" posts, management updates, or cross-team coordination. The moment it becomes a catch-all, analysts stop monitoring it with urgency.
 
-Enforce this structurally: only your triage bot and T1 analysts can post in `#it-escalations`. The bot posts there automatically when a ticket crosses the SLA breach threshold (typically defined as 80% of SLA time elapsed without resolution, though that threshold is configurable in Echo-Synch). Analysts post there manually when they hit a blocker they can't resolve at T1. The IT manager watches this channel and responds to breaches, not the general queue.
+Enforce this structurally: only your triage bot and T1 analysts can post in `#it-escalations`. The bot posts there automatically when a ticket crosses the SLA breach threshold (typically defined as 80% of SLA time elapsed without resolution, though that threshold is configurable in ThreadPatrol Triage). Analysts post there manually when they hit a blocker they can't resolve at T1. The IT manager watches this channel and responds to breaches, not the general queue.
 
 Keep a close eye on [internal helpdesk metrics](//blog/internal-helpdesk-metrics) to understand whether your escalation rate is trending up. A rising escalation rate often signals a category channel is understaffed, not that individual tickets are harder.
 

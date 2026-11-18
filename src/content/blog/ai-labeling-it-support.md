@@ -4,7 +4,7 @@ description: "AI labeling for IT support tickets promises faster triage, but mos
 pubDate: 2026-06-10
 category: ai-triage
 tags: [ai-triage, ticket-labeling, it-helpdesk, slack-support]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "How to Triage IT Requests in Slack (That Stick)"
   - "Internal Helpdesk Metrics That Actually Matter"
@@ -87,7 +87,7 @@ A labeling model without a correction mechanism is a liability that compounds ov
 
 Capture every human correction. When an agent re-labels a ticket, that correction should automatically queue for model retraining review (not auto-retrain; review first). Batch corrections weekly. Retrain monthly at minimum.
 
-Echo-Synch surfaces correction data directly in the triage dashboard: every relabeled ticket is flagged with the original prediction, the corrected label, and the confidence score at prediction time. Running a monthly review of tickets where confidence was above 0.80 but the label got corrected is more useful than looking at low-confidence corrections. High-confidence wrong predictions mean the model has a systematic blind spot, not just uncertainty.
+ThreadPatrol Triage surfaces correction data directly in the triage dashboard: every relabeled ticket is flagged with the original prediction, the corrected label, and the confidence score at prediction time. Running a monthly review of tickets where confidence was above 0.80 but the label got corrected is more useful than looking at low-confidence corrections. High-confidence wrong predictions mean the model has a systematic blind spot, not just uncertainty.
 
 This feedback loop also directly improves what a [knowledge base auto-suggest feature](/blog/kb-auto-suggest-resolved-tickets) can surface, since accurate labels are the primary index for matching resolved tickets to new inbound requests.
 

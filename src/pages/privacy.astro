@@ -3,10 +3,10 @@
 //
 // Adapted from Thread-Patrol's privacy.html with three categories of edits:
 //
-//   1. Brand swap — ThreadPatrol → Echo-Synch, support@thread-patrol.com →
+//   1. Brand swap — ThreadPatrol → ThreadPatrol Triage, support@thread-patrol.com →
 //      support@echo-synch.com, etc.
 //   2. Product-specific copy rewrite — TP's "channel organisation /
-//      thread-suggestion" framing replaced by Echo-Synch's IT-request
+//      thread-suggestion" framing replaced by ThreadPatrol Triage's IT-request
 //      triage / SLA / labeling framing.
 //   3. Subprocessor + data-schema rewrite — TP's RECENT_CONTEXT_LIST etc.
 //      replaced by our actual schema (workspaces, threads, sla_events,
@@ -25,15 +25,15 @@ const lastUpdated = '18 November 2026';
 ---
 
 <Layout
-  title="Privacy Policy — Echo-Synch"
-  description="How Echo-Synch collects, uses, stores, and deletes data from your Slack workspace. GDPR + CCPA compliant."
+  title="Privacy Policy — ThreadPatrol Triage"
+  description="How ThreadPatrol Triage collects, uses, stores, and deletes data from your Slack workspace. GDPR + CCPA compliant."
 >
   <header class="mk-pageheader">
     <div class="mk-container-narrow">
       <p class="mk-eyebrow">Legal</p>
       <h1 class="mk-display">Privacy Policy</h1>
       <p class="mk-lead">
-        How Echo-Synch handles data from your Slack workspace —
+        How ThreadPatrol Triage (formerly Echo-Synch) handles data from your Slack workspace —
         plain-language summary above, full text below.
       </p>
       <div style="margin-top: 28px; font-size: 13px; color: var(--fg-3);">
@@ -67,7 +67,7 @@ const lastUpdated = '18 November 2026';
       and we hard-delete every workspace record within one hour.
     </p>
     <p style="border-left: 3px solid var(--echo-indigo); padding: 8px 16px; background: var(--echo-indigo-50); border-radius: 4px;">
-      <strong>Age restriction.</strong> Echo-Synch is not intended for
+      <strong>Age restriction.</strong> ThreadPatrol Triage is not intended for
       users under the age of 16. We do not knowingly collect personal
       information from children under 16. If you believe a child has
       provided us with personal information, contact
@@ -79,16 +79,16 @@ const lastUpdated = '18 November 2026';
 
     <h2>1. Introduction</h2>
     <p>
-      Welcome to Echo-Synch. This Privacy Policy explains how we collect,
+      Welcome to ThreadPatrol Triage. This Privacy Policy explains how we collect,
       use, share, and protect information in relation to our Slack bot
       and the companion web dashboard at <code>app.echo-synch.com</code>
-      (collectively, the "Service"). Echo-Synch is operated from Rome,
+      (collectively, the "Service"). ThreadPatrol Triage is operated from Rome,
       Italy.
     </p>
     <p>
-      Echo-Synch helps IT teams triage requests that arrive in Slack
+      ThreadPatrol Triage helps IT teams triage requests that arrive in Slack
       channels — auto-categorising, prioritising, and tracking SLAs on
-      every request. By installing or using Echo-Synch, you agree to the
+      every request. By installing or using ThreadPatrol Triage, you agree to the
       collection, use, disclosure, and procedures this Privacy Policy
       describes, as well as our <a href="/terms">Terms of Service</a> and
       <a href="/dpa">Data Processing Addendum</a>.
@@ -105,7 +105,7 @@ const lastUpdated = '18 November 2026';
     </ul>
     <p>
       <strong>Why we collect this.</strong> The OAuth scopes are essential
-      for Echo-Synch to be installed, to authenticate with the Slack API,
+      for ThreadPatrol Triage to be installed, to authenticate with the Slack API,
       to read messages in monitored channels, to post triage labels and
       SLA alerts, and to DM assignees when deadlines approach. The full
       scope list is published in the
@@ -118,7 +118,7 @@ const lastUpdated = '18 November 2026';
     <ul>
       <li>
         <strong>Triaged threads.</strong> When an IT request arrives in a
-        monitored channel, Echo-Synch stores the thread's Slack channel
+        monitored channel, ThreadPatrol Triage stores the thread's Slack channel
         ID, message timestamp, poster Slack user ID, and the AI-assigned
         category and priority. We also store the text of the request and
         of the latest reply in its thread, so your IT team can see them in
@@ -235,13 +235,13 @@ const lastUpdated = '18 November 2026';
 
     <h2>7. International data transfers</h2>
     <p>
-      Echo-Synch is operated from Italy (EU). Primary infrastructure runs
+      ThreadPatrol Triage is operated from Italy (EU). Primary infrastructure runs
       in AWS <code>eu-west-1</code> (Dublin, Ireland) and Google Vertex
       AI's EU multi-region. For subprocessors located outside the EEA
       (LemonSqueezy and Sentry, both US-based), transfers are governed by
       the EU Standard Contractual Clauses; both providers self-certify
       under the EU–US Data Privacy Framework. BYOM transfers happen
-      between you and your chosen AI provider; Echo-Synch is not in the
+      between you and your chosen AI provider; ThreadPatrol Triage is not in the
       data path.
     </p>
 
@@ -304,7 +304,7 @@ const lastUpdated = '18 November 2026';
     </table>
 
     <h2>11. Cookies and similar technologies</h2>
-    <p>Echo-Synch's marketing site (<code>echo-synch.com</code>) uses no tracking cookies and runs no third-party analytics. The dashboard at <code>app.echo-synch.com</code> uses a single first-party session cookie (<code>echo_synch_session</code>) for authentication; it is HTTP-only, Secure, SameSite=Lax, and expires after 7 days. The Slack platform separately uses cookies as part of its OAuth flow — review Slack's <a href="https://slack.com/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> for details.</p>
+    <p>ThreadPatrol Triage's marketing site (<code>echo-synch.com</code>) uses no tracking cookies and runs no third-party analytics. The dashboard at <code>app.echo-synch.com</code> uses a single first-party session cookie (<code>echo_synch_session</code>) for authentication; it is HTTP-only, Secure, SameSite=Lax, and expires after 7 days. The Slack platform separately uses cookies as part of its OAuth flow — review Slack's <a href="https://slack.com/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> for details.</p>
 
     <h2>12. Changes to this Privacy Policy</h2>
     <p>We may update this Policy as the Service evolves. The "Effective date" at the top of the page reflects the most recent revision. For material changes, we'll notify the installer via email at the address recorded during OAuth.</p>
@@ -317,6 +317,6 @@ const lastUpdated = '18 November 2026';
     </ul>
 
     <h2>14. Data controller</h2>
-    <p>Echo-Synch (sole proprietor, registered in Rome, Italy) is the data controller for the personal information described above. For DPA-related matters, see our <a href="/dpa">Data Processing Addendum</a>.</p>
+    <p>ThreadPatrol Triage (sole proprietor, registered in Rome, Italy) is the data controller for the personal information described above. For DPA-related matters, see our <a href="/dpa">Data Processing Addendum</a>.</p>
   </article>
 </Layout>

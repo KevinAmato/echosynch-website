@@ -4,7 +4,7 @@ description: "Comparing the best alternatives to Halp Slack ticketing for IT tea
 pubDate: 2026-05-27
 category: comparison
 tags: [slack-ticketing, halp-alternatives, it-helpdesk, ticket-triage]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "Slack vs Zendesk for Internal IT: The Real Trade-offs"
   - "Slack Helpdesk Best Practices That Actually Scale"
@@ -41,7 +41,7 @@ If your team had also configured Halp's round-robin assignment or business-hours
 | Freshservice | Via integration | No | Yes | Per agent (~$19/mo) |
 | Suptask | Yes | Yes | Limited | Per agent |
 | Halp replacement via Zapier/Forms | No | No | No | Variable |
-| **Echo-Synch** | Yes | Yes | Yes | Per workspace |
+| **ThreadPatrol Triage** | Yes | Yes | Yes | Per workspace |
 | ServiceNow | Via integration | No | Yes | Enterprise only |
 
 "Slack-native" here means the bot lives in Slack, triage happens in Slack, and agents work tickets from Slack. Partial means there's a connector but the primary workflow is in the external tool.
@@ -70,13 +70,13 @@ The war story we hear most: a team's "it tickets" form gets its Google Sheet aut
 
 DIY is fine for a 10-person team with light volume. It's a liability above that threshold.
 
-## Echo-Synch: Built for the Post-Halp Gap
+## ThreadPatrol Triage: Built for the Post-Halp Gap
 
-Echo-Synch was designed specifically for the use case Halp pioneered and then outgrew: Slack-native triage with actual SLA tracking, without forcing IT teams into a full ITSM platform.
+ThreadPatrol Triage was designed specifically for the use case Halp pioneered and then outgrew: Slack-native triage with actual SLA tracking, without forcing IT teams into a full ITSM platform.
 
 The core workflow mirrors what Halp users are familiar with. A configurable trigger (emoji, keyword, or channel-specific rule) converts a Slack message into a tracked ticket. Agents triage, assign, and update from within Slack. Requesters get threaded updates in context. The difference is in the operations layer underneath.
 
-SLA tracking in Echo-Synch accounts for business hours and respects team-level timezone configs, which matters for companies with offices in multiple regions. [SLA Tracking in Slack IT Support That Actually Works](/blog/sla-tracking-slack-it-support) walks through exactly why naive calendar-based SLAs create false compliance data, and it's the kind of problem that's addressed at the schema level rather than as a bolted-on setting.
+SLA tracking in ThreadPatrol Triage accounts for business hours and respects team-level timezone configs, which matters for companies with offices in multiple regions. [SLA Tracking in Slack IT Support That Actually Works](/blog/sla-tracking-slack-it-support) walks through exactly why naive calendar-based SLAs create false compliance data, and it's the kind of problem that's addressed at the schema level rather than as a bolted-on setting.
 
 Assignment routing supports round-robin out of the box with load-aware distribution, which you can read more about in [Round Robin Assignment for IT Teams: A Practical Guide](/blog/round-robin-assignment-it-teams). Ticket triage logic is configurable without engineering involvement using a rules builder inside the Slack app itself.
 

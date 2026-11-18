@@ -5,7 +5,7 @@
 // Processor Obligations, International Transfers, Security Measures
 // Annex 2) lift verbatim — they're standard GDPR Art. 28 language. The
 // product-context section, the Categories of Data, and Annex 1
-// (subprocessors) are rewritten for Echo-Synch.
+// (subprocessors) are rewritten for ThreadPatrol Triage.
 //
 // Notable corrections vs TP source:
 //   - TP §6 said "message content is already discarded immediately
@@ -23,15 +23,15 @@ const lastUpdated = '18 November 2026';
 ---
 
 <Layout
-  title="Data Processing Agreement — Echo-Synch"
-  description="Echo-Synch's GDPR Article 28 Data Processing Agreement, including subprocessor list and security measures annexes."
+  title="Data Processing Agreement — ThreadPatrol Triage"
+  description="ThreadPatrol Triage's GDPR Article 28 Data Processing Agreement, including subprocessor list and security measures annexes."
 >
   <header class="mk-pageheader">
     <div class="mk-container-narrow">
       <p class="mk-eyebrow">Legal</p>
       <h1 class="mk-display">Data Processing Agreement</h1>
       <p class="mk-lead">
-        The Article 28 GDPR contract between Echo-Synch (Processor) and
+        The Article 28 GDPR contract between ThreadPatrol Triage (formerly Echo-Synch, the Processor) and
         you (Controller). Auto-applies to every paid plan.
       </p>
       <div style="margin-top: 28px; font-size: 13px; color: var(--fg-3);">
@@ -44,18 +44,18 @@ const lastUpdated = '18 November 2026';
     <p>
       This Data Processing Addendum ("DPA") forms part of the
       <a href="/terms">Terms of Service</a> ("Agreement") between
-      Echo-Synch ("we", "us", "Processor") and the customer organisation
-      ("you", "Customer", "Controller") that has installed Echo-Synch into
+      ThreadPatrol Triage ("we", "us", "Processor") and the customer organisation
+      ("you", "Customer", "Controller") that has installed ThreadPatrol Triage into
       its Slack workspace. Where this DPA conflicts with the Agreement on
       matters of personal data processing, this DPA controls.
     </p>
 
     <h2>1. Context &amp; architecture</h2>
     <p>
-      Echo-Synch operates as a minimal-footprint processor inside your
+      ThreadPatrol Triage operates as a minimal-footprint processor inside your
       Slack environment. We do not ingest your full Slack history; we
       process only the messages posted in channels that you explicitly add
-      Echo-Synch to.
+      ThreadPatrol Triage to.
     </p>
     <ul>
       <li><strong>Triaged-thread retention.</strong> When an IT request arrives in a monitored channel, we store its Slack channel ID, message timestamp, poster Slack User ID, AI-assigned category, label, and priority, plus the text of the request and of the latest reply in its thread. That text is auto-scrubbed after each workspace's configured retention window (default 30 days; configurable), and erased when the message is deleted in Slack.</li>
@@ -70,13 +70,13 @@ const lastUpdated = '18 November 2026';
       <li><strong>"CCPA"</strong> means the California Consumer Privacy Act of 2018, as amended.</li>
       <li><strong>"Personal Data"</strong> has the meaning given in the GDPR.</li>
       <li><strong>"Processing"</strong> has the meaning given in the GDPR.</li>
-      <li><strong>"Sub-processor"</strong> means any third-party data processor engaged by Echo-Synch to process Personal Data on its behalf.</li>
+      <li><strong>"Sub-processor"</strong> means any third-party data processor engaged by ThreadPatrol Triage to process Personal Data on its behalf.</li>
       <li><strong>"Standard Contractual Clauses"</strong> or <strong>"SCCs"</strong> means the EU Commission's standard contractual clauses for the transfer of Personal Data to third countries (Decision 2021/914).</li>
     </ul>
 
     <h2>3. Scope and details of processing</h2>
     <ul>
-      <li><strong>Subject matter:</strong> provision of the Echo-Synch Slack bot and dashboard for IT request triage, AI-categorisation, SLA tracking, and assignee management.</li>
+      <li><strong>Subject matter:</strong> provision of the ThreadPatrol Triage Slack bot and dashboard for IT request triage, AI-categorisation, SLA tracking, and assignee management.</li>
       <li><strong>Duration:</strong> the term of the Agreement plus the deletion period set out in §6.</li>
       <li><strong>Nature and purpose:</strong> automated analysis of IT request messages to produce structured triage decisions (category, priority), tracking of per-priority SLA windows, and notification of assignees and admins.</li>
       <li>
@@ -93,13 +93,13 @@ const lastUpdated = '18 November 2026';
 
     <h2>4. Processor obligations</h2>
     <ol>
-      <li><strong>Instructions.</strong> Echo-Synch processes Personal Data only on documented instructions from the Controller, including the instructions inherent in the Agreement and this DPA.</li>
-      <li><strong>Confidentiality.</strong> Echo-Synch ensures that all personnel with access to Personal Data are bound by appropriate confidentiality obligations.</li>
-      <li><strong>Security.</strong> Echo-Synch maintains the technical and organisational measures set out in <a href="#annex-2">Annex 2</a>.</li>
-      <li><strong>Sub-processors.</strong> Echo-Synch uses the sub-processors listed in <a href="#annex-1">Annex 1</a>. We will provide reasonable prior notice (via email and update of this page) of any addition or replacement of sub-processors. The Controller may object to such changes within 14 days; if the objection cannot be reasonably resolved, the Controller may terminate the Agreement without penalty.</li>
-      <li><strong>Data subject rights.</strong> Echo-Synch will assist the Controller, by appropriate technical and organisational measures and to the extent possible, in fulfilling its obligation to respond to requests from data subjects.</li>
-      <li><strong>Breach notification.</strong> Echo-Synch will notify the Controller without undue delay (and in any event within 72 hours) after becoming aware of a Personal Data Breach affecting the Controller's data.</li>
-      <li><strong>Audit.</strong> Echo-Synch will, at the Controller's reasonable written request and on no less than 30 days' notice, provide information necessary to demonstrate compliance with this DPA.</li>
+      <li><strong>Instructions.</strong> ThreadPatrol Triage processes Personal Data only on documented instructions from the Controller, including the instructions inherent in the Agreement and this DPA.</li>
+      <li><strong>Confidentiality.</strong> ThreadPatrol Triage ensures that all personnel with access to Personal Data are bound by appropriate confidentiality obligations.</li>
+      <li><strong>Security.</strong> ThreadPatrol Triage maintains the technical and organisational measures set out in <a href="#annex-2">Annex 2</a>.</li>
+      <li><strong>Sub-processors.</strong> ThreadPatrol Triage uses the sub-processors listed in <a href="#annex-1">Annex 1</a>. We will provide reasonable prior notice (via email and update of this page) of any addition or replacement of sub-processors. The Controller may object to such changes within 14 days; if the objection cannot be reasonably resolved, the Controller may terminate the Agreement without penalty.</li>
+      <li><strong>Data subject rights.</strong> ThreadPatrol Triage will assist the Controller, by appropriate technical and organisational measures and to the extent possible, in fulfilling its obligation to respond to requests from data subjects.</li>
+      <li><strong>Breach notification.</strong> ThreadPatrol Triage will notify the Controller without undue delay (and in any event within 72 hours) after becoming aware of a Personal Data Breach affecting the Controller's data.</li>
+      <li><strong>Audit.</strong> ThreadPatrol Triage will, at the Controller's reasonable written request and on no less than 30 days' notice, provide information necessary to demonstrate compliance with this DPA.</li>
     </ol>
 
     <h2>5. International data transfers</h2>
@@ -116,7 +116,7 @@ const lastUpdated = '18 November 2026';
     <h2>6. Deletion or return of data</h2>
     <p>
       On uninstall of the Slack bot, or on termination of the Agreement,
-      Echo-Synch will delete all Personal Data within one hour, with the
+      ThreadPatrol Triage will delete all Personal Data within one hour, with the
       following exceptions retained only for the period and on the legal
       basis stated:
     </p>
@@ -154,7 +154,7 @@ const lastUpdated = '18 November 2026';
       <strong>Note.</strong> When an Enterprise customer configures Bring
       Your Own Model with their own API key (Google Gemini, OpenAI, Anthropic or Azure OpenAI), message content
       is processed via the Customer's own AI provider account and is not routed
-      through Echo-Synch's default Vertex AI infrastructure.
+      through ThreadPatrol Triage's default Vertex AI infrastructure.
     </p>
 
     <h2 id="annex-2">Annex 2 — Security measures</h2>

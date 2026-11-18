@@ -4,7 +4,7 @@ description: "Skip vanity stats. These are the internal helpdesk metrics that ac
 pubDate: 2026-05-06
 category: metrics
 tags: [helpdesk-metrics, sla-tracking, it-operations, ticket-management]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "SLA Tracking in Slack IT Support That Actually Works"
   - "Slack Helpdesk Best Practices That Actually Scale"
@@ -98,7 +98,7 @@ Break SLA breaches down by:
 
 The last row is particularly common in distributed teams. If a significant share of your breaches trace back to tickets filed after local business hours, the fix is calendar-aware SLA configuration, not more agents. [Business Hours SLA Across Timezones: A Practical Fix](/blog/business-hours-sla-timezones) covers how to configure SLA windows that don't penalize your team for tickets filed at 11 PM in a timezone they don't cover.
 
-Echo-Synch automatically tags breach reason at resolution, which means this breakdown is available without manual categorization. The raw data is there in most queues; the labeling is what's usually missing.
+ThreadPatrol Triage automatically tags breach reason at resolution, which means this breakdown is available without manual categorization. The raw data is there in most queues; the labeling is what's usually missing.
 
 ## Deflection Rate Is Only Useful If You Trust the Numerator
 

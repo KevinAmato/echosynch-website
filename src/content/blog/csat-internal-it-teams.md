@@ -4,7 +4,7 @@ description: "Most internal IT CSAT surveys get ignored or game the score. Here'
 pubDate: 2026-05-13
 category: metrics
 tags: [csat, helpdesk-metrics, it-support, slack-it]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "Internal Helpdesk Metrics That Actually Matter"
   - "SLA Tracking in Slack IT Support That Actually Works"
@@ -70,7 +70,7 @@ Most helpdesk tools report a single aggregate CSAT score. That aggregate is almo
 
 A team that processes access requests, hardware issues, and software bugs under one CSAT umbrella might have a 4.5 overall. Break it out and you might find access requests are 4.8, hardware is 4.6, and software bugs are 3.9. That 3.9 is telling you something specific about the L2 escalation path or the vendor relationship or the documentation quality for those tickets. An aggregate never would.
 
-Echo-Synch applies ticket labels at triage so your CSAT data is segmented automatically from the moment a ticket is created. No retroactive tagging required. If you're doing manual categorization today, you're losing the segmentation before the survey even fires.
+ThreadPatrol Triage applies ticket labels at triage so your CSAT data is segmented automatically from the moment a ticket is created. No retroactive tagging required. If you're doing manual categorization today, you're losing the segmentation before the survey even fires.
 
 When building your category taxonomy, limit to 6–8 top-level categories. More than that and your per-category sample sizes get too small to be statistically meaningful in teams under 500 employees.
 

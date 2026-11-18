@@ -4,7 +4,7 @@ description: "Learn how to configure business hours SLA across timezones without
 pubDate: 2026-05-01
 category: sla
 tags: [sla, timezones, helpdesk, it-operations]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "SLA Tracking in Slack IT Support That Actually Works"
   - "Slack Helpdesk Best Practices That Actually Scale"
@@ -41,7 +41,7 @@ Coverage-window SLA is usually the honest answer. It reflects when your people a
 
 In practice, this means maintaining separate SLA schedules per region, not a single global one. Each schedule defines: timezone, active hours, excluded weekends, and any public holiday sets.
 
-Here's a minimal JSON config structure we use as a starting point when setting this up for teams running Echo-Synch alongside an ITSM integration:
+Here's a minimal JSON config structure we use as a starting point when setting this up for teams running ThreadPatrol Triage alongside an ITSM integration:
 
 ```json
 {

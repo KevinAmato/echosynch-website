@@ -13,7 +13,7 @@
 //   WAITLIST_TABLE          — default "echo-synch-waitlist"
 //   RESEND_API_KEY          — full-access Resend key
 //   WAITLIST_NOTIFY_TO      — default "philip@thread-patrol.com"
-//   WAITLIST_NOTIFY_FROM    — default "Echo-Synch Waitlist <support@echo-synch.com>"
+//   WAITLIST_NOTIFY_FROM    — default "ThreadPatrol Triage Waitlist <support@echo-synch.com>"
 
 interface Env {
   AWS_ACCESS_KEY_ID?: string;
@@ -30,7 +30,7 @@ interface Body { email?: string; source?: string; }
 const DEFAULT_REGION = 'eu-west-1';
 const DEFAULT_TABLE = 'echo-synch-waitlist';
 const DEFAULT_NOTIFY_TO = 'philip@thread-patrol.com';
-const DEFAULT_NOTIFY_FROM = 'Echo-Synch Waitlist <support@echo-synch.com>';
+const DEFAULT_NOTIFY_FROM = 'ThreadPatrol Triage Waitlist <support@echo-synch.com>';
 
 const EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const SOURCE_RE = /^[a-zA-Z0-9_-]{1,32}$/;
@@ -98,7 +98,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const notifyFrom = env.WAITLIST_NOTIFY_FROM || DEFAULT_NOTIFY_FROM;
     try {
       const text =
-        `New Echo-Synch waitlist signup\n\n`
+        `New ThreadPatrol Triage waitlist signup\n\n`
         + `Email:   ${email}\n`
         + `Source:  ${source}\n`
         + `Time:    ${createdAt}\n`
@@ -114,7 +114,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         body: JSON.stringify({
           from: notifyFrom,
           to: [notifyTo],
-          subject: `[Echo-Synch waitlist] ${email} — via ${source}`,
+          subject: `[ThreadPatrol Triage waitlist] ${email} — via ${source}`,
           text, html,
           reply_to: email,
         }),

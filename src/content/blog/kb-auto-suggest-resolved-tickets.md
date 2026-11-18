@@ -4,7 +4,7 @@ description: "Learn how to build knowledge base auto-suggest from resolved ticke
 pubDate: 2026-06-03
 category: ai-triage
 tags: [knowledge-base, ai-triage, ticket-deflection, slack-helpdesk]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "How to Triage IT Requests in Slack (That Stick)"
   - "Slack Helpdesk Best Practices That Actually Scale"
@@ -36,13 +36,13 @@ Here's what the extraction pipeline actually needs:
 
 The deduplication step is where most implementations stumble. Semantic clustering on ticket resolution notes requires embeddings, not keyword matching. Keyword matching will happily generate 11 separate articles about "can't connect to VPN" that are all slightly different.
 
-## How Echo-Synch Builds the Draft From Ticket Data
+## How ThreadPatrol Triage Builds the Draft From Ticket Data
 
-Echo-Synch's resolution-to-KB pipeline extracts five fields from each qualifying resolved ticket: the original request (verbatim), the category label applied at triage, the resolution steps from the technician's close note, the time-to-resolve, and the CSAT score. Those five fields feed a structured prompt that generates a draft article in a consistent format.
+ThreadPatrol Triage's resolution-to-KB pipeline extracts five fields from each qualifying resolved ticket: the original request (verbatim), the category label applied at triage, the resolution steps from the technician's close note, the time-to-resolve, and the CSAT score. Those five fields feed a structured prompt that generates a draft article in a consistent format.
 
 The format matters because it forces the generated draft to distinguish between "steps to resolve" and "steps to prevent," a distinction most KB articles collapse into one list and then wonder why users keep reopening the same ticket type.
 
-When a new ticket comes into #it-help and matches a category where a KB draft exists with a confidence score above 0.75, Echo-Synch surfaces a suggestion to the end user before the ticket is even assigned. That deflection rate compounds fast. In our experience, teams with 200+ employees and clean resolution data see 15-25% ticket deflection within 60 days of enabling the feature, mostly on password resets, VPN onboarding, and printer/driver issues.
+When a new ticket comes into #it-help and matches a category where a KB draft exists with a confidence score above 0.75, ThreadPatrol Triage surfaces a suggestion to the end user before the ticket is even assigned. That deflection rate compounds fast. In our experience, teams with 200+ employees and clean resolution data see 15-25% ticket deflection within 60 days of enabling the feature, mostly on password resets, VPN onboarding, and printer/driver issues.
 
 If you're evaluating the broader tooling landscape for where this fits, [Halp Alternatives for Slack IT Ticketing in 2026](/blog/halp-alternatives) covers how several platforms handle resolution data differently, which directly affects whether this kind of extraction is even possible.
 

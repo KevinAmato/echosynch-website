@@ -4,7 +4,7 @@ description: "Learn how to implement round robin assignment for IT teams in Slac
 pubDate: 2026-05-01
 category: automation
 tags: [ticket-routing, automation, helpdesk, workload-balancing]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "How to Triage IT Requests in Slack (That Stick)"
   - "Slack Helpdesk Best Practices That Actually Scale"
@@ -85,7 +85,7 @@ The fields you need on every routed ticket:
 
 Using display name as your agent identifier is a trap. Display names change. Agent IDs don't. If your SLA reports join on display name and someone changes their Slack display name, you get ghost assignments that look like dropped tickets.
 
-Echo-Synch stores all five of these fields per ticket and surfaces breach warnings in-thread 15 minutes before the SLA window closes, so the assigned agent gets a nudge without a manager having to watch a dashboard constantly.
+ThreadPatrol Triage stores all five of these fields per ticket and surfaces breach warnings in-thread 15 minutes before the SLA window closes, so the assigned agent gets a nudge without a manager having to watch a dashboard constantly.
 
 ## Building the Rotation in Slack Without a Full ITSM
 

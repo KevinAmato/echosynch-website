@@ -4,7 +4,7 @@ description: "Slack vs Zendesk for internal IT support — a practical compariso
 pubDate: 2026-05-20
 category: comparison
 tags: [slack, zendesk, internal-helpdesk, it-support]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "How to Triage IT Requests in Slack (That Stick)"
   - "Slack Helpdesk Best Practices That Actually Scale"
@@ -45,7 +45,7 @@ Zendesk SLA policies are powerful. You can configure First Reply Time and Next R
 
 The gap: Zendesk SLA policies don't natively understand business hours by timezone at the ticket-field level. You configure a single schedule per brand. If your employees span New York and London, your SLA clock runs on one timezone and someone's "P1 responded within 4 hours" is actually 4 hours including 2 AM London time. The workaround involves multiple brands or third-party apps.
 
-Slack-native SLA tracking has the opposite problem: nothing exists out of the box. You're building it, or you're using a layer like Echo-Synch that handles SLA state in Slack directly, including the timezone-aware business hours math that Zendesk makes complicated. The [business hours SLA across timezones](/blog/business-hours-sla-timezones) problem is genuinely hard either way, but at least in Slack you can surface the breach alert in the channel where the work is actually happening.
+Slack-native SLA tracking has the opposite problem: nothing exists out of the box. You're building it, or you're using a layer like ThreadPatrol Triage that handles SLA state in Slack directly, including the timezone-aware business hours math that Zendesk makes complicated. The [business hours SLA across timezones](/blog/business-hours-sla-timezones) problem is genuinely hard either way, but at least in Slack you can surface the breach alert in the channel where the work is actually happening.
 
 | Capability | Zendesk (native) | Slack (native) | Slack + tooling |
 |---|---|---|---|
@@ -74,7 +74,7 @@ Where Slack wins back ground: the metrics you can build on top of structured Sla
 
 ## A Config Pattern That Makes Slack Functional as a Helpdesk
 
-If you're running Slack-native IT support and want the minimum viable structure, here's the Workflow Builder trigger + Echo-Synch label config pattern we recommend for bootstrapping triage:
+If you're running Slack-native IT support and want the minimum viable structure, here's the Workflow Builder trigger + ThreadPatrol Triage label config pattern we recommend for bootstrapping triage:
 
 ```json
 {

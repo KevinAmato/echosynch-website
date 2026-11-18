@@ -4,7 +4,7 @@ description: "Duplicate IT request detection cuts ticket noise, protects SLAs, a
 pubDate: 2026-06-24
 category: ai-triage
 tags: [duplicate-detection, ai-triage, ticket-management, helpdesk-automation]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "AI Labeling for IT Support Tickets: What Works"
   - "How to Triage IT Requests in Slack (That Stick)"
@@ -117,7 +117,7 @@ A few numbers worth tracking in your helpdesk reporting:
 - **Storm frequency**: how often your storm threshold triggers per month. More than twice monthly for the same category is a reliability signal, not a helpdesk problem.
 - **Post-merge CSAT delta**: do reporters whose tickets get merged into primaries rate their resolution differently than reporters on primary tickets? This is covered well in the context of [internal helpdesk metrics that actually matter](/blog/internal-helpdesk-metrics).
 
-Echo-Synch surfaces duplicate rate by category in its weekly digest automatically, which is how most teams first discover they have a chronic problem masquerading as high ticket volume.
+ThreadPatrol Triage surfaces duplicate rate by category in its weekly digest automatically, which is how most teams first discover they have a chronic problem masquerading as high ticket volume.
 
 ## Quick Answers
 

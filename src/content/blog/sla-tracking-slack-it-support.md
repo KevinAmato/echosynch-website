@@ -4,7 +4,7 @@ description: "Stop losing SLA breaches in chat noise. Here's how to implement re
 pubDate: 2026-05-01
 category: sla
 tags: [sla-tracking, slack-it-support, helpdesk-automation, it-operations]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "How to Triage IT Requests in Slack (That Stick)"
   - "Slack Helpdesk Best Practices That Actually Scale"
@@ -113,9 +113,9 @@ Useful SLA reporting requires four separate metrics, not one blended percentage:
 
 The fourth metric is the diagnostic one. If 80% of your P2 breaches are happening on tickets that were never assigned, that's a triage problem, not a workload problem. See [How to Triage IT Requests in Slack (That Stick)](/blog/how-to-triage-it-requests-in-slack) for the upstream fix that makes breach reason analysis actionable.
 
-## What Echo-Synch Does at the Timer Layer
+## What ThreadPatrol Triage Does at the Timer Layer
 
-Echo-Synch handles the event emission and timer mechanics described above natively: it stamps tickets at creation, first-agent-response, assignment, and resolution, calculates SLA windows against configurable business-hours profiles per channel, and routes breach warnings to the assigned agent and, at threshold, to a configurable escalation target. The warning fires at 75% elapsed by default; you can override to any percentage in the channel settings.
+ThreadPatrol Triage handles the event emission and timer mechanics described above natively: it stamps tickets at creation, first-agent-response, assignment, and resolution, calculates SLA windows against configurable business-hours profiles per channel, and routes breach warnings to the assigned agent and, at threshold, to a configurable escalation target. The warning fires at 75% elapsed by default; you can override to any percentage in the channel settings.
 
 In our experience, teams that pair this with a defined escalation channel (not just DMs to the manager) see breach acknowledgment rates 3x higher than those relying on individual pings alone. The social visibility of a #sla-escalations channel turns breaches from private embarrassments into team-visible events, which changes behavior faster than any policy document.
 
@@ -125,7 +125,7 @@ For teams still figuring out the broader helpdesk setup that SLA tracking slots 
 
 ### Does SLA tracking in Slack require a full ticketing system integration?
 
-No. You need structured event timestamps (created, acknowledged, assigned, resolved) stored somewhere queryable, plus a timer process that checks elapsed time and fires notifications. That can live in a lightweight database, a Google Sheet updated by webhook, or a tool like Echo-Synch. The key is that the timestamps must come from system events, not reconstructed from chat history.
+No. You need structured event timestamps (created, acknowledged, assigned, resolved) stored somewhere queryable, plus a timer process that checks elapsed time and fires notifications. That can live in a lightweight database, a Google Sheet updated by webhook, or a tool like ThreadPatrol Triage. The key is that the timestamps must come from system events, not reconstructed from chat history.
 
 ### How do I handle SLA tracking for tickets that arrive outside business hours?
 
@@ -133,7 +133,7 @@ Implement a business-hours-aware clock that pauses the SLA timer outside defined
 
 ### What counts as "first response" for SLA purposes?
 
-A message sent by a human agent, not an automated acknowledgment from your bot. Define this explicitly in your configuration. Echo-Synch, for example, tracks `agent_first_response` as a distinct event from `bot_acknowledgment` and uses only the former for SLA calculations.
+A message sent by a human agent, not an automated acknowledgment from your bot. Define this explicitly in your configuration. ThreadPatrol Triage, for example, tracks `agent_first_response` as a distinct event from `bot_acknowledgment` and uses only the former for SLA calculations.
 
 ### Our breach rate looks fine but users keep complaining. What's happening?
 

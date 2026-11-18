@@ -8,7 +8,7 @@
 //   3. Product       — 3-column feature grid (AI triage / SLA / Dashboard)
 //   4. How it works  — 3 numbered steps with HTML product mocks
 //   5. Compare       — vs. Suptask / Unthread (lightweight, with one
-//                      honest Echo-Synch limitation row to build trust)
+//                      honest ThreadPatrol Triage limitation row to build trust)
 //   6. Pricing       — 2 tiers (Pro / Enterprise) with monthly/yearly
 //                      toggle. Trial is a banner, not a fake tier.
 //   7. FAQ           — 6 questions max, accordion
@@ -31,14 +31,14 @@ const SITE = 'https://echo-synch.com';
 ---
 
 <Layout
-  title="Echo-Synch — Slack-native IT triage with AI labels & per-priority SLAs"
+  title="ThreadPatrol Triage — Slack-native IT triage with AI labels & per-priority SLAs"
   description="Turn noisy Slack channels into a tracked IT queue. From €15/agent/month; AI labels, SLA timers and a web dashboard on Enterprise. By the makers of Thread-Patrol."
   activeNav="product"
 >
   <!-- ============================================================
        1. HERO
        ============================================================ -->
-  <section class="hero" aria-label="Echo-Synch — IT triage for Slack">
+  <section class="hero" aria-label="ThreadPatrol Triage — IT triage for Slack">
     <div class="indigo-glow"></div>
     <div class="mk-container hero-inner">
       <div class="hero-copy">
@@ -47,7 +47,7 @@ const SITE = 'https://echo-synch.com';
           Turn noisy Slack channels into a tracked IT queue.
         </h1>
         <p class="mk-lead">
-          Echo-Synch labels every IT request the moment it lands —
+          ThreadPatrol Triage labels every IT request the moment it lands —
           category, priority, SLA timer, all automatic. Your team
           triages with one click; nothing important goes quiet.
         </p>
@@ -85,7 +85,7 @@ const SITE = 'https://echo-synch.com';
         <p class="hero-status" role="status">
           <span class="hero-status-dot" aria-hidden="true"></span>
           Awaiting Slack Directory approval — drop your email and we'll
-          message you the moment Echo-Synch is live.
+          message you the moment ThreadPatrol Triage is live.
         </p>
       </div>
 
@@ -113,7 +113,7 @@ const SITE = 'https://echo-synch.com';
   <section id="product" class="mk-section">
     <div class="mk-container">
       <div class="section-head">
-        <p class="mk-eyebrow">What Echo-Synch does</p>
+        <p class="mk-eyebrow">What ThreadPatrol Triage does</p>
         <h2 class="mk-h2">Three things that turn Slack into a real IT queue.</h2>
         <p class="mk-lead">
           Each one works alone. Stack them and your IT team stops losing
@@ -148,7 +148,7 @@ const SITE = 'https://echo-synch.com';
           <h3 class="feat-title">SLAs that chase themselves</h3>
           <p class="feat-body">
             Per-priority deadlines for first response and resolution.
-            Echo-Synch DMs the assignee 30 min before breach and
+            ThreadPatrol Triage DMs the assignee 30 min before breach and
             broadcasts to all admins on the breach itself.
           </p>
           <ul class="feat-list">
@@ -199,7 +199,7 @@ const SITE = 'https://echo-synch.com';
           <div class="how-num">1</div>
           <h3 class="how-title">Add to Slack</h3>
           <p class="how-body">
-            Echo-Synch joins as a bot. Pick the channel(s) it should
+            ThreadPatrol Triage joins as a bot. Pick the channel(s) it should
             watch and the IT team that should triage. No spreadsheet,
             no role config.
           </p>
@@ -213,7 +213,7 @@ const SITE = 'https://echo-synch.com';
             <div class="how-mock-body">
               <div class="how-mock-lock">🔒</div>
               <div class="how-mock-prompt">
-                <strong>Echo-Synch</strong> wants to access your workspace
+                <strong>ThreadPatrol Triage</strong> wants to access your workspace
               </div>
               <div class="how-mock-allow">Allow</div>
             </div>
@@ -292,10 +292,10 @@ const SITE = 'https://echo-synch.com';
   <section id="compare" class="mk-section compare">
     <div class="mk-container">
       <div class="section-head">
-        <p class="mk-eyebrow">Where Echo-Synch fits</p>
+        <p class="mk-eyebrow">Where ThreadPatrol Triage fits</p>
         <h2 class="mk-h2">A balanced look at the Slack-native IT triage market.</h2>
         <p class="mk-lead">
-          A few credible alternatives exist. Here's where Echo-Synch
+          A few credible alternatives exist. Here's where ThreadPatrol Triage
           aligns with each — including what we don't do yet.
         </p>
       </div>
@@ -305,7 +305,7 @@ const SITE = 'https://echo-synch.com';
           <thead>
             <tr>
               <th></th>
-              <th>Echo-Synch</th>
+              <th>ThreadPatrol Triage</th>
               <th>Suptask</th>
               <th>Unthread</th>
             </tr>
@@ -323,7 +323,7 @@ const SITE = 'https://echo-synch.com';
       </div>
       <p class="compare-fineprint">
         Comparison reflects publicly available pricing as of 2026.
-        Echo-Synch is positioned for the small-to-mid IT team segment;
+        ThreadPatrol Triage is positioned for the small-to-mid IT team segment;
         for full Microsoft Teams support or bidirectional ticket sync,
         Suptask and Unthread are mature alternatives.
       </p>
@@ -438,7 +438,7 @@ const SITE = 'https://echo-synch.com';
 
       <p class="pricing-fineprint">
         50+ agents or non-standard requirements?
-        <a href="mailto:support@echo-synch.com?subject=Echo-Synch%20%E2%80%94%20volume%20pricing">
+        <a href="mailto:support@echo-synch.com?subject=ThreadPatrol Triage%20%E2%80%94%20volume%20pricing">
           Email us
         </a> — we work with larger teams individually.
       </p>
@@ -473,12 +473,12 @@ const SITE = 'https://echo-synch.com';
 
         <details class="faq-item">
           <summary>Can I bring my own AI provider (BYOM)?</summary>
-          <p>Yes — Enterprise tier. Plug in your own API key for Google Gemini, OpenAI, Anthropic or Azure OpenAI and Echo-Synch routes all triage AI calls through your account, so request text is processed by your provider instead of ours. Echo-Synch still keeps the request text for your retention window (30 days by default) so your team can track it. <a href="/trust-center">Trust center →</a></p>
+          <p>Yes — Enterprise tier. Plug in your own API key for Google Gemini, OpenAI, Anthropic or Azure OpenAI and ThreadPatrol Triage routes all triage AI calls through your account, so request text is processed by your provider instead of ours. ThreadPatrol Triage still keeps the request text for your retention window (30 days by default) so your team can track it. <a href="/trust-center">Trust center →</a></p>
         </details>
 
         <details class="faq-item">
           <summary>Does it work with Microsoft Teams?</summary>
-          <p>Not yet. Echo-Synch is Slack-only by design — that's why it's deeply integrated. Teams support is on the roadmap but won't ship before paying-customer demand justifies the rebuild.</p>
+          <p>Not yet. ThreadPatrol Triage is Slack-only by design — that's why it's deeply integrated. Teams support is on the roadmap but won't ship before paying-customer demand justifies the rebuild.</p>
         </details>
 
       </div>
@@ -493,7 +493,7 @@ const SITE = 'https://echo-synch.com';
     <div class="mk-container">
       <h2 class="mk-h2">Ready to stop losing tickets in DMs?</h2>
       <p class="mk-lead">
-        Drop your email — we'll message you the moment Echo-Synch is
+        Drop your email — we'll message you the moment ThreadPatrol Triage is
         live on Slack Directory. One email, no marketing.
       </p>
       <a
@@ -522,9 +522,9 @@ const SITE = 'https://echo-synch.com';
       { '@type': 'Question', name: 'What happens to my data if I uninstall?',
         acceptedAnswer: { '@type': 'Answer', text: 'We hard-delete every workspace\'s data within 1 hour of uninstall.' } },
       { '@type': 'Question', name: 'Can I bring my own AI provider (BYOM)?',
-        acceptedAnswer: { '@type': 'Answer', text: 'Yes — Enterprise tier. Plug in your own API key for Google Gemini, OpenAI, Anthropic or Azure OpenAI and Echo-Synch routes all triage AI calls through your account.' } },
+        acceptedAnswer: { '@type': 'Answer', text: 'Yes — Enterprise tier. Plug in your own API key for Google Gemini, OpenAI, Anthropic or Azure OpenAI and ThreadPatrol Triage routes all triage AI calls through your account.' } },
       { '@type': 'Question', name: 'Does it work with Microsoft Teams?',
-        acceptedAnswer: { '@type': 'Answer', text: 'Not yet. Echo-Synch is Slack-only by design — Teams support is on the roadmap.' } },
+        acceptedAnswer: { '@type': 'Answer', text: 'Not yet. ThreadPatrol Triage is Slack-only by design — Teams support is on the roadmap.' } },
     ],
   })} />
 </Layout>

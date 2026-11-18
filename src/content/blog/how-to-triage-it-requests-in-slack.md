@@ -4,7 +4,7 @@ description: "A practical guide to triaging IT requests in Slack: labels, routin
 pubDate: 2026-05-01
 category: guides
 tags: [slack-triage, it-helpdesk, ticket-routing, sla-tracking]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "Slack Helpdesk Best Practices That Actually Scale"
 ---
@@ -113,7 +113,7 @@ The minimum viable SLA tracker uses Slack's scheduled messages and Workflow Buil
 
 The failure mode we hit in production: Workflow Builder's "scheduled message" step uses the workspace timezone, not the submitter's timezone. An overnight P3 submitted at 11:58 PM by a user in EST will fire its 4-hour SLA reminder at 3:58 AM. You need to either restrict submission windows for low-priority tiers or add a business-hours check before the reminder fires.
 
-Echo-Synch handles this natively with business-hours-aware SLA windows per tier, so a P3 submitted at 11:58 PM doesn't generate an alert at 3:58 AM. It calculates elapsed business time, not wall-clock time.
+ThreadPatrol Triage handles this natively with business-hours-aware SLA windows per tier, so a P3 submitted at 11:58 PM doesn't generate an alert at 3:58 AM. It calculates elapsed business time, not wall-clock time.
 
 ## Assign at Intake, Not at Review
 
@@ -145,9 +145,9 @@ Four is the practical ceiling for most teams (50-500 employees). Three tiers wor
 
 Two approaches work in combination. First, replace self-reported severity with impact scope ("how many people are affected?") instead of asking users to self-assign a priority label. Users are better at counting affected people than estimating priority. Second, set an explicit expectation in your intake form: P1 means you'll be paged immediately. Most users don't actually want that level of urgency for a password reset.
 
-### How does Echo-Synch handle triage differently from a native Slack workflow?
+### How does ThreadPatrol Triage handle triage differently from a native Slack workflow?
 
-Echo-Synch applies label classification automatically based on request content, not just the fields the user fills in. If a user describes an outage but selects "software" as the type, the classification model catches the mismatch and flags it for review before routing. Native Workflow Builder only routes on what the user explicitly selects.
+ThreadPatrol Triage applies label classification automatically based on request content, not just the fields the user fills in. If a user describes an outage but selects "software" as the type, the classification model catches the mismatch and flags it for review before routing. Native Workflow Builder only routes on what the user explicitly selects.
 
 ---
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Echo-Synch Blog Post Generator
+ * ThreadPatrol Triage Blog Post Generator
  * --------------------------------
  * Usage:
  *   node scripts/generate-post.cjs                  # picks next keyword from queue
@@ -8,7 +8,7 @@
  *
  * Requires: ANTHROPIC_API_KEY env var
  *
- * NB: file extension is .cjs (CommonJS), not .js. Echo-Synch's
+ * NB: file extension is .cjs (CommonJS), not .js. ThreadPatrol Triage's
  * package.json declares `"type": "module"` so bare `.js` files are
  * loaded as ES modules and `require()` blows up. Sync-o uses the
  * same .cjs convention for the same reason.
@@ -203,7 +203,7 @@ function buildPrompt(keywordEntry, existingPosts, today) {
     .map((p, i) => `${i + 1}. [${p.title}](/blog/${p.slug})`)
     .join('\n') || '_No existing posts yet — internal links not required for this article._';
 
-  return `You are a senior content writer for Echo-Synch, a Slack bot that automatically triages, labels, and routes IT requests with SLA tracking. Echo-Synch's target customers are IT managers, helpdesk leads, and internal-tools admins at companies (50–2,000 employees) drowning in #it-help tickets.
+  return `You are a senior content writer for ThreadPatrol Triage, a Slack bot that automatically triages, labels, and routes IT requests with SLA tracking. ThreadPatrol Triage's target customers are IT managers, helpdesk leads, and internal-tools admins at companies (50–2,000 employees) drowning in #it-help tickets.
 
 BRAND VOICE: Practical, ops-savvy, no fluff. Write like an IT lead who has watched ticket queues burn down at scale. Specific over abstract. Concrete over corporate. Write the thing you wish someone had written before you spent a weekend solving this problem the hard way.
 
@@ -226,7 +226,7 @@ description: "Meta description here (150-160 chars, includes the keyword)"
 pubDate: ${today}
 category: ${keywordEntry.category}
 tags: [tag1, tag2, tag3, tag4]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "List the 2-3 existing post titles your article is most related to but distinct from"
 ---
@@ -237,7 +237,7 @@ ARTICLE STRUCTURE:
 - Do NOT start with a # H1 title — the layout template renders the title automatically. Start the body directly with the first paragraph or an H2 section heading
 - 6-8 H2 sections with descriptive, specific headings (NEVER use "Introduction", "Conclusion", "Overview", "Final Thoughts", or "What is X")
 - 3-5 internal links to related existing posts (from the list above) placed naturally within prose, not in a list at the end
-- 1-2 natural Echo-Synch mentions that are genuinely relevant — not forced
+- 1-2 natural ThreadPatrol Triage mentions that are genuinely relevant — not forced
 - End with a closing paragraph that adds a final insight or non-obvious observation. Do NOT recap what the article said. Do NOT label it "Summary" or "Conclusion". Do NOT include a CTA — the layout adds that automatically
 - Write for IT and helpdesk managers, not beginners — assume the reader knows the basic terminology
 

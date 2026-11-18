@@ -4,7 +4,7 @@ description: "A practical guide to creating Jira tickets from Slack threads with
 pubDate: 2026-07-08
 category: integrations
 tags: [jira, slack, ticketing, integrations]
-author: Echo-Synch Team
+author: ThreadPatrol Triage Team
 avoids_overlap_with:
   - "How to Triage IT Requests in Slack (That Stick)"
   - "Halp Alternatives for Slack IT Ticketing in 2026"
@@ -21,7 +21,7 @@ The default Jira integration for Slack (the one built by Atlassian, bundled into
 
 We've seen this pattern wreck triage workflows at companies with 200+ person IT queues. The Jira ticket becomes a stub. The real information lives in Slack. Engineers context-switch between two systems constantly, and the ticket never becomes the source of truth.
 
-The fix isn't complicated, but it requires intentional configuration. Instead of creating from a single message, you need to capture the full thread. Both the native Atlassian integration and third-party tools like Echo-Synch support thread-level capture, but the configuration is not enabled by default in most setups.
+The fix isn't complicated, but it requires intentional configuration. Instead of creating from a single message, you need to capture the full thread. Both the native Atlassian integration and third-party tools like ThreadPatrol Triage support thread-level capture, but the configuration is not enabled by default in most setups.
 
 ## Thread-to-Description Field Mapping
 
@@ -110,7 +110,7 @@ Routing logic needs to happen before the issue is created, not after. The two re
 
 Channel-based routing is straightforward. A message in #security-alerts routes to SECOPS. A message in #dev-tools-help routes to DEVTOOLS. Map it in a config file and update it when your channel structure changes.
 
-Content classification is more useful for channels like #it-help where everything lands. [AI Labeling for IT Support Tickets: What Works](/blog/ai-labeling-it-support) covers classification approaches in detail. For routing purposes, you need classification to return a project key, not just a label, so build that mapping into whatever classification pipeline you use. Echo-Synch handles this as part of its triage layer, returning a structured routing decision alongside the label before ticket creation fires.
+Content classification is more useful for channels like #it-help where everything lands. [AI Labeling for IT Support Tickets: What Works](/blog/ai-labeling-it-support) covers classification approaches in detail. For routing purposes, you need classification to return a project key, not just a label, so build that mapping into whatever classification pipeline you use. ThreadPatrol Triage handles this as part of its triage layer, returning a structured routing decision alongside the label before ticket creation fires.
 
 ## Keeping the Slack Thread and Jira Ticket in Sync
 

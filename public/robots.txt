@@ -1,4 +1,4 @@
-# Echo-Synch robots.txt
+# ThreadPatrol Triage robots.txt
 #
 # Search engines (Google, Bing, DuckDuckGo, etc.): full crawl + index access.
 # AI scrapers and content-training bots: blocked.
