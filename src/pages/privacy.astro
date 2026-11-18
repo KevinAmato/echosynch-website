@@ -21,7 +21,7 @@
 
 import Layout from '../layouts/Layout.astro';
 
-const lastUpdated = '24 September 2026';
+const lastUpdated = '18 November 2026';
 ---
 
 <Layout
@@ -119,11 +119,16 @@ const lastUpdated = '24 September 2026';
       <li>
         <strong>Triaged threads.</strong> When an IT request arrives in a
         monitored channel, Echo-Synch stores the thread's Slack channel
-        ID, message timestamp, poster Slack user ID, and the AI-generated
-        summary, category, and priority. We also store the original
-        message text so the dashboard can show it back to you. Original
-        message text is auto-scrubbed after each workspace's configured
-        retention window (default 30 days; configurable per workspace).
+        ID, message timestamp, poster Slack user ID, and the AI-assigned
+        category and priority. We also store the text of the request and
+        of the latest reply in its thread, so your IT team can see them in
+        Slack and in the dashboard. That text is auto-scrubbed after each
+        workspace's configured retention window (default 30 days;
+        configurable by the workspace's admins). If the poster deletes the
+        message in Slack, we delete our copy: a request nobody on the IT
+        team has acted on yet is removed entirely; otherwise its text is
+        erased and only the triage metadata is kept. Edits made in Slack
+        update the stored text.
       </li>
       <li>
         <strong>SLA events.</strong> When a thread's SLA deadline elapses,
@@ -161,7 +166,7 @@ const lastUpdated = '24 September 2026';
       is sent to your configured AI provider — Google Vertex AI Gemini
       (EU multi-region) by default, or your own model if your workspace has
       configured Bring Your Own Model (Enterprise BYOM). The AI returns a
-      structured triage decision (label + priority + summary) which we
+      structured triage decision (category + suggested priority) which we
       store on the thread row. <strong>Your data is never used to train
       AI models.</strong> All workspace records are deleted within one
       hour of uninstall.
@@ -252,7 +257,7 @@ const lastUpdated = '24 September 2026';
     <ul>
       <li><strong>OAuth installation information:</strong> retained while installed. Deleted within 1 hour of uninstall.</li>
       <li><strong>Installing user email:</strong> same — deleted on uninstall, except where retention is required for billing, legal, or dispute resolution.</li>
-      <li><strong>Original IT request text:</strong> auto-scrubbed after each workspace's configured retention window (default 30 days; admin-configurable). Triage metadata (label, priority, summary) is retained.</li>
+      <li><strong>Message text (the IT request and its latest reply):</strong> auto-scrubbed after each workspace's configured retention window (default 30 days; admin-configurable), and erased as soon as the message is deleted in Slack. Triage metadata (status, label, category, priority, assignee) is retained.</li>
       <li><strong>Triaged threads + SLA events + operational metadata:</strong> retained while installed. Deleted on uninstall.</li>
       <li><strong>Subscription metadata:</strong> retained for the duration of the subscription plus the period required by tax law (typically 7 years for invoice records).</li>
       <li><strong>System logs:</strong> auto-deleted after 30 days.</li>

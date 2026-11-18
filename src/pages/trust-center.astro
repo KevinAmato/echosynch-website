@@ -36,9 +36,11 @@ import Layout from '../layouts/Layout.astro';
     <h3>Minimal-footprint processing</h3>
     <p>
       Echo-Synch reads message content only from channels you explicitly
-      add the bot to. Original IT request text is auto-scrubbed at each
-      workspace's configured retention window (default 30 days). Triage
-      metadata — labels, priorities, AI summaries, SLA timer events — is
+      add the bot to. IT request text and the latest reply are
+      auto-scrubbed at each workspace's configured retention window
+      (default 30 days), and erased as soon as the message is deleted in
+      Slack. Triage metadata — labels, priorities, AI categories, SLA
+      timer events — is
       retained while the workspace is installed and hard-deleted within
       one hour of uninstall.
     </p>
