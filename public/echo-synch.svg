@@ -1,9 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24" fill="none">
-  <!-- ThreadPatrol Triage mark (funnel): ThreadPatrol layers narrowing to what matters. Teal on navy. -->
-  <rect width="24" height="24" rx="5.5" fill="#1A2A4D"/>
-  <g transform="translate(4.2 4.2) scale(0.65)" stroke="#4ADBC8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
-    <path d="M5 13.5L12 17L19 13.5"/>
-    <path d="M8.5 19.25L12 21L15.5 19.25"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24" fill="none" stroke="#4ADBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- ThreadPatrol Triage mark (funnel): ThreadPatrol's layers narrowing to what matters. -->
+  <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+  <path d="M5 13.5L12 17L19 13.5"/>
+  <path d="M8.5 19.25L12 21L15.5 19.25"/>
 </svg>

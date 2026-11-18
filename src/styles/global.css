@@ -28,7 +28,7 @@ body {
   -webkit-font-smoothing: antialiased;
   line-height: 1.55;
 }
-a { color: var(--echo-indigo); text-decoration: none; }
+a { color: var(--echo-indigo-700); text-decoration: none; }
 a:hover { text-decoration: underline; }
 ::selection { background: var(--echo-indigo-100); color: var(--echo-indigo-700); }
 
@@ -67,7 +67,7 @@ img { max-width: 100%; height: auto; display: block; }
   inset: 0;
   z-index: -1;
   background: radial-gradient(ellipse 80% 50% at 50% 0%,
-    rgba(79, 70, 229, 0.12), transparent 60%);
+    rgba(74, 219, 200, 0.12), transparent 60%);
   pointer-events: none;
 }
 
@@ -107,7 +107,7 @@ img { max-width: 100%; height: auto; display: block; }
   transition: color 160ms;
 }
 .mk-navlinks a:hover, .mk-navlinks a.active {
-  color: var(--echo-indigo); text-decoration: none;
+  color: var(--echo-indigo-700); text-decoration: none;
 }
 
 .mk-nav-actions { display: flex; gap: 10px; align-items: center; }
@@ -115,7 +115,7 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 14px; font-weight: 500;
   color: var(--fg-2); text-decoration: none;
 }
-.mk-nav-signin:hover { color: var(--echo-indigo); text-decoration: none; }
+.mk-nav-signin:hover { color: var(--echo-indigo-700); text-decoration: none; }
 
 /* ============================================================
    Buttons (matches dashboard's PrimaryCTA / SecondaryCTA)
@@ -135,13 +135,13 @@ img { max-width: 100%; height: auto; display: block; }
 
 .mk-btn-primary {
   background: var(--echo-indigo);
-  color: #fff;
+  color: #1A2A4D;
   box-shadow: var(--shadow-sm);
 }
 .mk-btn-primary:hover {
   background: var(--echo-indigo-600);
   box-shadow: var(--shadow-indigo);
-  color: #fff;
+  color: #1A2A4D;
 }
 
 .mk-btn-secondary {
@@ -161,7 +161,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .mk-btn-ghost:hover {
   background: var(--slate-50);
-  color: var(--echo-indigo);
+  color: var(--echo-indigo-700);
 }
 
 .mk-btn-lg { padding: 14px 22px; font-size: 15px; border-radius: 14px; }
@@ -174,7 +174,7 @@ img { max-width: 100%; height: auto; display: block; }
   font-family: var(--font-mono);
   font-size: 11px; font-weight: 600;
   text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--echo-indigo);
+  color: var(--echo-indigo-700);
   margin: 0 0 16px;
 }
 .mk-display {
@@ -303,7 +303,7 @@ img { max-width: 100%; height: auto; display: block; }
   display: flex; flex-direction: column; gap: 10px;
 }
 .mk-footer ul a { font-size: 14px; color: var(--fg-3); text-decoration: none; }
-.mk-footer ul a:hover { color: var(--echo-indigo); }
+.mk-footer ul a:hover { color: var(--echo-indigo-700); }
 .mk-footer-desc {
   font-size: 14px; color: var(--fg-3); line-height: 1.6;
   max-width: 280px; margin: 16px 0 0;
