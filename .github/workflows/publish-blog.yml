@@ -1,10 +1,8 @@
 name: Weekly Blog Post
 
 on:
-  schedule:
-    # Every Wednesday at 9:00 AM UTC. Spaced from Thread-Patrol's
-    # Monday slot to even out cron load and PR-review attention.
-    - cron: '0 9 * * 3'
+  # DISABLED 2026-11-18: echo-synch.com now redirects to thread-patrol.com/triage and the
+  # Triage posts live in the thread-patrol.com blog. Schedule removed; manual runs only.
   workflow_dispatch:
     inputs:
       keyword:

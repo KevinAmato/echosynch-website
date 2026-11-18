@@ -1,23 +1,27 @@
-# Cloudflare Pages redirect rules.
-#
-# Format: <from>  <to>  <status>
-# Pattern lifted from Thread-Patrol's _redirects — strip the .html suffix
-# from any direct hits so /privacy and /privacy.html land at the same
-# canonical URL. The `format: 'file'` Astro setting emits *.html, so the
-# rules go in the OPPOSITE direction here vs. a typical SPA.
-#
-# 301 (permanent) is correct: search engines should consolidate link
-# equity onto the canonical extension-less URL.
+# echo-synch.com moved to thread-patrol.com/triage (2026-11-18). Every path 301s to its new home.
+# 301 = permanent; search engines move ranking to the new URLs.
 
-/privacy.html        /privacy        301
-/terms.html          /terms          301
-/dpa.html            /dpa            301
-/trust-center.html   /trust-center   301
-/support.html        /support        301
-/changelog.html      /changelog      301
-/docs.html           /docs           301
-/index.html          /               301
+https://www.echo-synch.com/*      https://thread-patrol.com/triage   301
 
-# www → apex (Cloudflare handles this at DNS level too, but the rule is
-# defense-in-depth in case a visitor hits an old www link).
-https://www.echo-synch.com/*   https://echo-synch.com/:splat   301
+/                       https://thread-patrol.com/triage                    301
+/index.html             https://thread-patrol.com/triage                    301
+/docs                   https://thread-patrol.com/triage/docs               301
+/docs.html              https://thread-patrol.com/triage/docs               301
+/support                https://thread-patrol.com/triage/support            301
+/support.html           https://thread-patrol.com/triage/support            301
+/changelog              https://thread-patrol.com/triage/changelog          301
+/changelog.html         https://thread-patrol.com/triage/changelog          301
+/privacy                https://thread-patrol.com/triage/privacy            301
+/privacy.html           https://thread-patrol.com/triage/privacy            301
+/terms                  https://thread-patrol.com/triage/terms              301
+/terms.html             https://thread-patrol.com/triage/terms              301
+/dpa                    https://thread-patrol.com/triage/dpa                301
+/dpa.html               https://thread-patrol.com/triage/dpa                301
+/trust-center           https://thread-patrol.com/trust-center#triage       301
+/trust-center.html      https://thread-patrol.com/trust-center#triage       301
+/blog                   https://thread-patrol.com/blog                      301
+/blog.html              https://thread-patrol.com/blog                      301
+/blog/*                 https://thread-patrol.com/blog/:splat               301
+
+# Everything else (old assets, unknown paths) goes to the product page.
+/*                      https://thread-patrol.com/triage                    301
