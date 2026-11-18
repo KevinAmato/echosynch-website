@@ -41,7 +41,7 @@ We've seen teams skip forms entirely because "our users won't fill them out." Th
 
 The single most common structural failure we observe in mature helpdesk channels is broken threading. A technician replies in-channel instead of in the thread. Now the conversation is split. Now searching for the resolution six weeks later is a guessing game.
 
-Enforce threading with a channel description and a pinned post, but also architect your workflow to make threading the path of least resistance. When Echo-Synch picks up a new ticket, it posts the intake summary as a message and all subsequent bot activity (status updates, assignments, SLA warnings) happens in that thread. The original message becomes the ticket record.
+Enforce threading with a channel description and a pinned post, but also architect your workflow to make threading the path of least resistance. When Echo-Synch picks up a new ticket, it posts its Label prompt in the request's thread, and all subsequent bot activity (status updates, assignments, SLA warnings) happens in that thread. The original message becomes the ticket record.
 
 One practical rule: if a reply would make sense to someone who hasn't read the thread, it belongs in the thread, not in-channel. That includes status updates. Especially status updates.
 

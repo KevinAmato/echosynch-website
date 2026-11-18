@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     q: 'What data does Echo-Synch access or store?',
-    a: 'Only what we need to triage IT requests: messages in channels you explicitly add the bot to, the AI-generated label/priority/summary, SLA timer state, and your Slack user roster (for the team picker). Original message text is auto-scrubbed at your configured retention window (default 30 days). All data is hard-deleted within one hour of uninstall. Full details in our Privacy Policy.',
+    a: 'Only what we need to triage IT requests: messages in channels you explicitly add the bot to, the AI-assigned category and priority, SLA timer state, and your Slack user roster (for the team picker). Message text (the request and its latest reply) is auto-scrubbed at your configured retention window (default 30 days) and erased when the message is deleted in Slack. All data is hard-deleted within one hour of uninstall. Full details in our Privacy Policy.',
   },
   {
     q: 'Why didn\'t the bot triage a specific message?',
@@ -102,7 +102,7 @@ const faqs = [
       <li><strong>Install.</strong> Click <a href={INSTALL_URL}>Add to Slack</a>. The bot joins as an app and you complete a one-screen consent step.</li>
       <li><strong>Pick channels.</strong> Open the dashboard at <a href={APP_URL}>app.echo-synch.com</a>, go to Settings, and add the IT-help channels you want monitored.</li>
       <li><strong>Add your IT team.</strong> Add triage members on the Team page so the bot can round-robin assignments and DM the right people on SLA events.</li>
-      <li><strong>That's it.</strong> The next IT request that lands in a watched channel gets triaged automatically — labelled, prioritised, summarised, and added to the dashboard queue with a running SLA clock.</li>
+      <li><strong>That's it.</strong> The next IT request that lands in a watched channel gets triaged automatically — categorised, prioritised, and added to the dashboard queue with a running SLA clock.</li>
     </ol>
 
     <h2>Frequently asked questions</h2>

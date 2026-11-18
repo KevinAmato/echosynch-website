@@ -52,7 +52,7 @@ const lastUpdated = '18 November 2026';
     </p>
     <p>
       <strong>What we do with it:</strong> auto-triage IT requests
-      (categorise, prioritise, summarise), track SLAs, render a dashboard,
+      (categorise, prioritise), track SLAs, render a dashboard,
       and DM assignees on deadlines. That's it. We don't train AI models
       on your data. We don't sell it.
     </p>
@@ -223,7 +223,7 @@ const lastUpdated = '18 November 2026';
     <ul>
       <li><strong>Slack:</strong> we operate as a Slack app and necessarily exchange data with Slack.</li>
       <li><strong>Amazon Web Services (Ireland):</strong> hosts our Lambda functions, Aurora Postgres database, SQS queues, and KMS-encrypted secrets.</li>
-      <li><strong>Google Cloud / Vertex AI (EU multi-region):</strong> default AI provider for triage and summaries.</li>
+      <li><strong>Google Cloud / Vertex AI (EU multi-region):</strong> default AI provider for triage.</li>
       <li><strong>Bring Your Own Model (Enterprise):</strong> when configured, message content is sent to the AI provider you configured (Google Gemini, OpenAI, Anthropic or Azure OpenAI) using your own API key — not ours.</li>
       <li><strong>LemonSqueezy:</strong> merchant of record for subscriptions. Stores card details and invoices; we receive only subscription metadata via webhook.</li>
       <li><strong>Cloudflare:</strong> DNS, CDN, and email routing for <code>echo-synch.com</code>.</li>
